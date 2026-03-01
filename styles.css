@@ -52,12 +52,30 @@ html {
 }
 
 body {
-  font-family: var(--font-main);
-  background: var(--navy);
+  margin: 0;
+  padding: 0;
+  background-color: var(--navy);
   color: var(--text);
-  line-height: 1.65;
+  font-family: var(--font-main);
+  line-height: var(--line-height);
   overflow-x: hidden;
+  position: relative;
 }
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M50 10 C 70 10, 90 30, 90 50 C 90 70, 70 90, 50 90 C 30 90, 10 70, 10 50 C 10 30, 30 10, 50 10 Z M50 10 C 60 20, 40 80, 50 90 M10 50 C 20 40, 80 60, 90 50' fill='none' stroke='%234facfe' stroke-width='0.5' stroke-opacity='0.08'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 400px;
+  z-index: -1;
+  pointer-events: none;
+}
+
 
 .container {
   max-width: 1200px;
@@ -142,23 +160,24 @@ h5 {
 }
 
 .logo-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: var(--gradient);
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: var(--navy);
-  font-family: var(--font-head);
+}
+
+.oloid-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 8px rgba(79, 172, 254, 0.4));
 }
 
 .logo-text {
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 1.05rem;
+  font-family: var(--font-accent);
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
   color: var(--white);
 }
 

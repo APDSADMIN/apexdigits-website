@@ -19,8 +19,26 @@
 <body>
     <nav id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo"><span class="logo-icon">GM</span><span
-                    class="logo-text">ApexDigits</span></a>
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M50 10 C 70 10, 90 30, 90 50 C 90 70, 70 90, 50 90 C 30 90, 10 70, 10 50 C 10 30, 30 10, 50 10 Z"
+                            fill="none" stroke="url(#logo-grad-expertise)" stroke-width="4" />
+                        <path d="M50 10 C 60 20, 40 80, 50 90" fill="none" stroke="url(#logo-grad-expertise)"
+                            stroke-width="2" stroke-opacity="0.6" />
+                        <path d="M10 50 C 20 40, 80 60, 90 50" fill="none" stroke="url(#logo-grad-expertise)"
+                            stroke-width="2" stroke-opacity="0.6" />
+                        <defs>
+                            <linearGradient id="logo-grad-expertise" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">ApexDigits</span>
+            </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="about.html" class="nav-link">About</a></li>
                 <li><a href="expertise.html" class="nav-link active-page">Expertise</a></li>
@@ -240,51 +258,65 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <footer id="footer">
-        <div class="footer-top">
-            <div class="footer-brand">
-                <div class="footer-logo"><span class="logo-icon">GM</span><span class="logo-text">ApexDigits</span>
+        <footer id="footer">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-logo">
+                        <div class="logo-icon">
+                            <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M50 10 C 70 10, 90 30, 90 50 C 90 70, 70 90, 50 90 C 30 90, 10 70, 10 50 C 10 30, 30 10, 50 10 Z"
+                                    fill="none" stroke="url(#logo-grad-expertise-footer)" stroke-width="4" />
+                                <defs>
+                                    <linearGradient id="logo-grad-expertise-footer" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <span class="logo-text">ApexDigits</span>
+                    </a>
+                    <p>Senior Technical Architect &amp; SME in Cloud, EUC, and Enterprise Infrastructure. Based in the
+                        United Kingdom.</p>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/in/gunaseelan-madhavan" target="_blank"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com/Gunaseelan1108" target="_blank"><i
+                                class="fab fa-x-twitter"></i></a>
+                        <a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe"></i></a>
+                    </div>
                 </div>
-                <p>Senior Technical Architect &amp; SME in Cloud, EUC, and Enterprise Infrastructure. Based in the
-                    United Kingdom.</p>
-                <div class="footer-social">
-                    <a href="https://www.linkedin.com/in/gunaseelan-madhavan" target="_blank"><i
-                            class="fab fa-linkedin-in"></i></a>
-                    <a href="https://twitter.com/Gunaseelan1108" target="_blank"><i class="fab fa-x-twitter"></i></a>
-                    <a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe"></i></a>
+                <div class="footer-links-col">
+                    <h4>Pages</h4>
+                    <ul>
+                        <li><a href="about.html">About Me</a></li>
+                        <li><a href="expertise.html">Portfolio</a></li>
+                        <li><a href="experience.html">Experience</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog &amp; Insights</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+447442316163"><i class="fas fa-phone fa-xs"></i> +44 7442 316163</a></li>
+                        <li><a href="mailto:Gunaseelan.Madhavan@ApexDigits.com"><i class="fas fa-envelope fa-xs"></i>
+                                Email
+                                Me</a></li>
+                        <li><a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe fa-xs"></i>
+                                ApexDigits.com</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="footer-links-col">
-                <h4>Pages</h4>
-                <ul>
-                    <li><a href="about.html">About Me</a></li>
-                    <li><a href="expertise.html">Portfolio</a></li>
-                    <li><a href="experience.html">Experience</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="blog.html">Blog &amp; Insights</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Gunaseelan Madhavan &middot; ApexDigits. All rights reserved.</p>
+                <p>Built with <i class="fas fa-heart" style="color:#4facfe;"></i> for enterprise excellence.</p>
             </div>
-            <div class="footer-links-col">
-                <h4>Contact</h4>
-                <ul>
-                    <li><a href="tel:+447442316163"><i class="fas fa-phone fa-xs"></i> +44 7442 316163</a></li>
-                    <li><a href="mailto:Gunaseelan.Madhavan@ApexDigits.com"><i class="fas fa-envelope fa-xs"></i> Email
-                            Me</a></li>
-                    <li><a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe fa-xs"></i>
-                            ApexDigits.com</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Gunaseelan Madhavan &middot; ApexDigits. All rights reserved.</p>
-            <p>Built with <i class="fas fa-heart" style="color:#4facfe;"></i> for enterprise excellence.</p>
-        </div>
-    </footer>
-    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
-    <script src="script.js"></script>
+        </footer>
+        <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+        <script src="script.js"></script>
 </body>
 
 </html>
