@@ -2345,9 +2345,225 @@ h5 {
 
 .post-content-wrap {
   display: grid;
+  grid-template-columns: 1fr 340px;
+  /* Wider sidebar for WP feel */
+  gap: 3.5rem;
+  align-items: start;
+}
+
+/* ============================================================
+   WORDPRESS-STYLE BLOG HUB
+   ============================================================ */
+.blog-wp-container {
+  display: grid;
   grid-template-columns: 1fr 320px;
   gap: 3rem;
-  align-items: start;
+  margin-top: 2rem;
+}
+
+.blog-main-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.blog-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  position: sticky;
+  top: 100px;
+}
+
+/* WP Side Widgets */
+.wp-widget {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.wp-widget-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.wp-search-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.wp-search-input {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  color: var(--white);
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  flex: 1;
+  font-size: 0.85rem;
+}
+
+.wp-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wp-list li {
+  margin-bottom: 0.75rem;
+}
+
+.wp-list a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color var(--transition);
+  display: flex;
+  justify-content: space-between;
+}
+
+.wp-list a:hover {
+  color: var(--blue);
+}
+
+.wp-list .post-count {
+  background: var(--navy-mid);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+}
+
+/* WP Blog Card (Horizontal/List focused) */
+.blog-wp-card {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.blog-wp-card:hover {
+  transform: translateX(5px);
+  border-color: var(--blue);
+}
+
+.blog-wp-thumb {
+  background: linear-gradient(135deg, var(--navy-mid), var(--blue-glow));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: var(--blue);
+}
+
+.blog-wp-content {
+  padding: 1.5rem 1.5rem 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-wp-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.blog-wp-card h3 {
+  font-size: 1.35rem;
+  color: var(--white);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.blog-wp-excerpt {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+
+.blog-wp-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* HUMAN-DEVELOPED OVERLOOK REFINEMENTS */
+body {
+  letter-spacing: -0.01em;
+}
+
+.section-title {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Grounded Experience Timeline */
+.timeline-card {
+  background: rgba(10, 25, 47, 0.7);
+  box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+  border: 1px solid var(--border);
+}
+
+.timeline-period {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--blue);
+  background: rgba(79, 172, 254, 0.1);
+  padding: 2px 12px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+/* Background classes for Expertise and Experience */
+.expertise-with-bg {
+  background-image: linear-gradient(rgba(5, 13, 26, 0.85), rgba(5, 13, 26, 0.9)), url('assets/images/expertise-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.experience-with-bg {
+  background-image: linear-gradient(rgba(5, 13, 26, 0.9), rgba(5, 13, 26, 0.85)), url('assets/images/experience-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+@media (max-width: 992px) {
+  .blog-wp-container {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-sidebar {
+    position: static;
+  }
+
+  .blog-wp-card {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-wp-thumb {
+    height: 180px;
+  }
+
+  .blog-wp-content {
+    padding: 1.5rem;
+  }
 }
 
 /* Post body typography */

@@ -50,230 +50,123 @@
     <section class="section">
         <div class="container">
 
-            <!-- FILTER TABS -->
-            <div class="blog-filter-bar">
-                <button class="filter-btn active" data-filter="all">All Articles</button>
-                <button class="filter-btn" data-filter="multi-cloud">Multi-Cloud</button>
-                <button class="filter-btn" data-filter="devsecops">DevSecOps</button>
-                <button class="filter-btn" data-filter="euc">EUC / VDI</button>
-                <button class="filter-btn" data-filter="automation">Automation</button>
-                <button class="filter-btn" data-filter="m365">M365</button>
-                <button class="filter-btn" data-filter="kubernetes">Kubernetes</button>
-            </div>
+            <div class="blog-wp-container">
+                <!-- MAIN FEED -->
+                <div class="blog-main-feed">
 
-            <!-- FEATURED ARTICLE -->
-            <div class="blog-featured-row" data-category="multi-cloud">
-                <div class="blog-featured-card">
-                    <div class="blog-featured-meta">
-                        <span class="blog-cat">Multi-Cloud</span>
-                        <span class="blog-read-time"><i class="fas fa-clock"></i> 8 min read</span>
-                        <span class="blog-date"><i class="fas fa-calendar"></i> Feb 2026</span>
-                    </div>
-                    <h2>Designing Resilient Landing Zones Across Azure, AWS &amp; GCP</h2>
-                    <p>A deep-dive into the principles, anti-patterns, and architectural guardrails for building truly
-                        cloud-agnostic enterprise landing zones at scale. Covers subscription vending, policy-as-code
-                        enforcement, and cross-cloud identity federation strategies used in real-world financial
-                        services deployments.</p>
-                    <div class="blog-featured-footer">
-                        <div class="blog-author-pill"><span class="author-avatar">GM</span>
-                            <div>
-                                <div class="author-name">Gunaseelan Madhavan</div>
-                                <div class="author-title">Senior Technical Architect</div>
+                    <article class="blog-wp-card" data-category="multi-cloud">
+                        <div class="blog-wp-thumb"><i class="fas fa-cloud"></i></div>
+                        <div class="blog-wp-content">
+                            <div class="blog-wp-header">
+                                <span class="blog-cat">Multi-Cloud</span>
+                                <span><i class="fas fa-calendar"></i> Feb 2026</span>
+                                <span><i class="fas fa-clock"></i> 8 min read</span>
+                            </div>
+                            <h3><a href="blog-post.html" style="text-decoration:none;color:inherit;">Designing Resilient
+                                    Landing Zones Across Azure, AWS & GCP</a></h3>
+                            <p class="blog-wp-excerpt">A deep-dive into the principles, anti-patterns, and architectural
+                                guardrails for building truly cloud-agnostic enterprise landing zones at scale.</p>
+                            <div class="blog-wp-footer">
+                                <span class="author-name" style="font-size:0.8rem;color:var(--text-muted);">By
+                                    Gunaseelan Madhavan</span>
+                                <a href="blog-post.html" class="blog-link" style="font-size:0.85rem;">Read More <i
+                                        class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
-                        <a href="blog-post.html" class="btn btn-primary"><i class="fas fa-book-open"></i> Read
-                            Article</a>
-                    </div>
-                </div>
-                <div class="blog-featured-visual">
-                    <div class="blog-visual-card">
-                        <div class="bv-icon"><i class="fas fa-cloud" style="font-size:3rem;color:var(--blue);"></i>
+                    </article>
+
+                    <article class="blog-wp-card" data-category="devsecops">
+                        <div class="blog-wp-thumb" style="color:#7ec8f7;"><i class="fas fa-shield-halved"></i></div>
+                        <div class="blog-wp-content">
+                            <div class="blog-wp-header">
+                                <span class="blog-cat">DevSecOps</span>
+                                <span><i class="fas fa-calendar"></i> Jan 2026</span>
+                                <span><i class="fas fa-clock"></i> 6 min read</span>
+                            </div>
+                            <h3><a href="blog-post.html" style="text-decoration:none;color:inherit;">Zero Trust in
+                                    Practice: From Policy to Pipeline</a></h3>
+                            <p class="blog-wp-excerpt">How to operationalise Zero Trust principles inside modern DevOps
+                                pipelines using Azure Policy, OPA, and GitHub Actions.</p>
+                            <div class="blog-wp-footer">
+                                <span class="author-name" style="font-size:0.8rem;color:var(--text-muted);">By
+                                    Gunaseelan Madhavan</span>
+                                <a href="blog-post.html" class="blog-link" style="font-size:0.85rem;">Read More <i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
                         </div>
-                        <div class="bv-tag azure">Azure</div>
-                        <div class="bv-tag aws" style="top:55%;left:15%;"> AWS</div>
-                        <div class="bv-tag gcp" style="top:70%;right:20%;">GCP</div>
-                        <div class="bv-line"></div>
-                    </div>
+                    </article>
+
+                    <article class="blog-wp-card" data-category="euc">
+                        <div class="blog-wp-thumb" style="color:var(--accent);"><i class="fas fa-desktop"></i></div>
+                        <div class="blog-wp-content">
+                            <div class="blog-wp-header">
+                                <span class="blog-cat">EUC / VDI</span>
+                                <span><i class="fas fa-calendar"></i> Dec 2025</span>
+                                <span><i class="fas fa-clock"></i> 10 min read</span>
+                            </div>
+                            <h3><a href="blog-post.html" style="text-decoration:none;color:inherit;">Citrix to AVD:
+                                    Migration Playbook for Enterprise Teams</a></h3>
+                            <p class="blog-wp-excerpt">A practitioner's guide to navigating the complex journey from
+                                legacy Citrix infrastructure to Azure Virtual Desktop.</p>
+                            <div class="blog-wp-footer">
+                                <span class="author-name" style="font-size:0.8rem;color:var(--text-muted);">By
+                                    Gunaseelan Madhavan</span>
+                                <a href="blog-post.html" class="blog-link" style="font-size:0.85rem;">Read More <i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
                 </div>
-            </div>
 
-            <!-- ARTICLE GRID -->
-            <div class="blog-full-grid" id="blogGrid">
-
-                <article class="blog-card" data-category="devsecops">
-                    <div class="blog-card-top"><span class="blog-cat">DevSecOps</span><span class="blog-read-time"><i
-                                class="fas fa-clock"></i> 6 min read</span></div>
-                    <div class="blog-date-line"><i class="fas fa-calendar-alt"></i> January 2026</div>
-                    <h3>Zero Trust in Practice: From Policy to Pipeline</h3>
-                    <p>How to operationalise Zero Trust principles inside modern DevOps pipelines using Azure Policy,
-                        OPA, and GitHub Actions. Includes real policy examples and bypass prevention strategies.</p>
-                    <div class="blog-tags-row"><span class="skill-tag security"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">Zero Trust</span><span
-                            class="skill-tag azure" style="font-size:0.72rem;padding:0.2rem 0.6rem;">Azure
-                            Policy</span><span class="skill-tag"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">OPA</span></div>
-                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
-                            Madhavan</span><a href="blog-post.html" class="blog-link">Read More <i
-                                class="fas fa-arrow-right"></i></a></div>
-                </article>
-
-                <article class="blog-card" data-category="euc">
-                    <div class="blog-card-top"><span class="blog-cat">EUC / VDI</span><span class="blog-read-time"><i
-                                class="fas fa-clock"></i> 10 min read</span></div>
-                    <div class="blog-date-line"><i class="fas fa-calendar-alt"></i> December 2025</div>
-                    <h3>Citrix to AVD: Migration Playbook for Enterprise Teams</h3>
-                    <p>A practitioner's guide to navigating the complex journey from legacy Citrix infrastructure to
-                        Azure Virtual Desktop — covering assessment, pilot, and cutover strategies.</p>
-                    <div class="blog-tags-row"><span class="skill-tag"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">Citrix</span><span class="skill-tag azure"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">AVD</span><span class="skill-tag"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">FSLogix</span></div>
-                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
-                            Madhavan</span><a href="blog-post.html" class="blog-link">Read More <i
-                                class="fas fa-arrow-right"></i></a></div>
-                </article>
-
-                <article class="blog-card" data-category="automation">
-                    <div class="blog-card-top"><span class="blog-cat">Automation</span><span class="blog-read-time"><i
-                                class="fas fa-clock"></i> 7 min read</span></div>
-                    <div class="blog-date-line"><i class="fas fa-calendar-alt"></i> November 2025</div>
-                    <h3>Building an Enterprise PowerShell Module Library</h3>
-                    <p>How I built a reusable, version-controlled PowerShell module library that cut operational
-                        overhead by 40% across a 10,000-seat enterprise. Covers module structure, Pester tests, and
-                        internal publishing via Azure Artifacts.</p>
-                    <div class="blog-tags-row"><span class="skill-tag script"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">PowerShell</span><span
-                            class="skill-tag azure" style="font-size:0.72rem;padding:0.2rem 0.6rem;">Azure
-                            Artifacts</span><span class="skill-tag"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">Pester</span></div>
-                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
-                            Madhavan</span><a href="blog-post.html" class="blog-link">Read More <i
-                                class="fas fa-arrow-right"></i></a></div>
-                </article>
-
-                <article class="blog-card" data-category="kubernetes">
-                    <div class="blog-card-top"><span class="blog-cat">Kubernetes</span><span class="blog-read-time"><i
-                                class="fas fa-clock"></i> 9 min read</span></div>
-                    <div class="blog-date-line"><i class="fas fa-calendar-alt"></i> October 2025</div>
-                    <h3>AKS in a Regulated Environment: What Nobody Tells You</h3>
-                    <p>Running Azure Kubernetes Service in a financial services environment comes with hard constraints.
-                        Here's what I learnt deploying AKS for a Tier-1 bank — from private clusters to egress control
-                        and audit logging.</p>
-                    <div class="blog-tags-row"><span class="skill-tag container"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">AKS</span><span class="skill-tag azure"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">Private Clusters</span><span
-                            class="skill-tag security" style="font-size:0.72rem;padding:0.2rem 0.6rem;">RBAC</span>
+                <!-- SIDEBAR -->
+                <aside class="blog-sidebar">
+                    <!-- Search Widget -->
+                    <div class="wp-widget">
+                        <h4 class="wp-widget-title">Search</h4>
+                        <form class="wp-search-form">
+                            <input type="text" placeholder="Search insights..." class="wp-search-input">
+                            <button type="button" class="btn btn-primary"
+                                style="padding:0.6rem 1rem;border-radius:4px;"><i class="fas fa-search"></i></button>
+                        </form>
                     </div>
-                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
-                            Madhavan</span><a href="blog-post.html" class="blog-link">Read More <i
-                                class="fas fa-arrow-right"></i></a></div>
-                </article>
 
-                <article class="blog-card" data-category="m365">
-                    <div class="blog-card-top"><span class="blog-cat">M365</span><span class="blog-read-time"><i
-                                class="fas fa-clock"></i> 5 min read</span></div>
-                    <div class="blog-date-line"><i class="fas fa-calendar-alt"></i> September 2025</div>
-                    <h3>SharePoint Online Governance at Scale: A Framework</h3>
-                    <p>A practical governance framework for SharePoint Online in large enterprises — covering hub site
-                        architecture, sensitivity labels, lifecycle policies, and automated compliance reporting via
-                        Graph API and Power BI.</p>
-                    <div class="blog-tags-row"><span class="skill-tag"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">SharePoint</span><span
-                            class="skill-tag script" style="font-size:0.72rem;padding:0.2rem 0.6rem;">Graph
-                            API</span><span class="skill-tag"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">Purview</span></div>
-                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
-                            Madhavan</span><a href="blog-post.html" class="blog-link">Read More <i
-                                class="fas fa-arrow-right"></i></a></div>
-                </article>
-
-                <article class="blog-card" data-category="multi-cloud">
-                    <div class="blog-card-top"><span class="blog-cat">Multi-Cloud</span><span class="blog-read-time"><i
-                                class="fas fa-clock"></i> 11 min read</span></div>
-                    <div class="blog-date-line"><i class="fas fa-calendar-alt"></i> August 2025</div>
-                    <h3>Terraform at Scale: Module Patterns for Enterprise Teams</h3>
-                    <p>Lessons learnt managing a 200+ module Terraform library across 3 cloud providers for a global
-                        financial institution. Covers module versioning, abstract pattern libraries, and CI/CD
-                        integration.</p>
-                    <div class="blog-tags-row"><span class="skill-tag"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">Terraform</span><span class="skill-tag"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">GitOps</span><span class="skill-tag azure"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">Azure Pipelines</span></div>
-                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
-                            Madhavan</span><a href="blog-post.html" class="blog-link">Read More <i
-                                class="fas fa-arrow-right"></i></a></div>
-                </article>
-
-                <article class="blog-card" data-category="devsecops">
-                    <div class="blog-card-top"><span class="blog-cat">DevSecOps</span><span class="blog-read-time"><i
-                                class="fas fa-clock"></i> 8 min read</span></div>
-                    <div class="blog-date-line"><i class="fas fa-calendar-alt"></i> July 2025</div>
-                    <h3>Embedding CIS Benchmarks into Your Azure Landing Zone</h3>
-                    <p>A step-by-step guide to automating CIS Level 1 and Level 2 compliance using Azure Policy
-                        initiatives, Defender for Cloud, and custom Terraform modules — with auto-remediation task
-                        pipelines.</p>
-                    <div class="blog-tags-row"><span class="skill-tag security"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">CIS Benchmarks</span><span
-                            class="skill-tag azure"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">Defender</span><span class="skill-tag"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">Terraform</span></div>
-                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
-                            Madhavan</span><a href="blog-post.html" class="blog-link">Read More <i
-                                class="fas fa-arrow-right"></i></a></div>
-                </article>
-
-                <article class="blog-card" data-category="euc">
-                    <div class="blog-card-top"><span class="blog-cat">EUC / VDI</span><span class="blog-read-time"><i
-                                class="fas fa-clock"></i> 6 min read</span></div>
-                    <div class="blog-date-line"><i class="fas fa-calendar-alt"></i> June 2025</div>
-                    <h3>Windows 365 vs AVD: Choosing the Right Cloud PC for Your Estate</h3>
-                    <p>A balanced comparison of Windows 365 Cloud PC and Azure Virtual Desktop — including cost
-                        modelling, use-case fit, management overhead, and a decision matrix for enterprise architects.
-                    </p>
-                    <div class="blog-tags-row"><span class="skill-tag"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">Windows 365</span><span
-                            class="skill-tag azure" style="font-size:0.72rem;padding:0.2rem 0.6rem;">AVD</span><span
-                            class="skill-tag" style="font-size:0.72rem;padding:0.2rem 0.6rem;">Intune</span></div>
-                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
-                            Madhavan</span><a href="blog-post.html" class="blog-link">Read More <i
-                                class="fas fa-arrow-right"></i></a></div>
-                </article>
-
-                <article class="blog-card" data-category="automation">
-                    <div class="blog-card-top"><span class="blog-cat">Automation</span><span class="blog-read-time"><i
-                                class="fas fa-clock"></i> 7 min read</span></div>
-                    <div class="blog-date-line"><i class="fas fa-calendar-alt"></i> May 2025</div>
-                    <h3>Automating Entra ID Lifecycle with Graph API &amp; Logic Apps</h3>
-                    <p>End-to-end user lifecycle automation using Microsoft Graph API, Azure Logic Apps, and HR system
-                        webhooks — reducing identity provisioning time from days to minutes.</p>
-                    <div class="blog-tags-row"><span class="skill-tag security"
-                            style="font-size:0.72rem;padding:0.2rem 0.6rem;">Entra ID</span><span
-                            class="skill-tag script" style="font-size:0.72rem;padding:0.2rem 0.6rem;">Graph
-                            API</span><span class="skill-tag" style="font-size:0.72rem;padding:0.2rem 0.6rem;">Logic
-                            Apps</span></div>
-                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
-                            Madhavan</span><a href="blog-post.html" class="blog-link">Read More <i
-                                class="fas fa-arrow-right"></i></a></div>
-                </article>
-
-            </div>
-
-            <!-- SUBSCRIBE -->
-            <div class="blog-subscribe">
-                <div class="subscribe-inner">
-                    <div class="subscribe-text">
-                        <h3>Stay updated on new articles</h3>
-                        <p>Get notified when I publish new technical deep-dives, architecture guides, and industry
-                            insights.</p>
+                    <!-- Categories Widget -->
+                    <div class="wp-widget">
+                        <h4 class="wp-widget-title">Categories</h4>
+                        <ul class="wp-list">
+                            <li><a href="#">Multi-Cloud <span class="post-count">12</span></a></li>
+                            <li><a href="#">DevSecOps <span class="post-count">8</span></a></li>
+                            <li><a href="#">EUC / VDI <span class="post-count">15</span></a></li>
+                            <li><a href="#">Automation <span class="post-count">6</span></a></li>
+                            <li><a href="#">Azure DevOps <span class="post-count">9</span></a></li>
+                        </ul>
                     </div>
-                    <form class="subscribe-form" onsubmit="handleSubscribe(event)">
-                        <input type="email" placeholder="your@email.com" required id="subscribeEmail">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i>
-                            Subscribe</button>
-                    </form>
-                    <div class="subscribe-success" id="subscribeSuccess"><i class="fas fa-check-circle"></i> You're
-                        subscribed! Thank you.</div>
-                </div>
+
+                    <!-- Recent Posts Widget -->
+                    <div class="wp-widget">
+                        <h4 class="wp-widget-title">Recent Posts</h4>
+                        <ul class="wp-list">
+                            <li><a href="blog-post.html">Designing Resilient Landing Zones...</a></li>
+                            <li><a href="blog-post.html">Zero Trust in Practice...</a></li>
+                            <li><a href="blog-post.html">Citrix to AVD Playbook...</a></li>
+                            <li><a href="blog-post.html">AKS in Regulated Environments...</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Subscribe Widget -->
+                    <div class="wp-widget" style="background:var(--navy-mid);border-color:var(--blue);">
+                        <h4 class="wp-widget-title" style="border-color:var(--accent);">Newsletter</h4>
+                        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;">Join 2,500+ architects
+                            getting weekly insights.</p>
+                        <form class="subscribe-form" style="flex-direction:column;gap:0.8rem;">
+                            <input type="email" placeholder="email@address.com"
+                                style="min-width:auto;width:100%;border-radius:4px;">
+                            <button type="submit" class="btn btn-primary"
+                                style="width:100%;border-radius:4px;">Subscribe</button>
+                        </form>
+                    </div>
+                </aside>
             </div>
 
         </div>
