@@ -1901,6 +1901,25 @@ h5 {
 /* ============================================================
    MULTI-PAGE: PAGE HERO (inner pages)
    ============================================================ */
+/* HERO BACKGROUND ENHANCEMENT */
+#hero.hero-with-bg {
+  background: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.8)), url('assets/images/hero-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 0 60px;
+  overflow: hidden;
+  background-color: var(--navy);
+}
+
 .page-hero {
   min-height: 42vh;
   display: flex;
