@@ -681,6 +681,15 @@ h5 {
   position: relative;
   z-index: 1;
   box-shadow: 0 0 40px rgba(79, 172, 254, 0.25);
+  overflow: hidden;
+  /* Added to clip the image to circle */
+}
+
+.portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .portrait-ring {
