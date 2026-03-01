@@ -246,6 +246,39 @@ h5 {
   opacity: 0;
 }
 
+.hero-decoration-oloid {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  z-index: -1;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.hero-decoration-oloid svg {
+  width: 100%;
+  height: 100%;
+  animation: float-slow 20s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-30px) rotate(5deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+
 .hamburger.open span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
