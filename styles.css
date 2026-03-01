@@ -3100,6 +3100,7 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
 /* SERVICES PAGE STYLES */
 .services-grid {
   display: grid;
@@ -3171,8 +3172,8 @@ body {
 }
 
 .model-node {
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3182,11 +3183,21 @@ body {
   border: 1px solid var(--border);
   position: absolute;
   z-index: 2;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  padding: 1rem;
 }
 
-.node-onsite { top: 10%; left: 0%; border-color: var(--blue); }
-.node-offshore { bottom: 10%; right: 0%; border-color: var(--blue); }
+.node-onsite {
+  top: 10%;
+  left: 0%;
+  border-color: var(--blue);
+}
+
+.node-offshore {
+  bottom: 10%;
+  right: 0%;
+  border-color: var(--blue);
+}
 
 .model-arrow {
   position: absolute;
@@ -3197,8 +3208,17 @@ body {
   z-index: 1;
 }
 
-.model-node i { font-size: 2rem; color: var(--blue); margin-bottom: 0.5rem; }
-.model-node span { font-weight: 700; font-size: 0.9rem; color: var(--white); }
+.model-node i {
+  font-size: 2rem;
+  color: var(--blue);
+  margin-bottom: 0.5rem;
+}
+
+.model-node span {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--white);
+}
 
 .value-points {
   margin-top: 2rem;
@@ -3229,4 +3249,3 @@ body {
   color: var(--text-muted);
   font-size: 0.95rem;
 }
-
