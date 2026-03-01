@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Gunaseelan Madhavan — Technical Architect &amp; Cloud SME</title>
+    <meta name="description"
+        content="Get in touch with Gunaseelan Madhavan for cloud architecture consulting, enterprise VDI strategy, and DevSecOps advisory engagements.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><span class="logo-icon">GM</span><span
+                    class="logo-text">ApexDigits</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="expertise.html" class="nav-link">Expertise</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contact.html" class="nav-link cta-nav active-page">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger"
+                aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="page-hero-content">
+            <nav class="breadcrumb"><a href="index.html">Home</a><i
+                    class="fas fa-chevron-right"></i><span>Contact</span></nav>
+            <h1 class="page-hero-title">Let's <span class="gradient-text">Connect</span></h1>
+            <p class="page-hero-sub">Available for consulting, architecture reviews, and strategic technology
+                engagements. Reach out — I'd love to hear about your challenge.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="contact-layout">
+                <!-- INFO -->
+                <div class="contact-info">
+                    <h3 style="font-size:1.2rem;color:var(--white);margin-bottom:1.25rem;">Contact Details</h3>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <div class="contact-label">Phone</div><a href="tel:+447442316163" class="contact-value">+44
+                                7442 316163</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <div class="contact-label">Email</div><a href="mailto:Gunaseelan.Madhavan@ApexDigits.com"
+                                class="contact-value">Gunaseelan.Madhavan@ApexDigits.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-globe"></i></div>
+                        <div>
+                            <div class="contact-label">Website</div><a href="https://apexdigits.com" target="_blank"
+                                class="contact-value">ApexDigits.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <div class="contact-label">Location</div><span class="contact-value"
+                                style="cursor:default;">United Kingdom</span>
+                        </div>
+                    </div>
+
+                    <h3 style="font-size:1rem;color:var(--white);margin:1.5rem 0 0.75rem;">Follow &amp; Connect</h3>
+                    <div class="contact-social-row">
+                        <a href="https://www.linkedin.com/in/gunaseelan-madhavan" target="_blank"
+                            class="social-btn linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com/Gunaseelan1108" target="_blank" class="social-btn twitter"
+                            aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://apexdigits.com" target="_blank" class="social-btn website"
+                            aria-label="Website"><i class="fas fa-globe"></i></a>
+                    </div>
+
+                    <div class="availability-badge">
+                        <div class="availability-dot"></div>
+                        <span>Available for consulting engagements</span>
+                    </div>
+
+                    <div class="engagement-types">
+                        <h4>Engagement Types</h4>
+                        <div class="engagement-list">
+                            <div class="engagement-item"><i class="fas fa-check-circle"></i> Cloud Architecture Reviews
+                            </div>
+                            <div class="engagement-item"><i class="fas fa-check-circle"></i> DevSecOps Advisory</div>
+                            <div class="engagement-item"><i class="fas fa-check-circle"></i> EUC / VDI Strategy</div>
+                            <div class="engagement-item"><i class="fas fa-check-circle"></i> Technology Roadmapping
+                            </div>
+                            <div class="engagement-item"><i class="fas fa-check-circle"></i> Speaking &amp; Workshops
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORM -->
+                <form class="contact-form" id="contactForm" onsubmit="handleFormSubmit(event)">
+                    <h3 style="font-size:1.2rem;color:var(--white);margin-bottom:1.25rem;">Send a Message</h3>
+                    <div class="form-row">
+                        <div class="form-group"><label for="name">Full Name</label><input type="text" id="name"
+                                name="name" placeholder="Your name" required></div>
+                        <div class="form-group"><label for="email">Email Address</label><input type="email" id="email"
+                                name="email" placeholder="your@email.com" required></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label for="company">Company</label><input type="text" id="company"
+                                name="company" placeholder="Your organisation"></div>
+                        <div class="form-group">
+                            <label for="enquiry">Enquiry Type</label>
+                            <select id="enquiry" name="enquiry"
+                                style="background:var(--card-bg);border:1px solid var(--border);color:var(--text);border-radius:var(--radius);padding:0.75rem 1rem;font-family:var(--font-main);font-size:0.9rem;outline:none;width:100%;">
+                                <option value="">Select type…</option>
+                                <option>Cloud Architecture Review</option>
+                                <option>DevSecOps Consulting</option>
+                                <option>EUC / VDI Strategy</option>
+                                <option>Speaking Engagement</option>
+                                <option>General Enquiry</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject"
+                            name="subject" placeholder="Brief description" required></div>
+                    <div class="form-group"><label for="message">Message</label><textarea id="message" name="message"
+                            rows="6" placeholder="Tell me about your project, challenge, or enquiry…"
+                            required></textarea></div>
+                    <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-paper-plane"></i> Send
+                        Message</button>
+                    <div class="form-success" id="formSuccess"><i class="fas fa-check-circle"></i> Message sent! I'll be
+                        in touch within 24 hours.</div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAP PLACEHOLDER / LOCATION -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="location-banner">
+                <div class="location-info">
+                    <i class="fas fa-map-marker-alt" style="font-size:2rem;color:var(--blue);"></i>
+                    <div>
+                        <h3>Based in the United Kingdom</h3>
+                        <p>Working with enterprise clients across the UK, EMEA, and globally. Remote and on-site
+                            engagements available.</p>
+                    </div>
+                </div>
+                <div class="location-pills">
+                    <span class="tech-pill"><i class="fas fa-flag"></i> UK</span>
+                    <span class="tech-pill"><i class="fas fa-globe-europe"></i> EMEA</span>
+                    <span class="tech-pill"><i class="fas fa-video"></i> Remote Global</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-logo"><span class="logo-icon">GM</span><span class="logo-text">ApexDigits</span>
+                </div>
+                <p>Senior Technical Architect &amp; SME in Cloud, EUC, and Enterprise Infrastructure. Based in the
+                    United Kingdom.</p>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/gunaseelan-madhavan" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/Gunaseelan1108" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+            <div class="footer-links-col">
+                <h4>Pages</h4>
+                <ul>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="expertise.html">Expertise &amp; Skills</a></li>
+                    <li><a href="experience.html">Experience</a></li>
+                    <li><a href="blog.html">Blog &amp; Insights</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:+447442316163"><i class="fas fa-phone fa-xs"></i> +44 7442 316163</a></li>
+                    <li><a href="mailto:Gunaseelan.Madhavan@ApexDigits.com"><i class="fas fa-envelope fa-xs"></i> Email
+                            Me</a></li>
+                    <li><a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe fa-xs"></i>
+                            ApexDigits.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Gunaseelan Madhavan &middot; ApexDigits. All rights reserved.</p>
+            <p>Built with <i class="fas fa-heart" style="color:#4facfe;"></i> for enterprise excellence.</p>
+        </div>
+    </footer>
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+    <script src="script.js"></script>
+</body>
+
+</html>

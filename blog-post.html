@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Designing Resilient Landing Zones | Gunaseelan Madhavan</title>
+    <meta name="description"
+        content="A deep-dive into multi-cloud landing zones across Azure, AWS and GCP — principles, anti-patterns, and guardrails for enterprise architects.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><span class="logo-icon">GM</span><span
+                    class="logo-text">ApexDigits</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="expertise.html" class="nav-link">Expertise</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="blog.html" class="nav-link active-page">Blog</a></li>
+                <li><a href="contact.html" class="nav-link cta-nav">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger"
+                aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- POST HERO -->
+    <section class="page-hero post-hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="page-hero-content">
+            <nav class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><a
+                    href="blog.html">Blog</a><i class="fas fa-chevron-right"></i><span>Landing Zones</span></nav>
+            <div class="post-meta-row">
+                <span class="blog-cat">Multi-Cloud</span>
+                <span class="blog-read-time"><i class="fas fa-clock"></i> 8 min read</span>
+                <span class="blog-date"><i class="fas fa-calendar"></i> February 2026</span>
+            </div>
+            <h1 class="page-hero-title" style="font-size:clamp(1.8rem,4vw,3rem);">Designing Resilient Landing
+                Zones<br><span class="gradient-text">Across Azure, AWS &amp; GCP</span></h1>
+            <div class="post-author-strip">
+                <div class="blog-author-pill">
+                    <span class="author-avatar">GM</span>
+                    <div>
+                        <div class="author-name">Gunaseelan Madhavan</div>
+                        <div class="author-title">Senior Technical Architect &amp; Cloud SME at NatWest Group Plc</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POST BODY -->
+    <div class="post-layout">
+        <div class="container">
+            <div class="post-content-wrap">
+
+                <!-- ARTICLE -->
+                <article class="post-body">
+
+                    <div class="post-intro-box">
+                        <i class="fas fa-quote-left"></i>
+                        <p>Landing zones are not just templates — they're the architectural contracts that determine
+                            whether your cloud estate remains governable at scale or becomes an ungovernable sprawl by
+                            year three.</p>
+                    </div>
+
+                    <h2>What is a Cloud Landing Zone?</h2>
+                    <p>A cloud landing zone is a pre-configured, scalable, and secure cloud environment that enables
+                        organisations to onboard workloads rapidly and consistently. It covers identity, networking,
+                        security, governance, and operational tooling — all established before the first workload
+                        arrives.</p>
+                    <p>In a multi-cloud context, the challenge is amplified: each cloud provider has its own primitives,
+                        and the temptation to build three separate, optimised landing zones is strong. However, that
+                        approach creates silos, duplicates effort, and makes central governance almost impossible.</p>
+
+                    <h2>The Core Principles</h2>
+                    <p>After deploying landing zones across financial services, healthcare, and retail clients, I've
+                        distilled the design down to six durable principles:</p>
+
+                    <div class="post-principles-grid">
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-shield-halved"></i></div>
+                            <h4>Security by Default</h4>
+                            <p>Every resource born into the landing zone must inherit baseline security posture. No
+                                opt-in. Use deny-by-default policies and RBAC with least-privilege.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-code"></i></div>
+                            <h4>Everything as Code</h4>
+                            <p>Landing zone infrastructure must be 100% reproducible via IaC. Terraform modules with
+                                semantic versioning, stored in Git, deployed via pipeline.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-network-wired"></i></div>
+                            <h4>Network Segmentation</h4>
+                            <p>Hub-and-spoke or VWAN on Azure, Transit Gateway on AWS. Enforce micro-segmentation from
+                                day one — retrofitting it later is a multi-year project.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-key"></i></div>
+                            <h4>Centralised Identity</h4>
+                            <p>Federate all cloud IAM to a single identity plane. Entra ID as the IdP with cross-cloud
+                                OIDC federation eliminates credential sprawl.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-eye"></i></div>
+                            <h4>Observability First</h4>
+                            <p>Centralise logs, metrics, and telemetry to a SIEM from the start. Azure Monitor,
+                                CloudWatch, and Cloud Logging all feeding a unified SIEM.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-robot"></i></div>
+                            <h4>Automated Onboarding</h4>
+                            <p>Subscription/account vending should be automated via a self-service portal or pipeline.
+                                Manual provisioning is a bottleneck and an error source.</p>
+                        </div>
+                    </div>
+
+                    <h2>Anti-Patterns to Avoid</h2>
+                    <p>Having reviewed dozens of landing zones across organisations at various stages of maturity, the
+                        same anti-patterns appear repeatedly:</p>
+                    <ul class="post-list">
+                        <li><strong>The "Hub Without Governance" Problem:</strong> Hub-and-spoke architecture deployed,
+                            but no Azure Policy or SCPs enforcing traffic routing. Spoke owners bypass the hub entirely.
+                        </li>
+                        <li><strong>Long-lived credentials:</strong> Service principals with passwords stored in
+                            pipelines. Replace with Workload Identity Federation (WIF) and managed identities from day
+                            one.</li>
+                        <li><strong>Monolithic Terraform:</strong> A single 10,000-line Terraform root module. Split
+                            into composable modules with clear boundaries: networking, identity, management, and
+                            workload.</li>
+                        <li><strong>The "Cloud Native" Assumption:</strong> Assuming every workload will be
+                            containerised. Landing zones must support legacy lift-and-shift alongside cloud-native
+                            workloads.</li>
+                    </ul>
+
+                    <h2>The Terraform Module Strategy</h2>
+                    <p>For multi-cloud IaC at scale, I recommend a three-layer module library:</p>
+
+                    <div class="post-code-block">
+                        <div class="code-header"><span class="code-lang">Terraform Structure</span><i
+                                class="fas fa-copy"></i></div>
+                        <pre><code>modules/
+├── foundation/
+│   ├── azure-management-group/
+│   ├── aws-organizations-ou/
+│   └── gcp-folder-structure/
+├── networking/
+│   ├── azure-hub-spoke/
+│   ├── aws-transit-gateway/
+│   └── gcp-shared-vpc/
+└── security/
+    ├── azure-policy-baseline/
+    ├── aws-scp-baseline/
+    └── gcp-org-policy-baseline/</code></pre>
+                    </div>
+
+                    <p>Each module is independently versioned using semantic versioning. Breaking changes increment the
+                        major version. Modules are published to a private registry (Azure Artifacts or Terraform Cloud)
+                        and consumed via version constraints in landing zone root modules.</p>
+
+                    <h2>Cross-Cloud Identity Federation</h2>
+                    <p>The identity layer is the hardest to get right across clouds. The solution I've standardised on
+                        is using <strong>Microsoft Entra ID as the root identity provider</strong>, federated to AWS IAM
+                        Identity Centre and GCP Workforce Identity Federation via SAML 2.0 / OIDC. This means:</p>
+                    <ul class="post-list">
+                        <li>Single user directory: no local cloud accounts</li>
+                        <li>Conditional Access policies enforced at the Entra layer before cloud access</li>
+                        <li>PIM-enabled just-in-time access for all privileged roles across clouds</li>
+                        <li>Unified audit trail aggregated to Sentinel from all three clouds</li>
+                    </ul>
+
+                    <h2>Conclusion</h2>
+                    <p>A well-designed multi-cloud landing zone is not a one-time project — it's a living platform that
+                        evolves with your organisation. The key is to get the governance, identity, and networking
+                        foundations right before onboarding workloads. The cost of retrofitting these foundations at
+                        scale is orders of magnitude greater than getting them right from day one.</p>
+                    <p>If you're planning a multi-cloud landing zone for your organisation and would like to discuss the
+                        approach, feel free to <a href="contact.html" style="color:var(--blue);">get in touch</a>.</p>
+
+                    <!-- TAGS -->
+                    <div class="post-tags">
+                        <span class="skill-tag azure">Azure Landing Zones</span>
+                        <span class="skill-tag aws">AWS Organizations</span>
+                        <span class="skill-tag gcp">GCP Folders</span>
+                        <span class="skill-tag">Terraform</span>
+                        <span class="skill-tag security">Zero Trust</span>
+                        <span class="skill-tag security">Entra ID</span>
+                    </div>
+
+                    <!-- SHARE -->
+                    <div class="post-share">
+                        <span>Share this article:</span>
+                        <div class="share-btns">
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://apexdigits.com"
+                                target="_blank" class="social-btn linkedin" aria-label="Share on LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="https://twitter.com/intent/tweet?text=Designing+Resilient+Landing+Zones+Across+Azure+AWS+GCP&url=https://apexdigits.com&via=Gunaseelan1108"
+                                target="_blank" class="social-btn twitter" aria-label="Share on Twitter"><i
+                                    class="fab fa-x-twitter"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- AUTHOR BOX -->
+                    <div class="post-author-box">
+                        <div class="portrait-avatar"
+                            style="width:70px;height:70px;font-size:1.4rem;flex-shrink:0;border-radius:16px;">
+                            <span>GM</span></div>
+                        <div>
+                            <div class="author-name" style="font-size:1.05rem;margin-bottom:0.3rem;">Gunaseelan Madhavan
+                            </div>
+                            <div class="author-title" style="margin-bottom:0.6rem;">Senior Technical Architect &amp;
+                                Cloud SME at NatWest Group Plc</div>
+                            <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;">20+ years of
+                                enterprise technology leadership across cloud, infrastructure, and digital workplace.
+                                Passionate about sharing practitioner knowledge and advancing the profession.</p>
+                            <div class="contact-social-row" style="margin-top:0.75rem;">
+                                <a href="https://www.linkedin.com/in/gunaseelan-madhavan" target="_blank"
+                                    class="social-btn linkedin" aria-label="LinkedIn"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a href="https://twitter.com/Gunaseelan1108" target="_blank" class="social-btn twitter"
+                                    aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- SIDEBAR -->
+                <aside class="post-sidebar">
+                    <div class="sidebar-card">
+                        <h4>Table of Contents</h4>
+                        <ul class="toc-list">
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> What is a Landing Zone?</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Core Principles</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Anti-Patterns</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Terraform Strategy</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Cross-Cloud Identity</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Conclusion</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h4>Related Articles</h4>
+                        <div class="related-articles">
+                            <a href="blog.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">DevSecOps</span>
+                                <p>Zero Trust in Practice: From Policy to Pipeline</p>
+                            </a>
+                            <a href="blog.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">Automation</span>
+                                <p>Terraform at Scale: Module Patterns for Enterprise Teams</p>
+                            </a>
+                            <a href="blog.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">Kubernetes</span>
+                                <p>AKS in a Regulated Environment</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card sidebar-cta">
+                        <i class="fas fa-envelope" style="font-size:2rem;color:var(--blue);margin-bottom:0.75rem;"></i>
+                        <h4>Work with Gunaseelan</h4>
+                        <p>Available for architecture reviews and consulting engagements.</p>
+                        <a href="contact.html" class="btn btn-primary"
+                            style="width:100%;justify-content:center;margin-top:1rem;border-radius:var(--radius);">Get
+                            In Touch</a>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MORE ARTICLES -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">Keep Reading</span>
+                <h2 class="section-title">More <span class="gradient-text">Insights</span></h2>
+            </div>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-card-top"><span class="blog-cat">DevSecOps</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 6 min</span></div>
+                    <h3>Zero Trust in Practice: From Policy to Pipeline</h3>
+                    <p>How to operationalise Zero Trust inside modern DevOps pipelines using Azure Policy, OPA, and
+                        GitHub Actions.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="blog.html" class="blog-link">Read More <i
+                                class="fas fa-arrow-right"></i></a></div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card-top"><span class="blog-cat">Automation</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 7 min</span></div>
+                    <h3>Building an Enterprise PowerShell Module Library</h3>
+                    <p>How I built a reusable PowerShell module library that cut operational overhead by 40% across a
+                        10,000-seat enterprise.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="blog.html" class="blog-link">Read More <i
+                                class="fas fa-arrow-right"></i></a></div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card-top"><span class="blog-cat">EUC / VDI</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 10 min</span></div>
+                    <h3>Citrix to AVD: Migration Playbook for Enterprise Teams</h3>
+                    <p>A practitioner's guide to navigating the complex journey from legacy Citrix to Azure Virtual
+                        Desktop.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="blog.html" class="blog-link">Read More <i
+                                class="fas fa-arrow-right"></i></a></div>
+                </article>
+            </div>
+            <div style="text-align:center;margin-top:2rem;"><a href="blog.html" class="btn btn-outline"><i
+                        class="fas fa-th-large"></i> All Articles</a></div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-logo"><span class="logo-icon">GM</span><span class="logo-text">ApexDigits</span>
+                </div>
+                <p>Senior Technical Architect &amp; SME in Cloud, EUC, and Enterprise Infrastructure. Based in the
+                    United Kingdom.</p>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/gunaseelan-madhavan" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/Gunaseelan1108" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+            <div class="footer-links-col">
+                <h4>Pages</h4>
+                <ul>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="expertise.html">Expertise &amp; Skills</a></li>
+                    <li><a href="experience.html">Experience</a></li>
+                    <li><a href="blog.html">Blog &amp; Insights</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:+447442316163"><i class="fas fa-phone fa-xs"></i> +44 7442 316163</a></li>
+                    <li><a href="mailto:Gunaseelan.Madhavan@ApexDigits.com"><i class="fas fa-envelope fa-xs"></i> Email
+                            Me</a></li>
+                    <li><a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe fa-xs"></i>
+                            ApexDigits.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Gunaseelan Madhavan &middot; ApexDigits. All rights reserved.</p>
+            <p>Built with <i class="fas fa-heart" style="color:#4facfe;"></i> for enterprise excellence.</p>
+        </div>
+    </footer>
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+    <script src="script.js"></script>
+</body>
+
+</html>
