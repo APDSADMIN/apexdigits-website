@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Designing Resilient Landing Zones | Gunaseelan Madhavan</title>
+    <title>Zero Trust in Practice: From Policy to Pipeline | Gunaseelan Madhavan</title>
     <meta name="description"
-        content="A deep-dive into multi-cloud landing zones across Azure, AWS and GCP — principles, anti-patterns, and guardrails for enterprise architects.">
+        content="How to operationalise Zero Trust inside modern DevOps pipelines using Azure Policy, OPA, and GitHub Actions.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -58,14 +58,13 @@
         <div class="hero-orb hero-orb-2"></div>
         <div class="page-hero-content">
             <nav class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><a
-                    href="blog.html">Blog</a><i class="fas fa-chevron-right"></i><span>Landing Zones</span></nav>
+                    href="blog.html">Blog</a><i class="fas fa-chevron-right"></i><span>Zero Trust</span></nav>
             <div class="post-meta-row">
-                <span class="blog-cat">Multi-Cloud</span>
-                <span class="blog-read-time"><i class="fas fa-clock"></i> 8 min read</span>
-                <span class="blog-date"><i class="fas fa-calendar"></i> February 2026</span>
+                <span class="blog-cat">DevSecOps</span>
+                <span class="blog-read-time"><i class="fas fa-clock"></i> 6 min read</span>
+                <span class="blog-date"><i class="fas fa-calendar"></i> January 2026</span>
             </div>
-            <h1 class="page-hero-title" style="font-size:clamp(1.8rem,4vw,3rem);">Designing Resilient Landing
-                Zones<br><span class="gradient-text">Across Azure, AWS &amp; GCP</span></h1>
+            <h1 class="page-hero-title" style="font-size:clamp(1.8rem,4vw,3rem);">Zero Trust in Practice<br><span class="gradient-text">From Policy to Pipeline</span></h1>
             <div class="post-author-strip">
                 <div class="blog-author-pill">
                     <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="author-avatar"
@@ -89,133 +88,69 @@
 
                     <div class="post-intro-box">
                         <i class="fas fa-quote-left"></i>
-                        <p>Landing zones are not just templates — they're the architectural contracts that determine
-                            whether your cloud estate remains governable at scale or becomes an ungovernable sprawl by
-                            year three.</p>
+                        <p>Zero Trust is not a product you buy; it's a strategy you execute. The move from "trust but verify" to "never trust, always verify" requires a fundamental shift in how we build and deploy infrastructure.</p>
                     </div>
 
-                    <h2>What is a Cloud Landing Zone?</h2>
-                    <p>A cloud landing zone is a pre-configured, scalable, and secure cloud environment that enables
-                        organisations to onboard workloads rapidly and consistently. It covers identity, networking,
-                        security, governance, and operational tooling — all established before the first workload
-                        arrives.</p>
-                    <p>In a multi-cloud context, the challenge is amplified: each cloud provider has its own primitives,
-                        and the temptation to build three separate, optimised landing zones is strong. However, that
-                        approach creates silos, duplicates effort, and makes central governance almost impossible.</p>
-
-                    <h2>The Core Principles</h2>
-                    <p>After deploying landing zones across financial services, healthcare, and retail clients, I've
-                        distilled the design down to six durable principles:</p>
+                    <h2>The Core Pillars of Zero Trust</h2>
+                    <p>In modern enterprise environments, the traditional network perimeter is disappearing. As workloads move to the cloud and users work from anywhere, we must shift our security focus from the network edge to the individual identity and resource.</p>
+                    <p>My implementation of Zero Trust within DevOps pipelines focuses on three core pillars:</p>
 
                     <div class="post-principles-grid">
                         <div class="post-principle">
-                            <div class="pp-icon"><i class="fas fa-shield-halved"></i></div>
-                            <h4>Security by Default</h4>
-                            <p>Every resource born into the landing zone must inherit baseline security posture. No
-                                opt-in. Use deny-by-default policies and RBAC with least-privilege.</p>
+                            <div class="pp-icon"><i class="fas fa-id-card"></i></div>
+                            <h4>Explicit Verification</h4>
+                            <p>Always authenticate and authorise based on all available data points, including user identity, location, device health, and service/workload context.</p>
                         </div>
                         <div class="post-principle">
-                            <div class="pp-icon"><i class="fas fa-code"></i></div>
-                            <h4>Everything as Code</h4>
-                            <p>Landing zone infrastructure must be 100% reproducible via IaC. Terraform modules with
-                                semantic versioning, stored in Git, deployed via pipeline.</p>
+                            <div class="pp-icon"><i class="fas fa-user-shield"></i></div>
+                            <h4>Least Privilege</h4>
+                            <p>Limit user access with Just-In-Time and Just-Enough-Access (JIT/JEA), risk-based adaptive policies, and data protection to secure both data and productivity.</p>
                         </div>
                         <div class="post-principle">
-                            <div class="pp-icon"><i class="fas fa-network-wired"></i></div>
-                            <h4>Network Segmentation</h4>
-                            <p>Hub-and-spoke or VWAN on Azure, Transit Gateway on AWS. Enforce micro-segmentation from
-                                day one — retrofitting it later is a multi-year project.</p>
-                        </div>
-                        <div class="post-principle">
-                            <div class="pp-icon"><i class="fas fa-key"></i></div>
-                            <h4>Centralised Identity</h4>
-                            <p>Federate all cloud IAM to a single identity plane. Entra ID as the IdP with cross-cloud
-                                OIDC federation eliminates credential sprawl.</p>
-                        </div>
-                        <div class="post-principle">
-                            <div class="pp-icon"><i class="fas fa-eye"></i></div>
-                            <h4>Observability First</h4>
-                            <p>Centralise logs, metrics, and telemetry to a SIEM from the start. Azure Monitor,
-                                CloudWatch, and Cloud Logging all feeding a unified SIEM.</p>
-                        </div>
-                        <div class="post-principle">
-                            <div class="pp-icon"><i class="fas fa-robot"></i></div>
-                            <h4>Automated Onboarding</h4>
-                            <p>Subscription/account vending should be automated via a self-service portal or pipeline.
-                                Manual provisioning is a bottleneck and an error source.</p>
+                            <div class="pp-icon"><i class="fas fa-search-shield"></i></div>
+                            <h4>Assume Breach</h4>
+                            <p>Minimise blast radius and segment access. Verify end-to-end encryption and use analytics to get visibility, drive threat detection, and improve defences.</p>
                         </div>
                     </div>
 
-                    <h2>Anti-Patterns to Avoid</h2>
-                    <p>Having reviewed dozens of landing zones across organisations at various stages of maturity, the
-                        same anti-patterns appear repeatedly:</p>
-                    <ul class="post-list">
-                        <li><strong>The "Hub Without Governance" Problem:</strong> Hub-and-spoke architecture deployed,
-                            but no Azure Policy or SCPs enforcing traffic routing. Spoke owners bypass the hub entirely.
-                        </li>
-                        <li><strong>Long-lived credentials:</strong> Service principals with passwords stored in
-                            pipelines. Replace with Workload Identity Federation (WIF) and managed identities from day
-                            one.</li>
-                        <li><strong>Monolithic Terraform:</strong> A single 10,000-line Terraform root module. Split
-                            into composable modules with clear boundaries: networking, identity, management, and
-                            workload.</li>
-                        <li><strong>The "Cloud Native" Assumption:</strong> Assuming every workload will be
-                            containerised. Landing zones must support legacy lift-and-shift alongside cloud-native
-                            workloads.</li>
-                    </ul>
+                    <h2>Operationalising Policy as Code</h2>
+                    <p>One of the most effective ways to enforce Zero Trust is through <strong>Policy as Code</strong>. By using tools like <strong>Azure Policy</strong> and <strong>Open Policy Agent (OPA)</strong>, we can prevent non-compliant resources from ever being deployed.</p>
+                    
+                    <h3>1. Azure Policy Guardrails</h3>
+                    <p>We use Azure Policy to enforce architectural standards at scale. For example, denying the creation of public IPs for VMs or ensuring that all storage accounts require HTTPS and have encryption enabled.</p>
 
-                    <h2>The Terraform Module Strategy</h2>
-                    <p>For multi-cloud IaC at scale, I recommend a three-layer module library:</p>
+                    <h3>2. Open Policy Agent (OPA) in the Pipeline</h3>
+                    <p>By integrating OPA into GitHub Actions or Azure Pipelines, we can scan Terraform plans before they are applied. This "shift-left" approach catches security violations long before they reach the cloud environment.</p>
 
                     <div class="post-code-block">
-                        <div class="code-header"><span class="code-lang">Terraform Structure</span><i
-                                class="fas fa-copy"></i></div>
-                        <pre><code>modules/
-├── foundation/
-│   ├── azure-management-group/
-│   ├── aws-organizations-ou/
-│   └── gcp-folder-structure/
-├── networking/
-│   ├── azure-hub-spoke/
-│   ├── aws-transit-gateway/
-│   └── gcp-shared-vpc/
-└── security/
-    ├── azure-policy-baseline/
-    ├── aws-scp-baseline/
-    └── gcp-org-policy-baseline/</code></pre>
+                        <div class="code-header"><span class="code-lang">Rego Policy Example</span><i
+                                class="fas fa-shield-halved"></i></div>
+                        <pre><code>package terraform.security
+
+deny[msg] {
+  resource := input.resource_changes[_]
+  resource.type == "azurerm_managed_disk"
+  resource.change.after.encryption_settings[0].enabled == false
+  msg := sprintf("Disk %v must have encryption enabled", [resource.address])
+}</code></pre>
                     </div>
 
-                    <p>Each module is independently versioned using semantic versioning. Breaking changes increment the
-                        major version. Modules are published to a private registry (Azure Artifacts or Terraform Cloud)
-                        and consumed via version constraints in landing zone root modules.</p>
-
-                    <h2>Cross-Cloud Identity Federation</h2>
-                    <p>The identity layer is the hardest to get right across clouds. The solution I've standardised on
-                        is using <strong>Microsoft Entra ID as the root identity provider</strong>, federated to AWS IAM
-                        Identity Centre and GCP Workforce Identity Federation via SAML 2.0 / OIDC. This means:</p>
-                    <ul class="post-list">
-                        <li>Single user directory: no local cloud accounts</li>
-                        <li>Conditional Access policies enforced at the Entra layer before cloud access</li>
-                        <li>PIM-enabled just-in-time access for all privileged roles across clouds</li>
-                        <li>Unified audit trail aggregated to Sentinel from all three clouds</li>
-                    </ul>
+                    <h2>Identity as the Control Plane</h2>
+                    <p>In a Zero Trust architecture, <strong>Entra ID (Azure AD)</strong> serves as the central control plane. Every access request is evaluated by Conditional Access policies that consider the risk level of the user and the health of their device.</p>
+                    <p>For machine-to-machine communication, we've moved away from static secrets in favour of <strong>Workload Identity Federation</strong>, allowing GitHub Actions and Azure DevOps to authenticate to cloud resources without ever storing a password.</p>
 
                     <h2>Conclusion</h2>
-                    <p>A well-designed multi-cloud landing zone is not a one-time project — it's a living platform that
-                        evolves with your organisation. The key is to get the governance, identity, and networking
-                        foundations right before onboarding workloads. The cost of retrofitting these foundations at
-                        scale is orders of magnitude greater than getting them right from day one.</p>
-                    <p>If you're planning a multi-cloud landing zone for your organisation and would like to discuss the
-                        approach, feel free to <a href="contact.html" style="color:var(--blue);">get in touch</a>.</p>
+                    <p>Implementing Zero Trust is a journey of continuous improvement. By integrating security directly into the DevOps lifecycle through automated policies and robust identity management, we create a resilient infrastructure that can withstand modern threats.</p>
+                    <p>Are you looking to strengthen your security posture through Zero Trust? <a href="contact.html" style="color:var(--blue);">Let's connect</a> to discuss your transformation strategy.</p>
+
 
                     <!-- TAGS -->
                     <div class="post-tags">
-                        <span class="skill-tag azure">Azure Landing Zones</span>
-                        <span class="skill-tag aws">AWS Organizations</span>
-                        <span class="skill-tag gcp">GCP Folders</span>
-                        <span class="skill-tag">Terraform</span>
                         <span class="skill-tag security">Zero Trust</span>
-                        <span class="skill-tag security">Entra ID</span>
+                        <span class="skill-tag azure">Azure Policy</span>
+                        <span class="skill-tag">OPA</span>
+                        <span class="skill-tag">DevSecOps</span>
+                        <span class="skill-tag security">Identity</span>
                     </div>
 
                     <!-- SHARE -->
@@ -225,7 +160,7 @@
                             <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://apexdigits.com"
                                 target="_blank" class="social-btn linkedin" aria-label="Share on LinkedIn"><i
                                     class="fab fa-linkedin-in"></i></a>
-                            <a href="https://twitter.com/intent/tweet?text=Designing+Resilient+Landing+Zones+Across+Azure+AWS+GCP&url=https://apexdigits.com&via=Gunaseelan1108"
+                            <a href="https://twitter.com/intent/tweet?text=Zero+Trust+in+Practice+From+Policy+to+Pipeline&url=https://apexdigits.com&via=Gunaseelan1108"
                                 target="_blank" class="social-btn twitter" aria-label="Share on Twitter"><i
                                     class="fab fa-x-twitter"></i></a>
                         </div>
@@ -261,11 +196,9 @@
                     <div class="sidebar-card">
                         <h4>Table of Contents</h4>
                         <ul class="toc-list">
-                            <li><a href="#"><i class="fas fa-chevron-right"></i> What is a Landing Zone?</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i> Core Principles</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i> Anti-Patterns</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i> Terraform Strategy</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i> Cross-Cloud Identity</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Core Pillars</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Policy as Code</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Identity Control Plane</a></li>
                             <li><a href="#"><i class="fas fa-chevron-right"></i> Conclusion</a></li>
                         </ul>
                     </div>
@@ -273,17 +206,17 @@
                     <div class="sidebar-card">
                         <h4>Related Articles</h4>
                         <div class="related-articles">
-                            <a href="blog.html" class="related-item"><span class="blog-cat"
-                                    style="font-size:0.68rem;">DevSecOps</span>
-                                <p>Zero Trust in Practice: From Policy to Pipeline</p>
+                            <a href="entra-cloud-sync-multi-cloud.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">Multi-Cloud</span>
+                                <p>Microsoft Entra Cloud Sync: Mastering Multi-Cloud Identity</p>
+                            </a>
+                            <a href="designing-resilient-landing-zones.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">Multi-Cloud</span>
+                                <p>Designing Resilient Landing Zones Across Azure, AWS & GCP</p>
                             </a>
                             <a href="blog.html" class="related-item"><span class="blog-cat"
-                                    style="font-size:0.68rem;">Automation</span>
-                                <p>Terraform at Scale: Module Patterns for Enterprise Teams</p>
-                            </a>
-                            <a href="blog.html" class="related-item"><span class="blog-cat"
-                                    style="font-size:0.68rem;">Kubernetes</span>
-                                <p>AKS in a Regulated Environment</p>
+                                    style="font-size:0.68rem;">EUC / VDI</span>
+                                <p>Citrix to AVD: Migration Playbook</p>
                             </a>
                         </div>
                     </div>
@@ -309,32 +242,29 @@
                 <h2 class="section-title">More <span class="gradient-text">Insights</span></h2>
             </div>
             <div class="blog-grid">
-                <article class="blog-card">
-                    <div class="blog-card-top"><span class="blog-cat">DevSecOps</span><span class="blog-read-time"><i
-                                class="fas fa-clock"></i> 6 min</span></div>
-                    <h3>Zero Trust in Practice: From Policy to Pipeline</h3>
-                    <p>How to operationalise Zero Trust inside modern DevOps pipelines using Azure Policy, OPA, and
-                        GitHub Actions.</p>
+                <article class="blog-card featured-blog">
+                    <div class="blog-card-top"><span class="blog-cat">Multi-Cloud</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 7 min read</span></div>
+                    <h3>Microsoft Entra Cloud Sync: Mastering Multi-Cloud Identity</h3>
+                    <p>Explore how Microsoft Entra Cloud Sync simplifies hybrid identity management across disconnected forests and cloud environments.</p>
                     <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
-                            Madhavan</span><a href="blog.html" class="blog-link">Read More <i
+                            Madhavan</span><a href="entra-cloud-sync-multi-cloud.html" class="blog-link">Read More <i
                                 class="fas fa-arrow-right"></i></a></div>
                 </article>
                 <article class="blog-card">
-                    <div class="blog-card-top"><span class="blog-cat">Automation</span><span class="blog-read-time"><i
-                                class="fas fa-clock"></i> 7 min</span></div>
-                    <h3>Building an Enterprise PowerShell Module Library</h3>
-                    <p>How I built a reusable PowerShell module library that cut operational overhead by 40% across a
-                        10,000-seat enterprise.</p>
+                    <div class="blog-card-top"><span class="blog-cat">Multi-Cloud</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 8 min read</span></div>
+                    <h3>Designing Resilient Landing Zones Across Azure, AWS & GCP</h3>
+                    <p>A deep-dive into the principles, anti-patterns, and architectural guardrails for building truly cloud-agnostic enterprise landing zones at scale.</p>
                     <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
-                            Madhavan</span><a href="blog.html" class="blog-link">Read More <i
+                            Madhavan</span><a href="designing-resilient-landing-zones.html" class="blog-link">Read More <i
                                 class="fas fa-arrow-right"></i></a></div>
                 </article>
                 <article class="blog-card">
                     <div class="blog-card-top"><span class="blog-cat">EUC / VDI</span><span class="blog-read-time"><i
-                                class="fas fa-clock"></i> 10 min</span></div>
+                                class="fas fa-clock"></i> 10 min read</span></div>
                     <h3>Citrix to AVD: Migration Playbook for Enterprise Teams</h3>
-                    <p>A practitioner's guide to navigating the complex journey from legacy Citrix to Azure Virtual
-                        Desktop.</p>
+                    <p>A practitioner's guide to navigating the complex journey from legacy Citrix to Azure Virtual Desktop.</p>
                     <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
                             Madhavan</span><a href="blog.html" class="blog-link">Read More <i
                                 class="fas fa-arrow-right"></i></a></div>
