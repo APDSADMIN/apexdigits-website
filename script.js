@@ -133,21 +133,30 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(typing, 1200);
     }
 
-    /* ── BLOG FILTER (blog.html) ── */
+    /* ── BLOG FILTER ── */
     const filterBtns = document.querySelectorAll('.filter-btn');
-    const blogCards = document.querySelectorAll('#blogGrid .blog-card');
-    const featuredRow = document.querySelector('.blog-featured-row');
+    const blogCards = document.querySelectorAll('.blog-card, .blog-wp-card');
+    const featuredRow = document.querySelector('.blog-featured-row'); // if exists
 
     if (filterBtns.length > 0) {
         filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // If it's a sidebar filter, we only want to manage active state within its group
+                const parentGroup = btn.closest('ul') || btn.closest('.filter-group');
+                if (parentGroup) {
+                    parentGroup.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                } else {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                }
+                
                 btn.classList.add('active');
 
                 const filter = btn.dataset.filter;
                 const isAll = filter === 'all';
 
-                // Handle featured row
+                // Handle featured row (if explicitly defined somewhere else)
                 if (featuredRow) {
                     featuredRow.style.display = (isAll || filter === 'multi-cloud') ? '' : 'none';
                 }
@@ -155,7 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Handle article cards
                 blogCards.forEach(card => {
                     const cat = card.dataset.category || '';
-                    card.classList.toggle('hidden', !isAll && cat !== filter);
+                    if (isAll) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = (cat === filter) ? '' : 'none';
+                    }
                 });
             });
         });
