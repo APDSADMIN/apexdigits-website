@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Azure Automation: Storing and Executing PowerShell Scripts | Gunaseelan Madhavan</title>
+    <meta name="description"
+        content="Learn how to store safely, manage easily, and execute PowerShell scripts securely at scale using Azure Automation Runbooks.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z"
+                            fill="none" stroke="url(#logo-grad-bp)" stroke-width="6" />
+                        <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-bp)" stroke-width="3"
+                            stroke-opacity="0.7" />
+                        <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-bp)" stroke-width="3"
+                            stroke-opacity="0.7" />
+                        <defs>
+                            <linearGradient id="logo-grad-bp" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">ApexDigits</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="expertise.html" class="nav-link">Expertise</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="blog.html" class="nav-link active-page">Blog</a></li>
+                <li><a href="contact.html" class="nav-link cta-nav">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger"
+                aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- POST HERO -->
+    <section class="page-hero post-hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="page-hero-content">
+            <nav class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><a
+                    href="blog.html">Blog</a><i class="fas fa-chevron-right"></i><span>Azure Automation</span></nav>
+            <div class="post-meta-row">
+                <span class="blog-cat">Multi-Cloud</span>
+                <span class="blog-read-time"><i class="fas fa-clock"></i> 8 min read</span>
+                <span class="blog-date"><i class="fas fa-calendar"></i> March 2026</span>
+            </div>
+            <h1 class="page-hero-title" style="font-size:clamp(1.8rem,4vw,3rem);">Azure Automation Runbooks<br><span class="gradient-text">Executing PowerShell Scripts</span></h1>
+            <div class="post-author-strip">
+                <div class="blog-author-pill">
+                    <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="author-avatar"
+                        style="object-fit:cover;">
+                    <div>
+                        <div class="author-name">Gunaseelan Madhavan</div>
+                        <div class="author-title">Senior Technical Architect &amp; Cloud SME at NatWest Group Plc</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POST BODY -->
+    <div class="post-layout">
+        <div class="container">
+            <div class="post-content-wrap">
+
+                <!-- ARTICLE -->
+                <article class="post-body">
+
+                    <div class="post-intro-box">
+                        <i class="fas fa-quote-left"></i>
+                        <p>Automation is the lifeblood of cloud operations. Transitioning PowerShell scripts from local desktops to the centralized, secure platform of Azure Automation ensures consistency, traceability, and scalable execution.</p>
+                    </div>
+
+                    <h2>The Need for Centralized Script Execution</h2>
+                    <p>Historically, System Administrators executed complex PowerShell scripts locally from their administrative workstations or dedicated management servers. While functional in small environments, this approach presents significant challenges in modern enterprises: "Where is the latest version of the script?", "Who has the credentials to run it?", and "How do we audit the execution logs?".</p>
+                    <p><strong>Azure Automation</strong> provides a native, integrated platform to solve these problems by centralizing the storage, orchestration, and secure execution of administrative tasks using <em>Runbooks</em>.</p>
+
+                    <h2>Storing Scripts as Runbooks</h2>
+                    <p>In Azure Automation, your PowerShell scripts exist as <strong>Runbooks</strong>. A Runbook is a set of tasks that perform some automated process in Azure Automation. There are several profound benefits to storing scripts this way:</p>
+
+                    <div class="post-principles-grid">
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-code-branch"></i></div>
+                            <h4>Source Control Integration</h4>
+                            <p>Runbooks can be natively bound to GitHub or Azure DevOps. Changes made in the repository trigger automatic synchronization to your Azure Automation account.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-lock"></i></div>
+                            <h4>Secure Variables &amp; Secrets</h4>
+                            <p>Hardcoding credentials in scripts is a severe anti-pattern. Azure Automation provides encrypted Variable and Credential assets that scripts can securely reference at runtime.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-server"></i></div>
+                            <h4>Modules Management</h4>
+                            <p>Easily import and manage required PowerShell modules (e.g., Az modules, Microsoft Graph) across the entire Automation Account, ensuring consistent dependencies for all scripts.</p>
+                        </div>
+                    </div>
+
+                    <h2>Executing PowerShell Scripts</h2>
+                    <p>The true power of Azure Automation lies in its flexible execution options for Runbooks. You can execute scripts seamlessly using multiple methods depending on your operational requirements:</p>
+
+                    <h3>1. Schedule-Based Execution</h3>
+                    <p>The most straightforward method is attaching a Schedule to a Runbook. Whether it's rotating logs at midnight or powering off non-production virtual machines at 6 PM on Fridays to save costs, schedules automate repetitive operational tasks without human intervention.</p>
+
+                    <h3>2. Webhook Triggers</h3>
+                    <p>Webhooks allow you to start a particular Runbook through a single HTTP request. This is exceptionally powerful for ITSM integration (e.g., ServiceNow triggering an Azure script to provision a user) or responding to Azure Monitor alerts containing auto-remediation payloads.</p>
+
+                    <h3>3. Azure Logic Apps Integration</h3>
+                    <p>For more sophisticated orchestrations, Azure Logic Apps can incorporate Azure Automation Runbooks into larger visual workflows. You can pass dynamically generated parameters from the Logic App directly into your PowerShell script.</p>
+
+                    <h2>Security Posture: The Era of Managed Identities</h2>
+                    <p>Executing actions against Azure resources requires authentication. Previously, "Run As Accounts" were widely used, which handled a Service Principal in the background. However, Microsoft has shifted the architectural standard.</p>
+                    
+                    <p>The modern, secure approach utilizes <strong>Managed Identities</strong>. By assigning a System-Assigned or User-Assigned Managed Identity to the Automation Account, the Runbook seamlessly authenticates to Azure Active Directory (Entra ID) without touching any credentials. You simply grant the Identity the requisite RBAC roles (e.g., Virtual Machine Contributor) on your subscriptions.</p>
+
+                    <div class="post-code-block">
+                        <div class="code-header"><span class="code-lang">Authentication Example</span><i
+                                class="fas fa-info-circle"></i></div>
+                        <pre><code># Authenticate using the system-assigned Managed Identity
+Connect-AzAccount -Identity
+
+# Execute tasks with inherited RBAC privileges
+Get-AzVM -Status | Where-Object { $_.PowerState -eq 'VM running' } | Stop-AzVM -Force</code></pre>
+                    </div>
+
+                    <h2>Advanced Feature: Hybrid Runbook Worker</h2>
+                    <p>If your script needs to execute against an on-premises Windows Server or a proprietary database outside of Azure, you can deploy a <strong>Hybrid Runbook Worker</strong>. The Azure Automation service instructs the worker agent installed on a local machine to execute the script <em>inside</em> your private network, securely bridging cloud automation with on-premises infrastructure.</p>
+
+                    <h2>Conclusion</h2>
+                    <p>Azure Automation transforms raw PowerShell scripts into enterprise-ready automation assets. By integrating source control, securing execution with Managed Identities, and providing robust triggering mechanics, teams can elevate their cloud operations from manual reactions to scalable, reliable processes.</p>
+                    <p>Looking to audit your automation security posture or migrate legacy scripts into modern Runbooks? <a href="contact.html" style="color:var(--blue);">Contact me</a> to discuss orchestrating your environment.</p>
+
+                    <!-- TAGS -->
+                    <div class="post-tags">
+                        <span class="skill-tag azure">Azure</span>
+                        <span class="skill-tag">PowerShell</span>
+                        <span class="skill-tag">Automation</span>
+                        <span class="skill-tag security">DevSecOps</span>
+                        <span class="skill-tag">Runbooks</span>
+                    </div>
+
+                    <!-- SHARE -->
+                    <div class="post-share">
+                        <span>Share this article:</span>
+                        <div class="share-btns">
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://apexdigits.com"
+                                target="_blank" class="social-btn linkedin" aria-label="Share on LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="https://twitter.com/intent/tweet?text=Azure+Automation+Runbooks+Executing+PowerShell+Scripts&url=https://apexdigits.com&via=Gunaseelan1108"
+                                target="_blank" class="social-btn twitter" aria-label="Share on Twitter"><i
+                                    class="fab fa-x-twitter"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- AUTHOR BOX -->
+                    <div class="post-author-box">
+                        <div class="portrait-avatar"
+                            style="width:70px;height:70px;flex-shrink:0;border-radius:16px;overflow:hidden;">
+                            <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="portrait-img">
+                        </div>
+                        <div>
+                            <div class="author-name" style="font-size:1.05rem;margin-bottom:0.3rem;">Gunaseelan Madhavan
+                            </div>
+                            <div class="author-title" style="margin-bottom:0.6rem;">Senior Technical Architect &amp;
+                                Cloud SME at NatWest Group Plc</div>
+                            <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;">20+ years of
+                                enterprise technology leadership across cloud, infrastructure, and digital workplace.
+                                Passionate about sharing practitioner knowledge and advancing the profession.</p>
+                            <div class="contact-social-row" style="margin-top:0.75rem;">
+                                <a href="https://www.linkedin.com/in/gunaseelan-madhavan" target="_blank"
+                                    class="social-btn linkedin" aria-label="LinkedIn"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a href="https://twitter.com/Gunaseelan1108" target="_blank" class="social-btn twitter"
+                                    aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- SIDEBAR -->
+                <aside class="post-sidebar">
+                    <div class="sidebar-card">
+                        <h4>Table of Contents</h4>
+                        <ul class="toc-list">
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Centralized Execution</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Storing Scripts</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Executing Scripts</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Security Posture</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Conclusion</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h4>Related Articles</h4>
+                        <div class="related-articles">
+                            <a href="entra-cloud-sync-multi-cloud.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">Multi-Cloud</span>
+                                <p>Microsoft Entra Cloud Sync: Mastering Multi-Cloud Identity</p>
+                            </a>
+                            <a href="designing-resilient-landing-zones.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">Multi-Cloud</span>
+                                <p>Designing Resilient Landing Zones Across Azure, AWS & GCP</p>
+                            </a>
+                            <a href="zero-trust-practice.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">DevSecOps</span>
+                                <p>Zero Trust in Practice: From Policy to Pipeline</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card sidebar-cta">
+                        <i class="fas fa-envelope" style="font-size:2rem;color:var(--blue);margin-bottom:0.75rem;"></i>
+                        <h4>Work with Gunaseelan</h4>
+                        <p>Available for architecture reviews and consulting engagements.</p>
+                        <a href="contact.html" class="btn btn-primary"
+                            style="width:100%;justify-content:center;margin-top:1rem;border-radius:var(--radius);">Get
+                            In Touch</a>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MORE ARTICLES -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">Keep Reading</span>
+                <h2 class="section-title">More <span class="gradient-text">Insights</span></h2>
+            </div>
+            <div class="blog-grid">
+                <article class="blog-card featured-blog">
+                    <div class="blog-card-top"><span class="blog-cat">Multi-Cloud</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 8 min read</span></div>
+                    <h3>Designing Resilient Landing Zones Across Azure, AWS & GCP</h3>
+                    <p>A deep-dive into the principles, anti-patterns, and architectural guardrails for building truly cloud-agnostic enterprise landing zones at scale.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="designing-resilient-landing-zones.html" class="blog-link">Read More <i
+                                class="fas fa-arrow-right"></i></a></div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card-top"><span class="blog-cat">DevSecOps</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 6 min read</span></div>
+                    <h3>Zero Trust in Practice: From Policy to Pipeline</h3>
+                    <p>How to operationalise Zero Trust inside modern DevOps pipelines using Azure Policy, OPA, and GitHub Actions.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="zero-trust-practice.html" class="blog-link">Read More <i
+                                 class="fas fa-arrow-right"></i></a></div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card-top"><span class="blog-cat">EUC / VDI</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 10 min read</span></div>
+                    <h3>Citrix to AVD: Migration Playbook for Enterprise Teams</h3>
+                    <p>A practitioner's guide to navigating the complex journey from legacy Citrix to Azure Virtual Desktop.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="blog.html" class="blog-link">Read More <i
+                                class="fas fa-arrow-right"></i></a></div>
+                </article>
+            </div>
+            <div style="text-align:center;margin-top:2rem;"><a href="blog.html" class="btn btn-outline"><i
+                        class="fas fa-th-large"></i> All Articles</a></div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="index.html" class="nav-logo">
+                    <div class="logo-icon">
+                        <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z"
+                                fill="none" stroke="url(#logo-grad-bp-f)" stroke-width="6" />
+                            <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-bp-f)"
+                                stroke-width="3" stroke-opacity="0.5" />
+                            <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-bp-f)"
+                                stroke-width="3" stroke-opacity="0.5" />
+                            <defs>
+                                <linearGradient id="logo-grad-bp-f" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="logo-text">ApexDigits</span>
+                </a>
+                <p>Senior Technical Architect &amp; SME in Cloud, EUC, and Enterprise Infrastructure. Based in the
+                    United Kingdom.</p>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/gunaseelan-madhavan" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/Gunaseelan1108" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+            <div class="footer-links-col">
+                <h4>Pages</h4>
+                <ul>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="expertise.html">Portfolio</a></li>
+                    <li><a href="experience.html">Experience</a></li>
+                    <li><a href="blog.html">Blog &amp; Insights</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:+447442316163"><i class="fas fa-phone fa-xs"></i> +44 7442 316163</a></li>
+                    <li><a href="mailto:Gunaseelan.Madhavan@ApexDigits.com"><i class="fas fa-envelope fa-xs"></i> Email
+                            Me</a></li>
+                    <li><a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe fa-xs"></i>
+                            ApexDigits.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Gunaseelan Madhavan &middot; ApexDigits. All rights reserved.</p>
+            <p>Built with <i class="fas fa-heart" style="color:#4facfe;"></i> for enterprise excellence.</p>
+        </div>
+    </footer>
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+    <script src="script.js"></script>
+</body>
+
+</html>
