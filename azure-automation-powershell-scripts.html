@@ -95,6 +95,15 @@
                     <p>Historically, System Administrators executed complex PowerShell scripts locally from their administrative workstations or dedicated management servers. While functional in small environments, this approach presents significant challenges in modern enterprises: "Where is the latest version of the script?", "Who has the credentials to run it?", and "How do we audit the execution logs?".</p>
                     <p><strong>Azure Automation</strong> provides a native, integrated platform to solve these problems by centralizing the storage, orchestration, and secure execution of administrative tasks using <em>Runbooks</em>.</p>
 
+                    <div class="post-code-block">
+                        <div class="code-header"><span class="code-lang">Provision Automation Account</span><i class="fas fa-terminal"></i></div>
+                        <pre><code># Provisioning an Automation Account with a System-Assigned Identity
+New-AzAutomationAccount -ResourceGroupName "rg-automation-prod" `
+    -Name "aa-enterprise-ops" `
+    -Location "UK South" `
+    -AssignSystemIdentity</code></pre>
+                    </div>
+
                     <h2>Storing Scripts as Runbooks</h2>
                     <p>In Azure Automation, your PowerShell scripts exist as <strong>Runbooks</strong>. A Runbook is a set of tasks that perform some automated process in Azure Automation. There are several profound benefits to storing scripts this way:</p>
 
@@ -116,6 +125,28 @@
                         </div>
                     </div>
 
+                    <h3>Technical Implementation: Creating and Publishing a Runbook</h3>
+                    <p>Once your Automation Account is ready, you can deploy your scripts. Below is a practical example of creating a Runbook that stops untagged Virtual Machines, and publishing it directly via the Az PowerShell module.</p>
+                    <div class="post-code-block">
+                        <div class="code-header"><span class="code-lang">Azure PowerShell</span><i class="fas fa-terminal"></i></div>
+                        <pre><code>$ScriptPath = ".\Stop-UntaggedVMs.ps1"
+$ResourceGroup = "rg-automation-prod"
+$AutomationAccount = "aa-enterprise-ops"
+
+# Import a custom script as a Runbook
+Import-AzAutomationRunbook -ResourceGroupName $ResourceGroup `
+    -AutomationAccountName $AutomationAccount `
+    -Path $ScriptPath `
+    -Type PowerShell `
+    -Name "Stop-UntaggedVMs" `
+    -Description "Stops all VMs missing the 'Environment' tag"
+
+# Publish the Runbook for execution
+Publish-AzAutomationRunbook -ResourceGroupName $ResourceGroup `
+    -AutomationAccountName $AutomationAccount `
+    -Name "Stop-UntaggedVMs"</code></pre>
+                    </div>
+
                     <h2>Executing PowerShell Scripts</h2>
                     <p>The true power of Azure Automation lies in its flexible execution options for Runbooks. You can execute scripts seamlessly using multiple methods depending on your operational requirements:</p>
 
@@ -124,6 +155,23 @@
 
                     <h3>2. Webhook Triggers</h3>
                     <p>Webhooks allow you to start a particular Runbook through a single HTTP request. This is exceptionally powerful for ITSM integration (e.g., ServiceNow triggering an Azure script to provision a user) or responding to Azure Monitor alerts containing auto-remediation payloads.</p>
+                    <div class="post-code-block">
+                        <div class="code-header"><span class="code-lang">Create & Trigger Webhook</span><i class="fas fa-terminal"></i></div>
+                        <pre><code># Create Webhook (Valid for 1 year)
+$Webhook = New-AzAutomationWebhook -ResourceGroupName $ResourceGroup `
+    -AutomationAccountName $AutomationAccount `
+    -Name "Invoke-StopVMs" `
+    -RunbookName "Stop-UntaggedVMs" `
+    -IsEnabled $True `
+    -ExpiryTime (Get-Date).AddYears(1) `
+    -Force
+
+# The WebhookURI is ONLY shown once upon creation!
+$URI = $Webhook.WebhookURI
+
+# Trigger the Runbook externally via REST API
+Invoke-RestMethod -Method Post -Uri $URI -Body (@{ "Action" = "ForceStop" } | ConvertTo-Json)</code></pre>
+                    </div>
 
                     <h3>3. Azure Logic Apps Integration</h3>
                     <p>For more sophisticated orchestrations, Azure Logic Apps can incorporate Azure Automation Runbooks into larger visual workflows. You can pass dynamically generated parameters from the Logic App directly into your PowerShell script.</p>
