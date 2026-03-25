@@ -218,4 +218,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    /* ── DYNAMIC SOCIAL SHARING ── */
+    const shareContainer = document.querySelector('.post-share');
+    if (shareContainer) {
+        const currentUrl = encodeURIComponent(window.location.href);
+        const currentTitle = encodeURIComponent(document.title.split('|')[0].trim()); // Clean title
+        
+        const linkedInBtn = shareContainer.querySelector('.social-btn.linkedin');
+        if (linkedInBtn) {
+            linkedInBtn.href = `https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`;
+        }
+        
+        const twitterBtn = shareContainer.querySelector('.social-btn.twitter');
+        if (twitterBtn) {
+            twitterBtn.href = `https://twitter.com/intent/tweet?text=${currentTitle}&url=${currentUrl}&via=Gunaseelan1108`;
+        }
+    }
+
 });
