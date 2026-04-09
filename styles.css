@@ -13,37 +13,37 @@
 }
 
 :root {
-  --navy: #050d1a;
-  --navy-light: #0a1628;
-  --navy-mid: #0e1f38;
-  --slate: #1a2942;
-  --slate-light: #243552;
-  --blue: #4facfe;
-  --blue-deep: #1a6fc4;
-  --blue-glow: rgba(79, 172, 254, 0.18);
-  --cyan: #00f2fe;
-  --accent: #6ee7f7;
-  --green: #43e97b;
-  --purple: #a78bfa;
+  --navy: #0B0C10;
+  --navy-light: #12141A;
+  --navy-mid: #1F2833;
+  --slate: #2B3746;
+  --slate-light: #3D4A5A;
+  --blue: #45A29E;
+  --blue-deep: #2E7975;
+  --blue-glow: rgba(69, 162, 158, 0.18);
+  --cyan: #66FCF1;
+  --accent: #E21C7B;
+  --green: #05F1B5;
+  --purple: #C850C0;
   --white: #ffffff;
   --gray-100: #f1f5f9;
   --gray-200: #cbd5e1;
   --gray-400: #94a3b8;
   --gray-600: #475569;
-  --text: #e2e8f0;
-  --text-muted: #94a3b8;
-  --border: rgba(79, 172, 254, 0.15);
-  --card-bg: rgba(10, 22, 40, 0.85);
-  --gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --gradient-r: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-  --gradient-p: linear-gradient(135deg, #a78bfa 0%, #818cf8 100%);
+  --text: #C5C6C7;
+  --text-muted: #8F9A9C;
+  --border: rgba(102, 252, 241, 0.15);
+  --card-bg: rgba(18, 20, 26, 0.85);
+  --gradient: linear-gradient(135deg, #45A29E 0%, #66FCF1 100%);
+  --gradient-r: linear-gradient(135deg, #E21C7B 0%, #FF6A88 100%);
+  --gradient-p: linear-gradient(135deg, #4158D0 0%, #C850C0 100%);
   --font-main: 'Inter', system-ui, sans-serif;
-  --font-head: 'Montserrat', system-ui, sans-serif;
+  --font-head: 'Outfit', 'Montserrat', system-ui, sans-serif;
   --radius: 12px;
   --radius-lg: 20px;
   --transition: 0.3s ease;
   --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  --shadow-blue: 0 8px 32px rgba(79, 172, 254, 0.15);
+  --shadow-blue: 0 8px 32px rgba(69, 162, 158, 0.15);
 }
 
 html {
@@ -69,7 +69,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z' fill='none' stroke='%234facfe' stroke-width='0.5' stroke-opacity='0.15'/%3E%3Cpath d='M50 10 C 65 30, 65 70, 50 90 M10 50 C 30 35, 70 35, 90 50' fill='none' stroke='%234facfe' stroke-width='0.3' stroke-opacity='0.1'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z' fill='none' stroke='%2345A29E' stroke-width='0.5' stroke-opacity='0.15'/%3E%3Cpath d='M50 10 C 65 30, 65 70, 50 90 M10 50 C 30 35, 70 35, 90 50' fill='none' stroke='%2345A29E' stroke-width='0.3' stroke-opacity='0.1'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 350px;
   z-index: -1;
@@ -310,11 +310,11 @@ h5 {
 .btn-primary {
   background: var(--gradient);
   color: var(--navy);
-  box-shadow: 0 4px 20px rgba(79, 172, 254, 0.35);
+  box-shadow: 0 4px 20px rgba(69, 162, 158, 0.35);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 8px 28px rgba(79, 172, 254, 0.45);
+  box-shadow: 0 8px 28px rgba(69, 162, 158, 0.45);
 }
 
 .btn-outline {
@@ -498,8 +498,8 @@ h5 {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  background: radial-gradient(ellipse at 20% 50%, rgba(26, 111, 196, 0.18) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(79, 172, 254, 0.12) 0%, transparent 50%),
+  background: radial-gradient(ellipse at 20% 50%, rgba(46, 121, 117, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(69, 162, 158, 0.12) 0%, transparent 50%),
     var(--navy);
   padding: 6rem 1.5rem 4rem;
   text-align: center;
@@ -511,8 +511,8 @@ h5 {
   z-index: 0;
   opacity: 0.25;
   background-image:
-    linear-gradient(rgba(79, 172, 254, 0.15) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(79, 172, 254, 0.15) 1px, transparent 1px);
+    linear-gradient(rgba(69, 162, 158, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(69, 162, 158, 0.15) 1px, transparent 1px);
   background-size: 60px 60px;
   animation: grid-move 12s linear infinite;
 }
@@ -528,7 +528,7 @@ h5 {
 .hero-orb-1 {
   width: 500px;
   height: 500px;
-  background: rgba(79, 172, 254, 0.12);
+  background: rgba(69, 162, 158, 0.12);
   top: -100px;
   right: -100px;
 }
@@ -536,7 +536,7 @@ h5 {
 .hero-orb-2 {
   width: 400px;
   height: 400px;
-  background: rgba(0, 242, 254, 0.08);
+  background: rgba(102, 252, 241, 0.08);
   bottom: -80px;
   left: -80px;
 }
@@ -559,7 +559,7 @@ h5 {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(79, 172, 254, 0.1);
+  background: rgba(69, 162, 158, 0.1);
   border: 1px solid var(--border);
   color: var(--blue);
   padding: 0.5rem 1.25rem;
@@ -601,7 +601,7 @@ h5 {
 }
 
 .tech-pill {
-  background: rgba(79, 172, 254, 0.08);
+  background: rgba(69, 162, 158, 0.08);
   border: 1px solid var(--border);
   color: var(--accent);
   padding: 0.4rem 1rem;
@@ -615,7 +615,7 @@ h5 {
 }
 
 .tech-pill:hover {
-  background: rgba(79, 172, 254, 0.18);
+  background: rgba(69, 162, 158, 0.18);
   border-color: var(--blue);
 }
 
