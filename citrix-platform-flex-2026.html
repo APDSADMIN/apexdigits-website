@@ -141,7 +141,11 @@
                     <p>When a remote user initiates a session, the <strong>Citrix Enterprise Browser</strong> or Workspace App first performs a local device posture check. This context (OS version, domain join status, registry keys) is passed to <strong>Secure Private Access (SPA)</strong>. SPA evaluates this against adaptive ZTNA policies.</p>
                     <p>At this junction, the <strong>Flex Credit Metering</strong> service calculates the consumption cost dynamically. A standard SaaS application proxied through SPA burns significantly fewer credits than a fully brokered HDX desktop session passing through the DaaS Controller.</p>
                     
-                    <div class="post-code-block" style="background:rgba(20,20,30,0.5); padding:1.5rem; display:flex; justify-content:center; overflow-x:auto;">
+                    <div class="post-code-block" style="background:rgba(20,20,30,0.5); padding:2rem; overflow-x:auto; border-radius:12px;">
+                        <style>
+                            .mermaid { min-width: 1000px; display:flex; justify-content:center; }
+                            .mermaid svg { max-width: 100% !important; height: auto !important; }
+                        </style>
                         <div class="mermaid">
                             flowchart TD
                                 subgraph Client ["Client Edge"]
