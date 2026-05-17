@@ -134,6 +134,31 @@
 4. Align ZTNA policies with the Enterprise Browser deployment strategy.</code></pre>
                     </div>
 
+                    <h2>Platform Architecture Deep-Dive</h2>
+                    <p>Understanding how the Flex model practically integrates with an existing on-premises or cloud environment is critical. The architecture centralizes the control plane and policy enforcement in Citrix Cloud, while workloads can remain distributed across hybrid environments. Here is a high-level component diagram illustrating the secure access flow and how Flex credits apply across the stack:</p>
+                    
+                    <div class="post-code-block" style="background:rgba(20,20,30,0.5); padding:1.5rem; display:flex; justify-content:center; overflow-x:auto;">
+                        <div class="mermaid">
+                            flowchart TD
+                                User[User Endpoint] --> Browser[Citrix Enterprise Browser]
+                                Browser --> ControlPlane{Citrix Cloud ZTNA}
+                                
+                                ControlPlane -- "Flex Credit: Web/SaaS" --> SaaS[Internal SaaS Apps]
+                                ControlPlane -- "Flex Credit: Virtual Apps" --> CVAD[CVAD Workloads]
+                                ControlPlane -- "Flex Credit: Full Desktop" --> DaaS[DaaS / VDI Desktops]
+                                
+                                CVAD --> NetScaler[NetScaler Gateway Service]
+                                DaaS --> NetScaler
+                                
+                                NetScaler --> OnPrem[On-Premises Data Center]
+                                NetScaler --> PublicCloud[Public Cloud Azure/AWS]
+                                
+                                classDef default fill:#1a1a2e,stroke:#45A29E,stroke-width:2px,color:#fff;
+                                classDef cloud fill:#0f3460,stroke:#66FCF1,stroke-width:2px,color:#fff;
+                                class ControlPlane,NetScaler cloud;
+                        </div>
+                    </div>
+
                     <h2>Conclusion</h2>
                     <p>Citrix Platform Flex is a strong indicator of the industry's direction: flexibility, granular control, and consumption-aligned costs. By adopting this model, enterprises can break free from static infrastructure constraints and build highly responsive digital workspaces tailored to the modern hybrid workforce.</p>
 
@@ -327,6 +352,10 @@
     </footer>
     <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
     <script src="script.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { primaryColor: '#1a1a2e', primaryTextColor: '#fff', primaryBorderColor: '#45A29E', lineColor: '#66FCF1', secondaryColor: '#0f3460', tertiaryColor: '#16213e' } });
+    </script>
 </body>
 
 </html>
