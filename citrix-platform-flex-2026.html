@@ -135,29 +135,62 @@
                     </div>
 
                     <h2>Platform Architecture Deep-Dive</h2>
-                    <p>Understanding how the Flex model practically integrates with an existing on-premises or cloud environment is critical. The architecture centralizes the control plane and policy enforcement in Citrix Cloud, while workloads can remain distributed across hybrid environments. Here is a high-level component diagram illustrating the secure access flow and how Flex credits apply across the stack:</p>
+                    <p>Understanding how the Flex model practically integrates with an existing on-premises or cloud environment is critical. The architecture moves entirely to a decentralized data plane with a centralized control plane. Policy enforcement occurs in Citrix Cloud, while workloads can remain distributed across on-premises data centers and public clouds.</p>
+                    
+                    <h3>The Enforcement Flow & Telemetry</h3>
+                    <p>When a remote user initiates a session, the <strong>Citrix Enterprise Browser</strong> or Workspace App first performs a local device posture check. This context (OS version, domain join status, registry keys) is passed to <strong>Secure Private Access (SPA)</strong>. SPA evaluates this against adaptive ZTNA policies.</p>
+                    <p>At this junction, the <strong>Flex Credit Metering</strong> service calculates the consumption cost dynamically. A standard SaaS application proxied through SPA burns significantly fewer credits than a fully brokered HDX desktop session passing through the DaaS Controller.</p>
                     
                     <div class="post-code-block" style="background:rgba(20,20,30,0.5); padding:1.5rem; display:flex; justify-content:center; overflow-x:auto;">
                         <div class="mermaid">
                             flowchart TD
-                                User[User Endpoint] --> Browser[Citrix Enterprise Browser]
-                                Browser --> ControlPlane{Citrix Cloud ZTNA}
+                                subgraph Client ["Client Edge"]
+                                    User[Remote User] --> Context[Device Posture]
+                                    Context --> App[Enterprise Browser / Workspace App]
+                                end
+
+                                subgraph ControlPlane ["Citrix Cloud (Control Plane)"]
+                                    SPA{Secure Private Access}
+                                    DaaS[Citrix DaaS Controller]
+                                    Meter((Flex Credit Metering))
+                                    CAS[Analytics for Security]
+                                end
+
+                                subgraph DataPlane ["Data Plane / Edge"]
+                                    NetScaler[NetScaler Gateway / Connector]
+                                end
+
+                                subgraph Resources ["Hybrid Resource Locations"]
+                                    SaaS[Internal Web & SaaS]
+                                    VDI[On-Premises VDI]
+                                    CloudVDI[Public Cloud Desktops]
+                                end
+
+                                App -->|ZTNA Auth| SPA
+                                App -->|HDX Brokering| DaaS
+                                SPA --> CAS
+                                DaaS --> CAS
                                 
-                                ControlPlane -- "Flex Credit: Web/SaaS" --> SaaS[Internal SaaS Apps]
-                                ControlPlane -- "Flex Credit: Virtual Apps" --> CVAD[CVAD Workloads]
-                                ControlPlane -- "Flex Credit: Full Desktop" --> DaaS[DaaS / VDI Desktops]
-                                
-                                CVAD --> NetScaler[NetScaler Gateway Service]
-                                DaaS --> NetScaler
-                                
-                                NetScaler --> OnPrem[On-Premises Data Center]
-                                NetScaler --> PublicCloud[Public Cloud Azure/AWS]
+                                SPA -->|Low Credit Yield| Meter
+                                DaaS -->|High Credit Yield| Meter
+
+                                SPA -->|TCP/UDP Proxy| NetScaler
+                                DaaS -->|ICA Proxy| NetScaler
+
+                                NetScaler --> SaaS
+                                NetScaler --> VDI
+                                NetScaler --> CloudVDI
                                 
                                 classDef default fill:#1a1a2e,stroke:#45A29E,stroke-width:2px,color:#fff;
                                 classDef cloud fill:#0f3460,stroke:#66FCF1,stroke-width:2px,color:#fff;
-                                class ControlPlane,NetScaler cloud;
+                                classDef meter fill:#3a0ca3,stroke:#7209b7,stroke-width:2px,color:#fff;
+                                class SPA,DaaS,CAS cloud;
+                                class Meter meter;
                         </div>
                     </div>
+
+                    <h3>NetScaler's Evolved Role</h3>
+                    <p>Notice that NetScaler sits in the data plane rather than the control plane. In the Platform Flex model, NetScaler acts purely as an ICA proxy or a zero-trust network connector. The heavy lifting of authentication, continuous authorization, and risk scoring (via Citrix Analytics for Security - CAS) is offloaded entirely to the cloud services. This reduces the administrative overhead of managing complex NetScaler Gateway policies on-premises.</p>
 
                     <h2>Conclusion</h2>
                     <p>Citrix Platform Flex is a strong indicator of the industry's direction: flexibility, granular control, and consumption-aligned costs. By adopting this model, enterprises can break free from static infrastructure constraints and build highly responsive digital workspaces tailored to the modern hybrid workforce.</p>
