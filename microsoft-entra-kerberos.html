@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Microsoft Entra Kerberos: Modernizing Authentication | Gunaseelan Madhavan</title>
+    <meta name="description"
+        content="Transition from legacy on-premises Kerberos to cloud-native Microsoft Entra Kerberos for seamless hybrid authentication and Azure Files access.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z"
+                            fill="none" stroke="url(#logo-grad-bp)" stroke-width="6" />
+                        <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-bp)" stroke-width="3"
+                            stroke-opacity="0.7" />
+                        <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-bp)" stroke-width="3"
+                            stroke-opacity="0.7" />
+                        <defs>
+                            <linearGradient id="logo-grad-bp" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#45A29E;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#66FCF1;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">ApexDigits</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="expertise.html" class="nav-link">Expertise</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="blog.html" class="nav-link active-page">Blog</a></li>
+                <li><a href="contact.html" class="nav-link cta-nav">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger"
+                aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- POST HERO -->
+    <section class="page-hero post-hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="page-hero-content">
+            <nav class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><a
+                    href="blog.html">Blog</a><i class="fas fa-chevron-right"></i><span>Microsoft Entra Kerberos</span></nav>
+            <div class="post-meta-row">
+                <span class="blog-cat">DevSecOps</span>
+                <span class="blog-read-time"><i class="fas fa-clock"></i> 6 min read</span>
+                <span class="blog-date"><i class="fas fa-calendar"></i> May 2026</span>
+            </div>
+            <h1 class="page-hero-title" style="font-size:clamp(1.8rem,4vw,3rem);">Microsoft Entra Kerberos<br><span class="gradient-text">Modernizing Legacy Authentication</span></h1>
+            <div class="post-author-strip">
+                <div class="blog-author-pill">
+                    <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="author-avatar"
+                        style="object-fit:cover;">
+                    <div>
+                        <div class="author-name">Gunaseelan Madhavan</div>
+                        <div class="author-title">Senior Technical Architect &amp; Cloud SME at NatWest Group Plc</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POST BODY -->
+    <div class="post-layout">
+        <div class="container">
+            <div class="post-content-wrap">
+
+                <!-- ARTICLE -->
+                <article class="post-body">
+
+                    <div class="post-intro-box">
+                        <i class="fas fa-quote-left"></i>
+                        <p>Eliminating the line-of-sight requirement to an on-premises domain controller is a crucial step in a Zero Trust strategy. Microsoft Entra Kerberos bridges the gap between legacy applications and modern cloud identity.</p>
+                    </div>
+
+                    <h2>The Challenge with Legacy Authentication</h2>
+                    <p>As organizations move to the cloud, legacy authentication protocols like NTLM and Kerberos often stand in the way. Traditional Kerberos requires a direct line-of-sight to an on-premises Active Directory Domain Controller (DC). For remote workers, this usually meant maintaining complex VPN infrastructures just to access legacy applications or on-premises file shares.</p>
+
+                    <h2>Enter Microsoft Entra Kerberos</h2>
+                    <p><strong>Microsoft Entra Kerberos</strong> (previously known as Azure AD Kerberos) shifts the Kerberos Ticket Granting Ticket (TGT) issuance to the cloud. When users authenticate against Entra ID, they receive a cloud-issued Kerberos ticket alongside their standard OAuth/OIDC tokens.</p>
+
+                    <div class="post-principles-grid">
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-eye-slash"></i></div>
+                            <h4>No Line-of-Sight</h4>
+                            <p>Users can access Kerberos-reliant resources over the internet without needing a direct connection or VPN to on-premises DCs.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-key"></i></div>
+                            <h4>Passwordless Ready</h4>
+                            <p>Unlocks the ability to use modern, phishing-resistant credentials like FIDO2 security keys or Windows Hello for Business for legacy app access.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-folder-open"></i></div>
+                            <h4>Azure Files Support</h4>
+                            <p>Seamlessly access Azure Files over SMB using cloud-only or hybrid identities, without syncing passwords back on-premises.</p>
+                        </div>
+                    </div>
+
+                    <h2>Primary Use Cases</h2>
+
+                    <h3>1. Azure Files over SMB</h3>
+                    <p>One of the most common drivers for deploying Entra Kerberos is enabling secure SMB access to Azure Files. By integrating Entra Kerberos, organizations can enforce modern Conditional Access policies, multi-factor authentication (MFA), and passwordless flows when accessing shared cloud storage.</p>
+
+                    <h3>2. Cloud Trust for Windows Hello for Business</h3>
+                    <p>Microsoft Entra Kerberos simplifies the deployment of Windows Hello for Business (WHfB) by enabling the "Cloud Trust" deployment model. This model removes the requirement for complex PKI (Public Key Infrastructure) setups, allowing faster and simpler rollouts of passwordless authentication to endpoints.</p>
+
+                    <h2>Implementation Guardrails</h2>
+                    <p>When designing an Entra Kerberos architecture, consider the following:</p>
+                    <ul class="post-list">
+                        <li><strong>Hybrid Identity:</strong> Users must be synchronized from on-premises AD to Entra ID (using Entra Connect or Cloud Sync). Cloud-only users currently have limited support depending on the exact workload (e.g., supported for Azure Files but not legacy on-prem apps).</li>
+                        <li><strong>Endpoint Readiness:</strong> Windows 10/11 devices must be Entra Joined or Hybrid Entra Joined and running a supported build.</li>
+                        <li><strong>Security Configuration:</strong> Ensure your Entra ID Kerberos Server object (`krbtgt_AzureAD`) is securely managed and rotated according to best practices.</li>
+                    </ul>
+
+                    <div class="post-code-block">
+                        <div class="code-header"><span class="code-lang">PowerShell Setup Snippet</span><i
+                                class="fas fa-info-circle"></i></div>
+                        <pre><code># Install the AzureADKerberos module
+Install-Module -Name AzureADKerberos
+
+# Set up the Entra ID Kerberos Server object
+Set-AzureADKerberosServer -Domain "contoso.com" -UserPrincipalName "krbtgt_AzureAD@contoso.com"</code></pre>
+                    </div>
+
+                    <h2>Conclusion</h2>
+                    <p>Microsoft Entra Kerberos is a vital transitional technology. It allows organizations to decouple their endpoints from legacy on-premises infrastructure while maintaining access to critical resources that have not yet been modernized.</p>
+                    <p>Need assistance mapping out your transition to modern identity? <a href="contact.html" style="color:var(--blue);">Let's discuss</a> your Zero Trust journey.</p>
+
+                    <!-- TAGS -->
+                    <div class="post-tags">
+                        <span class="skill-tag azure">Entra ID</span>
+                        <span class="skill-tag security">Kerberos</span>
+                        <span class="skill-tag security">Zero Trust</span>
+                        <span class="skill-tag">Identity</span>
+                    </div>
+
+                    <!-- SHARE -->
+                    <div class="post-share">
+                        <span>Share this article:</span>
+                        <div class="share-btns">
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://apexdigits.net"
+                                target="_blank" class="social-btn linkedin" aria-label="Share on LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="https://twitter.com/intent/tweet?text=Microsoft+Entra+Kerberos+Modernizing+Legacy+Authentication&url=https://apexdigits.net&via=Gunaseelan1108"
+                                target="_blank" class="social-btn twitter" aria-label="Share on Twitter"><i
+                                    class="fab fa-x-twitter"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- AUTHOR BOX -->
+                    <div class="post-author-box">
+                        <div class="portrait-avatar"
+                            style="width:70px;height:70px;flex-shrink:0;border-radius:16px;overflow:hidden;">
+                            <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="portrait-img">
+                        </div>
+                        <div>
+                            <div class="author-name" style="font-size:1.05rem;margin-bottom:0.3rem;">Gunaseelan Madhavan
+                            </div>
+                            <div class="author-title" style="margin-bottom:0.6rem;">Senior Technical Architect &amp;
+                                Cloud SME at NatWest Group Plc</div>
+                            <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;">20+ years of
+                                enterprise technology leadership across cloud, infrastructure, and digital workplace.
+                                Passionate about sharing practitioner knowledge and advancing the profession.</p>
+                            <div class="contact-social-row" style="margin-top:0.75rem;">
+                                <a href="https://www.linkedin.com/in/Gunaseelan1108" target="_blank"
+                                    class="social-btn linkedin" aria-label="LinkedIn"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a href="https://twitter.com/Gunaseelan1108" target="_blank" class="social-btn twitter"
+                                    aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- SIDEBAR -->
+                <aside class="post-sidebar">
+                    <div class="sidebar-card">
+                        <h4>Table of Contents</h4>
+                        <ul class="toc-list">
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Legacy Authentication Challenge</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Enter Entra Kerberos</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Primary Use Cases</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Implementation Guardrails</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Conclusion</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h4>Related Articles</h4>
+                        <div class="related-articles">
+                            <a href="entra-cloud-sync-multi-cloud.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">Multi-Cloud</span>
+                                <p>Microsoft Entra Cloud Sync: Mastering Multi-Cloud Identity</p>
+                            </a>
+                            <a href="zero-trust-practice.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">DevSecOps</span>
+                                <p>Zero Trust in Practice: From Policy to Pipeline</p>
+                            </a>
+                            <a href="designing-resilient-landing-zones.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">Multi-Cloud</span>
+                                <p>Designing Resilient Landing Zones Across Azure, AWS & GCP</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card sidebar-cta">
+                        <i class="fas fa-envelope" style="font-size:2rem;color:var(--blue);margin-bottom:0.75rem;"></i>
+                        <h4>Work with Gunaseelan</h4>
+                        <p>Available for architecture reviews and consulting engagements.</p>
+                        <a href="contact.html" class="btn btn-primary"
+                            style="width:100%;justify-content:center;margin-top:1rem;border-radius:var(--radius);">Get
+                            In Touch</a>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MORE ARTICLES -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">Keep Reading</span>
+                <h2 class="section-title">More <span class="gradient-text">Insights</span></h2>
+            </div>
+            <div class="blog-grid">
+                <article class="blog-card featured-blog">
+                    <div class="blog-card-top"><span class="blog-cat">Multi-Cloud</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 8 min read</span></div>
+                    <h3>Designing Resilient Landing Zones Across Azure, AWS & GCP</h3>
+                    <p>A deep-dive into the principles, anti-patterns, and architectural guardrails for building truly cloud-agnostic enterprise landing zones at scale.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="designing-resilient-landing-zones.html" class="blog-link">Read More <i
+                                class="fas fa-arrow-right"></i></a></div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card-top"><span class="blog-cat">DevSecOps</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 6 min read</span></div>
+                    <h3>Zero Trust in Practice: From Policy to Pipeline</h3>
+                    <p>How to operationalise Zero Trust inside modern DevOps pipelines using Azure Policy, OPA, and GitHub Actions.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="zero-trust-practice.html" class="blog-link">Read More <i
+                                 class="fas fa-arrow-right"></i></a></div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card-top"><span class="blog-cat">EUC / VDI</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 10 min read</span></div>
+                    <h3>Citrix to AVD: Migration Playbook for Enterprise Teams</h3>
+                    <p>A practitioner's guide to navigating the complex journey from legacy Citrix to Azure Virtual Desktop.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="blog.html" class="blog-link">Read More <i
+                                class="fas fa-arrow-right"></i></a></div>
+                </article>
+            </div>
+            <div style="text-align:center;margin-top:2rem;"><a href="blog.html" class="btn btn-outline"><i
+                        class="fas fa-th-large"></i> All Articles</a></div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="index.html" class="nav-logo">
+                    <div class="logo-icon">
+                        <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z"
+                                fill="none" stroke="url(#logo-grad-bp-f)" stroke-width="6" />
+                            <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-bp-f)"
+                                stroke-width="3" stroke-opacity="0.5" />
+                            <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-bp-f)"
+                                stroke-width="3" stroke-opacity="0.5" />
+                            <defs>
+                                <linearGradient id="logo-grad-bp-f" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#45A29E;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#66FCF1;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="logo-text">ApexDigits</span>
+                </a>
+                <p>Senior Technical Architect &amp; SME in Cloud, EUC, and Enterprise Infrastructure. Based in the
+                    United Kingdom.</p>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/Gunaseelan1108" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/Gunaseelan1108" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://apexdigits.net" target="_blank"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+            <div class="footer-links-col">
+                <h4>Pages</h4>
+                <ul>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="expertise.html">Portfolio</a></li>
+                    <li><a href="experience.html">Experience</a></li>
+                    <li><a href="blog.html">Blog &amp; Insights</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:+447442316163"><i class="fas fa-phone fa-xs"></i> +44 7442 316163</a></li>
+                    <li><a href="mailto:Gunaseelan.Madhavan@ApexDigits.net"><i class="fas fa-envelope fa-xs"></i> Email
+                            Me</a></li>
+                    <li><a href="https://apexdigits.net" target="_blank"><i class="fas fa-globe fa-xs"></i>
+                            ApexDigits.net</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Gunaseelan Madhavan &middot; ApexDigits. All rights reserved.</p>
+            <p>Built with <i class="fas fa-heart" style="color:#45A29E;"></i> for enterprise excellence.</p>
+        </div>
+    </footer>
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+    <script src="script.js"></script>
+</body>
+
+</html>
