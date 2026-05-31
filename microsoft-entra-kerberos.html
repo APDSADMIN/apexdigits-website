@@ -97,6 +97,20 @@
                     <h2>Enter Microsoft Entra Kerberos</h2>
                     <p><strong>Microsoft Entra Kerberos</strong> (previously known as Azure AD Kerberos) shifts the Kerberos Ticket Granting Ticket (TGT) issuance to the cloud. When users authenticate against Entra ID, they receive a cloud-issued Kerberos ticket alongside their standard OAuth/OIDC tokens.</p>
 
+                    <div style="margin: 2.5rem 0; background: #112240; padding: 1.5rem; border-radius: 8px; border: 1px solid #233554; overflow-x: auto;">
+                        <h4 style="margin-bottom: 1.5rem; color: #66FCF1; text-align: center; font-family: 'Montserrat', sans-serif;">Cloud Kerberos Authentication Flow</h4>
+                        <div class="mermaid" style="display: flex; justify-content: center;">
+sequenceDiagram
+    participant User as Client Endpoint
+    participant Entra as Microsoft Entra ID
+    participant App as Azure Files / Legacy App
+    User->>Entra: 1. Authenticate (Passwordless / FIDO2)
+    Entra-->>User: 2. Return PRT + Cloud TGT
+    User->>App: 3. Access Request (Present TGT over SMB)
+    App-->>User: 4. Grant Access (No DC Line-of-Sight)
+                        </div>
+                    </div>
+
                     <div class="post-principles-grid">
                         <div class="post-principle">
                             <div class="pp-icon"><i class="fas fa-eye-slash"></i></div>
@@ -336,6 +350,10 @@ Set-AzureADKerberosServer -Domain "contoso.com" -UserPrincipalName "krbtgt_Azure
     </footer>
     <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
     <script src="script.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark', sequence: { actorFontFamily: 'Inter', noteFontFamily: 'Inter', messageFontFamily: 'Inter' } });
+    </script>
 </body>
 
 </html>
