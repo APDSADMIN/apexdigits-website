@@ -139,6 +139,34 @@ sequenceDiagram
                     <h2>Citrix Secure Private Access (SPA)</h2>
                     <p>One of the most critical components of this evolution is <strong>Citrix Secure Private Access</strong>. Unlike a VPN that connects a device to a VLAN, SPA creates a micro-segmented connection specifically to the required application. If an endpoint is compromised, the attacker has no line-of-sight to the broader corporate network.</p>
 
+                    <div style="margin: 2.5rem 0; background: #112240; padding: 1.5rem; border-radius: 8px; border: 1px solid #233554; overflow-x: auto;">
+                        <h4 style="margin-bottom: 1.5rem; color: #66FCF1; text-align: center; font-family: 'Montserrat', sans-serif;">Traditional VPN vs. Citrix SPA</h4>
+                        <div class="mermaid" style="display: flex; justify-content: center;">
+flowchart TD
+    %% Traditional VPN
+    subgraph VPN [Traditional VPN]
+        direction TB
+        U1[Remote Endpoint] -->|Broad Network Access| Gateway[VPN Concentrator]
+        Gateway -->|Full L3 Access| VLAN[Corporate Network VLAN]
+        VLAN --> AppA[App A]
+        VLAN --> AppB[App B]
+        VLAN --> DB[Internal Database]
+    end
+
+    %% Citrix SPA
+    subgraph SPA [Citrix Secure Private Access]
+        direction TB
+        U2[Remote Endpoint] -->|Context-Aware Auth| Broker[Citrix SPA Broker]
+        Broker -.->|Micro-segmented Tunnel| AppC[Authorized App Only]
+        Broker x--x Block[No Broad Network Access]
+    end
+
+    %% Styling
+    style VPN fill:#1e293b,stroke:#ef4444,stroke-width:2px,color:#fff
+    style SPA fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff
+                        </div>
+                    </div>
+
                     <h3>Key Capabilities:</h3>
                     <ul class="post-list">
                         <li><strong>Enterprise Browser Integration:</strong> Citrix Workspace App includes an embedded enterprise browser, rendering SaaS and internal web apps within an isolated, IT-controlled sandbox.</li>
