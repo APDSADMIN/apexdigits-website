@@ -174,6 +174,40 @@ flowchart TD
                         <li><strong>Seamless Single Sign-On (SSO):</strong> Frictionless access across all application types once the initial Zero Trust evaluation is passed.</li>
                     </ul>
 
+                    <h2>Deep Dive: Adaptive Authentication & Device Posture</h2>
+                    <p>The true power of a Zero Trust architecture lies in continuous evaluation. Citrix elevates security through <strong>Adaptive Authentication</strong> paired with the <strong>Device Posture Service</strong> (formerly EPA). Instead of relying solely on username, password, and a static MFA prompt, the platform dynamically adjusts access based on real-time endpoint health.</p>
+
+                    <p>Before a user is even prompted for credentials, the Citrix Workspace app executes a lightweight posture scan. This evaluates criteria such as:</p>
+                    <ul class="post-list">
+                        <li>Is the device corporate-owned (Domain Joined or Intune Enrolled) or unmanaged (BYOD)?</li>
+                        <li>Is the OS version supported and fully patched?</li>
+                        <li>Is an approved Endpoint Detection and Response (EDR) agent running?</li>
+                        <li>Are there any prohibited processes (e.g., screen recording tools) active?</li>
+                    </ul>
+
+                    <p>The results of this scan generate tags (e.g., <code>COMPLIANT</code>, <code>NON_COMPLIANT</code>, <code>BYOD</code>). The Adaptive Authentication engine consumes these tags to make intelligent policy decisions. If a user logs in from a pristine corporate device, they get seamless access. If they log in from a BYOD device, the system might enforce step-up MFA and restrict clipboard mapping, downloading, and printing via App Protection policies.</p>
+
+                    <div style="margin: 2.5rem 0; background: #112240; padding: 1.5rem; border-radius: 8px; border: 1px solid #233554; overflow-x: auto;">
+                        <h4 style="margin-bottom: 1.5rem; color: #66FCF1; text-align: center; font-family: 'Montserrat', sans-serif;">Device Posture & Adaptive Auth Flow</h4>
+                        <div class="mermaid" style="display: flex; justify-content: center;">
+sequenceDiagram
+    participant Endpoint as User Device
+    participant EPA as Device Posture Service
+    participant Auth as Adaptive Auth Engine
+    participant Policy as Citrix Policy Engine
+    participant Resource as Corporate Resource
+
+    Endpoint->>EPA: 1. Initiate Connection (Pre-Auth)
+    EPA-->>Endpoint: 2. Request Posture Scan (OS, EDR, Cert)
+    Endpoint->>EPA: 3. Return Posture Results
+    EPA->>Auth: 4. Apply Context Tags (e.g. BYOD_NONCOMPLIANT)
+    Auth->>Endpoint: 5. Prompt Auth (Conditional MFA based on tags)
+    Endpoint->>Auth: 6. Successful Authentication
+    Auth->>Policy: 7. Forward Identity + Context Tags
+    Policy->>Resource: 8. Grant Restricted Access (No Clipboard/Download)
+                        </div>
+                    </div>
+
                     <h2>Conclusion</h2>
                     <p>The modern enterprise requires a delicate balance between uncompromised security and a flawless user experience. By transforming into a secure delivery platform built entirely around Zero Trust principles, Citrix enables architects to deliver workspaces that protect corporate IP regardless of where the user is, or what device they are using.</p>
                     <p>Are you looking to modernize your EUC deployment with ZTNA capabilities? <a href="contact.html" style="color:var(--blue);">Let's discuss</a> your architecture.</p>
@@ -233,6 +267,7 @@ flowchart TD
                             <li><a href="#"><i class="fas fa-chevron-right"></i> How Citrix Delivers Zero Trust</a></li>
                             <li><a href="#"><i class="fas fa-chevron-right"></i> Workspace Architecture</a></li>
                             <li><a href="#"><i class="fas fa-chevron-right"></i> Secure Private Access (SPA)</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Device Posture & Adaptive Auth</a></li>
                             <li><a href="#"><i class="fas fa-chevron-right"></i> Conclusion</a></li>
                         </ul>
                     </div>
