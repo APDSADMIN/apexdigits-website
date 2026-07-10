@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-Cloud Domain Dangling: Mitigating Subdomain Takeovers | Gunaseelan Madhavan</title>
+    <meta name="description"
+        content="Understand the mechanics of dangling DNS and subdomain takeovers in multi-cloud environments. Learn how to detect and prevent hijacked endpoints across Azure, AWS, and GCP.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z"
+                            fill="none" stroke="url(#logo-grad-bp)" stroke-width="6" />
+                        <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-bp)" stroke-width="3"
+                            stroke-opacity="0.7" />
+                        <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-bp)" stroke-width="3"
+                            stroke-opacity="0.7" />
+                        <defs>
+                            <linearGradient id="logo-grad-bp" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#45A29E;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#66FCF1;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">ApexDigits</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="expertise.html" class="nav-link">Expertise</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="blog.html" class="nav-link active-page">Blog</a></li>
+                <li><a href="contact.html" class="nav-link cta-nav">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger"
+                aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- POST HERO -->
+    <section class="page-hero post-hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="page-hero-content">
+            <nav class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><a
+                    href="blog.html">Blog</a><i class="fas fa-chevron-right"></i><span>Multi-Cloud Security</span></nav>
+            <div class="post-meta-row">
+                <span class="blog-cat">Multi-Cloud</span>
+                <span class="blog-read-time"><i class="fas fa-clock"></i> 10 min read</span>
+                <span class="blog-date"><i class="fas fa-calendar"></i> July 2026</span>
+            </div>
+            <h1 class="page-hero-title" style="font-size:clamp(1.8rem,4vw,3rem);">Multi-Cloud Domain Dangling<br><span class="gradient-text">Mitigating Subdomain Takeovers</span></h1>
+            <div class="post-author-strip">
+                <div class="blog-author-pill">
+                    <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="author-avatar"
+                        style="object-fit:cover;">
+                    <div>
+                        <div class="author-name">Gunaseelan Madhavan</div>
+                        <div class="author-title">Senior Technical Architect &amp; Cloud SME at NatWest Group Plc</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POST BODY -->
+    <div class="post-layout">
+        <div class="container">
+            <div class="post-content-wrap">
+
+                <!-- ARTICLE -->
+                <article class="post-body">
+
+                    <div class="post-intro-box">
+                        <i class="fas fa-quote-left"></i>
+                        <p>DNS is the foundational routing layer of the internet. Yet in multi-cloud environments, deprovisioning a cloud resource without removing its corresponding DNS record creates a security vacuum: a dangling domain ready to be hijacked.</p>
+                    </div>
+
+                    <h2>What is Domain Dangling?</h2>
+                    <p>In modern enterprise architectures, websites and services are spread across multiple public clouds (AWS, Azure, GCP) and SaaS providers. To route traffic, organizations create DNS aliases—typically <code>CNAME</code> (Canonical Name) or <code>MX</code> records—pointing to cloud-native hostnames (e.g., <code>myapp.azurewebsites.net</code> or <code>mybucket.s3.amazonaws.com</code>).</p>
+                    
+                    <p>A <strong>dangling DNS record</strong> (also known as dangling domain) occurs when a DNS record points to a deprovisioned cloud resource that has been deleted, but the DNS entry remains active. Since cloud resource namespaces are often globally shared and dynamically assigned, an attacker can register a new cloud resource with the exact namespace of the deleted target. Consequently, the organization's legitimate domain resolves directly to the attacker’s malicious cloud instance, executing a <strong>subdomain takeover</strong>.</p>
+
+                    <figure style="margin:2rem 0;text-align:center;">
+                        <img src="assets/images/dangling-dns-takeover.png" alt="Dangling DNS Takeover Architecture" style="width:100%;max-width:800px;border-radius:12px;box-shadow:0 15px 35px rgba(0,0,0,0.3);">
+                        <figcaption style="margin-top:0.8rem;font-size:0.85rem;color:var(--text-muted);">How deprovisioning cloud resources without DNS hygiene leads to unauthorized subdomain control.</figcaption>
+                    </figure>
+
+                    <h2>Vulnerability Mechanics Across Multi-Cloud Ecosystems</h2>
+                    <p>Each cloud provider offers unique services that are susceptible to domain dangling when not managed properly. Below are the most common vectors across Azure, AWS, and GCP:</p>
+
+                    <h3>1. Microsoft Azure (App Services & Traffic Manager)</h3>
+                    <p>If you map <code>portal.apexdigits.net</code> as a custom domain to an Azure App Service hosted at <code>apexdigits-portal.azurewebsites.net</code>, and then delete that App Service without removing the <code>CNAME</code> record in your DNS server, a vulnerability is created. Azure releases the <code>apexdigits-portal.azurewebsites.net</code> hostname back into the pool. An attacker can spin up a new Azure App Service in their own subscription, claim the name <code>apexdigits-portal</code>, and instantly control all incoming traffic to <code>portal.apexdigits.net</code>.</p>
+
+                    <h3>2. Amazon Web Services (S3 Static Hosting & Elastic Beanstalk)</h3>
+                    <p>AWS S3 buckets used for static website hosting must have the exact same name as the domain routing to them (e.g. bucket name: <code>docs.apexdigits.net</code>). If the bucket is deleted, the DNS <code>CNAME</code> still points to the AWS S3 endpoint. Because bucket names are globally unique, an attacker can create a bucket in the same region named <code>docs.apexdigits.net</code>, upload a malicious payload, and immediately hijack the custom domain.</p>
+
+                    <h3>3. Google Cloud Platform (Cloud Run & App Engine)</h3>
+                    <p>While GCP enforces domain verification ownership checks during custom domain mappings on Cloud Run and App Engine, dangling issues can still occur when DNS configurations point to legacy, unmapped Cloud CDN backends, or if verification tokens are left in public DNS TXT records, allowing attackers to verify domain ownership bypasses on tenant accounts.</p>
+
+                    <h2>Auditing & Detection: Automated PowerShell Scanner</h2>
+                    <p>To identify vulnerability windows, security teams must proactively audit DNS zones and verify if the referenced cloud backends exist. Below is a production-ready PowerShell script designed to scan external <code>CNAME</code> targets and flag potential dangling DNS vulnerabilities:</p>
+
+                    <pre><code class="language-powershell"># Multi-Cloud Dangling DNS Audit Tool
+# Queries a list of CNAMEs and evaluates host response signatures
+
+$DomainsToTest = @(
+    "portal.apexdigits.net",
+    "docs.apexdigits.net",
+    "api.apexdigits.net"
+)
+
+function Test-DanglingDns {
+    param (
+        [string]$Domain
+    )
+
+    Write-Host "Auditing: $Domain" -ForegroundColor Cyan
+    try {
+        # Resolve CNAME target
+        $DnsResult = Resolve-DnsName -Name $Domain -Type CNAME -ErrorAction Stop
+        $Target = $DnsResult.NameHost
+        Write-Host "  -> CNAME Target: $Target" -ForegroundColor Gray
+
+        # Test HTTP response to detect deprovisioned signatures
+        $Response = Invoke-WebRequest -Uri "http://$Domain" -Method Head -TimeoutSec 5 -ErrorAction SilentlyContinue -UserAgent "DnsAuditor/1.0"
+        $StatusCode = $Response.StatusCode
+        $Headers = $Response.Headers
+    }
+    catch {
+        $ErrorMessage = $_.Exception.Message
+        Write-Host "  -> Error contacting host: $ErrorMessage" -ForegroundColor Yellow
+    }
+
+    # Evaluation Rules based on Provider Signatures
+    if ($Target -like "*.azurewebsites.net") {
+        # Azure App Service returns 404 with a specific web-app-not-found header or content
+        $Content = Invoke-RestMethod -Uri "http://$Domain" -Method Get -TimeoutSec 5 -ErrorAction SilentlyContinue
+        if ($Content -like "*Web Site not found*" -or $Content -like "*404 - Web Site not found*") {
+            Write-Host "  [!] VULNERABLE: Azure App Service has been deprovisioned!" -ForegroundColor Red
+            return
+        }
+    }
+    elseif ($Target -like "*.s3-website-*.amazonaws.com" -or $Target -like "*.s3.amazonaws.com") {
+        # AWS S3 returns NoSuchBucket code inside 404 responses
+        try {
+            $Request = Invoke-WebRequest -Uri "http://$Domain" -TimeoutSec 5
+        }
+        catch {
+            if ($_.Exception.Response.StatusCode.value__ -eq 404) {
+                $Stream = [System.IO.StreamReader]::new($_.Exception.Response.GetResponseStream())
+                $Html = $Stream.ReadToEnd()
+                if ($Html -like "*NoSuchBucket*") {
+                    Write-Host "  [!] VULNERABLE: AWS S3 Bucket does not exist!" -ForegroundColor Red
+                    return
+                }
+            }
+        }
+    }
+    elseif ($Target -like "*.github.io") {
+        # GitHub Pages returns a custom 404 page when a repository custom domain is unmapped
+        try {
+            $Request = Invoke-WebRequest -Uri "http://$Domain" -TimeoutSec 5
+        }
+        catch {
+            $Stream = [System.IO.StreamReader]::new($_.Exception.Response.GetResponseStream())
+            $Html = $Stream.ReadToEnd()
+            if ($Html -like "*There isn't a GitHub Pages site here*") {
+                Write-Host "  [!] VULNERABLE: GitHub Pages custom domain is unmapped!" -ForegroundColor Red
+                return
+            }
+        }
+    }
+
+    Write-Host "  [+] SAFE: Endpoint appears active or non-vulnerable." -ForegroundColor Green
+}
+
+foreach ($Domain in $DomainsToTest) {
+    Test-DanglingDns -Domain $Domain
+    Write-Host "-------------------------------------------"
+}
+</code></pre>
+
+                    <h2>Remediation and Prevention Strategies</h2>
+                    <p>Securing multi-cloud environments from domain dangling requires shifting from reactive detection to proactive hygiene and architectural controls.</p>
+
+                    <div class="post-principles-grid">
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-cubes"></i></div>
+                            <h4>Infrastructure as Code (IaC)</h4>
+                            <p>Manage both the cloud resource and the DNS record in the same Terraform or Bicep module. When you run <code>terraform destroy</code>, the DNS record is automatically removed alongside the resource.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-network-wired"></i></div>
+                            <h4>Use Alias Records</h4>
+                            <p>Instead of creating standard CNAME records, leverage cloud-native Alias records (e.g., Azure DNS Alias or AWS Route 53 Alias). These records dynamically track the lifecycle of the cloud resource and resolve to nothing if the resource is deleted.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-user-shield"></i></div>
+                            <h4>Mandatory Custom Domain Verification</h4>
+                            <p>Enforce domain verification policies. Azure now uses verification IDs (TXT records) before allowing a custom domain to bind to an App Service, preventing unauthorized takeover attempts.</p>
+                        </div>
+                    </div>
+
+                    <h2>Conclusion</h2>
+                    <p>Subdomain takeovers through dangling DNS records represent a severe breach vector, potentially allowing attackers to steal session cookies, bypass Content Security Policies (CSP), and host phishing portals under your trusted brand name. By combining IaC lifecycle management, adopting cloud-native Alias records, and running continuous DNS auditing tools, enterprises can systematically eliminate the threat of domain dangling.</p>
+
+                    <!-- TAGS -->
+                    <div class="post-tags">
+                        <span class="skill-tag">Multi-Cloud</span>
+                        <span class="skill-tag">DNS Security</span>
+                        <span class="skill-tag">Azure</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag security">DevSecOps</span>
+                    </div>
+
+                    <!-- SHARE -->
+                    <div class="post-share">
+                        <span>Share this article:</span>
+                        <div class="share-btns">
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://apexdigits.net"
+                                target="_blank" class="social-btn linkedin" aria-label="Share on LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="https://twitter.com/intent/tweet?text=Multi-Cloud+Domain+Dangling+Mitigating+Subdomain+Takeovers&url=https://apexdigits.net&via=Gunaseelan1108"
+                                target="_blank" class="social-btn twitter" aria-label="Share on Twitter"><i
+                                    class="fab fa-x-twitter"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- AUTHOR BOX -->
+                    <div class="post-author-box">
+                        <div class="portrait-avatar"
+                            style="width:70px;height:70px;flex-shrink:0;border-radius:16px;overflow:hidden;">
+                            <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="portrait-img">
+                        </div>
+                        <div>
+                            <div class="author-name" style="font-size:1.05rem;margin-bottom:0.3rem;">Gunaseelan Madhavan
+                            </div>
+                            <div class="author-title" style="margin-bottom:0.6rem;">Senior Technical Architect &amp;
+                                Cloud SME at NatWest Group Plc</div>
+                            <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;">20+ years of
+                                enterprise technology leadership across cloud, infrastructure, and digital workplace.
+                                Passionate about sharing practitioner knowledge and advancing the profession.</p>
+                            <div class="contact-social-row" style="margin-top:0.75rem;">
+                                <a href="https://www.linkedin.com/in/Gunaseelan1108" target="_blank"
+                                    class="social-btn linkedin" aria-label="LinkedIn"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a href="https://twitter.com/Gunaseelan1108" target="_blank" class="social-btn twitter"
+                                    aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- SIDEBAR -->
+                <aside class="post-sidebar">
+                    <div class="sidebar-card">
+                        <h4>Table of Contents</h4>
+                        <ul class="toc-list">
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> What is Domain Dangling?</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Vulnerability Mechanics</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Automated PowerShell Scanner</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Prevention Strategies</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h4>Related Articles</h4>
+                        <div class="related-articles">
+                            <a href="azure-automation-powershell-scripts.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">Multi-Cloud</span>
+                                <p>Azure Automation: Storing and Executing PowerShell Scripts</p>
+                            </a>
+                            <a href="zero-trust-practice.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">DevSecOps</span>
+                                <p>Zero Trust in Practice: From Policy to Pipeline</p>
+                            </a>
+                            <a href="entra-cloud-sync-multi-cloud.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">Multi-Cloud</span>
+                                <p>Microsoft Entra Cloud Sync: Mastering Multi-Cloud Identity</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card sidebar-cta">
+                        <i class="fas fa-envelope" style="font-size:2rem;color:var(--blue);margin-bottom:0.75rem;"></i>
+                        <h4>Work with Gunaseelan</h4>
+                        <p>Available for architecture reviews and consulting engagements.</p>
+                        <a href="contact.html" class="btn btn-primary"
+                            style="width:100%;justify-content:center;margin-top:1rem;border-radius:var(--radius);">Get
+                            In Touch</a>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MORE ARTICLES -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">Keep Reading</span>
+                <h2 class="section-title">More <span class="gradient-text">Insights</span></h2>
+            </div>
+            <div class="blog-grid">
+                <article class="blog-card featured-blog">
+                    <div class="blog-card-top"><span class="blog-cat">Multi-Cloud</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 8 min read</span></div>
+                    <h3>Azure Automation: Storing and Executing PowerShell Scripts</h3>
+                    <p>Learn how to store safely, manage easily, and execute PowerShell scripts securely at scale.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="azure-automation-powershell-scripts.html" class="blog-link">Read More <i
+                                class="fas fa-arrow-right"></i></a></div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card-top"><span class="blog-cat">DevSecOps</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 6 min read</span></div>
+                    <h3>Zero Trust in Practice: From Policy to Pipeline</h3>
+                    <p>How to operationalise Zero Trust inside modern DevOps pipelines using Azure Policy, OPA, and GitHub Actions.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="zero-trust-practice.html" class="blog-link">Read More <i
+                                 class="fas fa-arrow-right"></i></a></div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card-top"><span class="blog-cat">EUC / VDI</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 8 min read</span></div>
+                    <h3>Citrix VDI Licensing &amp; Cloud: 2026 Strategic Roadmap</h3>
+                    <p>Navigating the mandatory LAS transition, new Platform licensing tiers, and Citrix Cloud innovations.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="citrix-licensing-cloud-2026-updates.html" class="blog-link">Read More <i
+                                class="fas fa-arrow-right"></i></a></div>
+                </article>
+            </div>
+            <div style="text-align:center;margin-top:2rem;"><a href="blog.html" class="btn btn-outline"><i
+                        class="fas fa-th-large"></i> All Articles</a></div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="index.html" class="nav-logo">
+                    <div class="logo-icon">
+                        <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z"
+                                fill="none" stroke="url(#logo-grad-bp-f)" stroke-width="6" />
+                            <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-bp-f)"
+                                stroke-width="3" stroke-opacity="0.5" />
+                            <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-bp-f)"
+                                stroke-width="3" stroke-opacity="0.5" />
+                            <defs>
+                                <linearGradient id="logo-grad-bp-f" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#45A29E;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#66FCF1;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="logo-text">ApexDigits</span>
+                </a>
+                <p>Senior Technical Architect & SME in Cloud, EUC, and Enterprise Infrastructure. Based in the United Kingdom.</p>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/Gunaseelan1108" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/Gunaseelan1108" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://apexdigits.net" target="_blank"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+            <div class="footer-links-col">
+                <h4>Pages</h4>
+                <ul>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="expertise.html">Portfolio</a></li>
+                    <li><a href="experience.html">Experience</a></li>
+                    <li><a href="blog.html">Blog & Insights</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:+447442316163"><i class="fas fa-phone fa-xs"></i> +44 7442 316163</a></li>
+                    <li><a href="mailto:Gunaseelan.Madhavan@ApexDigits.net"><i class="fas fa-envelope fa-xs"></i> Email Me</a></li>
+                    <li><a href="https://apexdigits.net" target="_blank"><i class="fas fa-globe fa-xs"></i> ApexDigits.net</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Gunaseelan Madhavan &middot; ApexDigits. All rights reserved.</p>
+            <p>Built with <i class="fas fa-heart" style="color:#45A29E;"></i> for enterprise excellence.</p>
+        </div>
+    </footer>
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+    <script src="script.js"></script>
+</body>
+
+</html>
