@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Azure Virtual Desktop vs Citrix DaaS | Gunaseelan Madhavan</title>
+    <meta name="description"
+        content="Architectural comparison of Microsoft Azure Virtual Desktop and Citrix Desktop-as-a-Service for enterprise EUC infrastructure environments.">
+    <meta name="keywords" content="AVD vs Citrix, Azure Virtual Desktop, Citrix DaaS comparison, VDI Cloud Platform">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- NAVIGATION -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z"
+                            fill="none" stroke="url(#logo-grad-b4)" stroke-width="6" />
+                        <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-b4)" stroke-width="3"
+                            stroke-opacity="0.7" />
+                        <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-b4)" stroke-width="3"
+                            stroke-opacity="0.7" />
+                        <defs>
+                            <linearGradient id="logo-grad-b4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#45A29E;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#66FCF1;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">ApexDigits</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="expertise.html" class="nav-link">Expertise</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="blog.html" class="nav-link active-page">Blog</a></li>
+                <li><a href="contact.html" class="nav-link cta-nav">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger"
+                aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- POST HERO -->
+    <section class="page-hero post-hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="page-hero-content">
+            <nav class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><a
+                    href="blog.html">Blog</a><i class="fas fa-chevron-right"></i><span>EUC Platform Comparison</span></nav>
+            <div class="post-meta-row">
+                <span class="blog-cat">EUC / VDI</span>
+                <span class="blog-read-time"><i class="fas fa-clock"></i> 8 min read</span>
+                <span class="blog-date"><i class="fas fa-calendar"></i> April 2026</span>
+            </div>
+            <h1 class="page-hero-title" style="font-size:clamp(1.8rem,4vw,3rem);">Azure Virtual Desktop<br><span class="gradient-text">vs Citrix DaaS</span></h1>
+            <div class="post-author-strip">
+                <div class="blog-author-pill">
+                    <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="author-avatar" style="object-fit:cover;">
+                    <div>
+                        <div class="author-name">Gunaseelan Madhavan</div>
+                        <div class="author-title">Senior Technical Architect &amp; Cloud SME</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POST BODY -->
+    <div class="post-layout">
+        <div class="container">
+            <div class="post-content-wrap">
+                <article class="post-body">
+                    <div class="post-intro-box">
+                        <i class="fas fa-quote-left"></i>
+                        <p>Choosing between native Azure Virtual Desktop (AVD) and Citrix DaaS requires analyzing network connectivity requirements, active licensing tiers, and image administration workloads.</p>
+                    </div>
+
+                    <h2>Protocol and User Experience</h2>
+                    <p>While native AVD utilizes Remote Desktop Protocol (RDP) and RDP Shortpath for connectivity, Citrix relies on its proprietary HDX protocol. For users with high latency bounds or GPU-heavy workloads, HDX provides superior image compression and bandwidth efficiency.</p>
+                    
+                    <h2>Management and Provisioning Tools</h2>
+                    <p>Citrix provides comprehensive enterprise tools including Machine Creation Services (MCS) and Provisioning Services (PVS) for rapid disk updates, alongside Workspace Environment Management (WEM). AVD relies primarily on Azure Resource Manager templates, Bicep, or Terraform for host-pool deployment, which requires custom scripts to match Citrix's image update speed.</p>
+
+                    <h2>Licensing and Infrastructure Costs</h2>
+                    <p>Native AVD is included with most Microsoft 365 E3/E5 licenses, leaving only active Azure virtual machine and storage costs. Citrix DaaS requires additional subscription fees per user, which must be weighed against operational cost savings from Citrix's advanced power management and multi-session host density optimizations.</p>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="index.html" class="nav-logo">
+                    <div class="logo-icon">
+                        <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z"
+                                fill="none" stroke="url(#logo-grad-b4-f)" stroke-width="6" />
+                            <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-b4-f)"
+                                stroke-width="3" stroke-opacity="0.5" />
+                            <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-b4-f)"
+                                stroke-width="3" stroke-opacity="0.5" />
+                            <defs>
+                                <linearGradient id="logo-grad-b4-f" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#45A29E;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#66FCF1;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="logo-text">ApexDigits</span>
+                </a>
+                <p>Strategic insights on IT Infrastructure, Cloud Transformation, and the modern Digital Workplace.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Gunaseelan Madhavan &middot; ApexDigits. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

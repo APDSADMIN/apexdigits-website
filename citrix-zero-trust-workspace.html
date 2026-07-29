@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Citrix Today: Secure Workspace Delivery with Zero Trust | Gunaseelan Madhavan</title>
+    <meta name="description"
+        content="Explore how Citrix has evolved into a modern platform for secure application and workspace delivery built fundamentally around Zero Trust principles.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z"
+                            fill="none" stroke="url(#logo-grad-bp)" stroke-width="6" />
+                        <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-bp)" stroke-width="3"
+                            stroke-opacity="0.7" />
+                        <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-bp)" stroke-width="3"
+                            stroke-opacity="0.7" />
+                        <defs>
+                            <linearGradient id="logo-grad-bp" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#45A29E;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#66FCF1;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">ApexDigits</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="expertise.html" class="nav-link">Expertise</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="blog.html" class="nav-link active-page">Blog</a></li>
+                <li><a href="contact.html" class="nav-link cta-nav">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger"
+                aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- POST HERO -->
+    <section class="page-hero post-hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="page-hero-content">
+            <nav class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><a
+                    href="blog.html">Blog</a><i class="fas fa-chevron-right"></i><span>Citrix Zero Trust Workspace</span></nav>
+            <div class="post-meta-row">
+                <span class="blog-cat">EUC / VDI</span>
+                <span class="blog-read-time"><i class="fas fa-clock"></i> 8 min read</span>
+                <span class="blog-date"><i class="fas fa-calendar"></i> May 2026</span>
+            </div>
+            <h1 class="page-hero-title" style="font-size:clamp(1.8rem,4vw,3rem);">Citrix Today: Secure Workspace Delivery<br><span class="gradient-text">Built on Zero Trust</span></h1>
+            <div class="post-author-strip">
+                <div class="blog-author-pill">
+                    <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="author-avatar"
+                        style="object-fit:cover;">
+                    <div>
+                        <div class="author-name">Gunaseelan Madhavan</div>
+                        <div class="author-title">Senior Technical Architect &amp; Cloud SME at NatWest Group Plc</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POST BODY -->
+    <div class="post-layout">
+        <div class="container">
+            <div class="post-content-wrap">
+
+                <!-- ARTICLE -->
+                <article class="post-body">
+
+                    <div class="post-intro-box">
+                        <i class="fas fa-quote-left"></i>
+                        <p>Citrix is no longer just a VDI broker. Today, it is a comprehensive platform for secure application and workspace delivery, fundamentally engineered around Zero Trust Network Access (ZTNA) principles.</p>
+                    </div>
+
+                    <h2>The Shift Beyond Traditional VDI</h2>
+                    <p>Historically, organizations viewed Citrix primarily as a tool for delivering virtual desktops or publishing legacy applications. As hybrid work became the default, the traditional perimeter disappeared. VPNs—once the backbone of remote access—proved to be a security vulnerability, offering overly broad network access to unmanaged endpoints.</p>
+                    <p>In response, Citrix has evolved. The platform today seamlessly merges End-User Computing (EUC) with robust security architectures, acting as a gateway that enforces <strong>Zero Trust</strong> at the application and workspace layer.</p>
+
+                    <h2>How Citrix Delivers Zero Trust</h2>
+                    <p>Zero Trust operates on the principle of "never trust, always verify." Citrix integrates this by shifting the focus from network-level access to context-aware, application-level access.</p>
+
+                    <div class="post-principles-grid">
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-shield-halved"></i></div>
+                            <h4>Adaptive Access</h4>
+                            <p>Policies continuously evaluate user context, device posture, location, and risk scores before granting access to specific applications.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-network-wired"></i></div>
+                            <h4>No Network Expsoure</h4>
+                            <p>Using Citrix Secure Private Access (SPA), users reach internal web and SaaS apps without opening inbound firewall ports or using a traditional VPN.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-eye"></i></div>
+                            <h4>App Protection</h4>
+                            <p>Enforces anti-keylogging, anti-screen capture, and watermarking policies directly on the endpoint, securing unmanaged BYOD devices.</p>
+                        </div>
+                    </div>
+
+                    <h2>Zero Trust Workspace Architecture</h2>
+                    <p>The modern Citrix architecture acts as a policy decision point and enforcement point between the user and their corporate resources (SaaS, Web, or virtualized applications).</p>
+
+                    <div style="margin: 2.5rem 0; background: #112240; padding: 1.5rem; border-radius: 8px; border: 1px solid #233554; overflow-x: auto;">
+                        <h4 style="margin-bottom: 1.5rem; color: #66FCF1; text-align: center; font-family: 'Montserrat', sans-serif;">Citrix Zero Trust Delivery Flow</h4>
+                        <div class="mermaid" style="display: flex; justify-content: center;">
+sequenceDiagram
+    participant User as User / Endpoint
+    participant IDP as Identity Provider (e.g. Entra)
+    participant Citrix as Citrix Workspace / Gateway
+    participant Resource as SaaS / Internal Web / VDI
+    User->>IDP: 1. Authenticate (MFA / Device Posture)
+    IDP-->>User: 2. Token Issued
+    User->>Citrix: 3. Request Workspace Access
+    Citrix->>Citrix: 4. Evaluate Adaptive Policies (App Protection)
+    Citrix->>Resource: 5. Micro-tunnel connection to specific app
+    Resource-->>User: 6. Secure rendering (No lateral network access)
+                        </div>
+                    </div>
+
+                    <h2>Citrix Secure Private Access (SPA)</h2>
+                    <p>One of the most critical components of this evolution is <strong>Citrix Secure Private Access</strong>. Unlike a VPN that connects a device to a VLAN, SPA creates a micro-segmented connection specifically to the required application. If an endpoint is compromised, the attacker has no line-of-sight to the broader corporate network.</p>
+
+                    <div style="margin: 2.5rem 0; background: #112240; padding: 1.5rem; border-radius: 8px; border: 1px solid #233554; overflow-x: auto;">
+                        <h4 style="margin-bottom: 1.5rem; color: #66FCF1; text-align: center; font-family: 'Montserrat', sans-serif;">Traditional VPN vs. Citrix SPA</h4>
+                        <div class="mermaid" style="display: flex; justify-content: center;">
+flowchart TD
+    %% Traditional VPN
+    subgraph VPN [Traditional VPN]
+        direction TB
+        U1[Remote Endpoint] -->|Broad Network Access| Gateway[VPN Concentrator]
+        Gateway -->|Full L3 Access| VLAN[Corporate Network VLAN]
+        VLAN --> AppA[App A]
+        VLAN --> AppB[App B]
+        VLAN --> DB[Internal Database]
+    end
+
+    %% Citrix SPA
+    subgraph SPA [Citrix Secure Private Access]
+        direction TB
+        U2[Remote Endpoint] -->|Context-Aware Auth| Broker[Citrix SPA Broker]
+        Broker -.->|Micro-segmented Tunnel| AppC[Authorized App Only]
+        Broker x--x Block[No Broad Network Access]
+    end
+
+    %% Styling
+    style VPN fill:#1e293b,stroke:#ef4444,stroke-width:2px,color:#fff
+    style SPA fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff
+                        </div>
+                    </div>
+
+                    <h3>Key Capabilities:</h3>
+                    <ul class="post-list">
+                        <li><strong>Enterprise Browser Integration:</strong> Citrix Workspace App includes an embedded enterprise browser, rendering SaaS and internal web apps within an isolated, IT-controlled sandbox.</li>
+                        <li><strong>Contextual Security Controls:</strong> IT can dynamically disable clipboard mapping, printing, or file downloads based on the user's current risk context.</li>
+                        <li><strong>Seamless Single Sign-On (SSO):</strong> Frictionless access across all application types once the initial Zero Trust evaluation is passed.</li>
+                    </ul>
+
+                    <h2>Deep Dive: Adaptive Authentication & Device Posture</h2>
+                    <p>The true power of a Zero Trust architecture lies in continuous evaluation. Citrix elevates security through <strong>Adaptive Authentication</strong> paired with the <strong>Device Posture Service</strong> (formerly EPA). Instead of relying solely on username, password, and a static MFA prompt, the platform dynamically adjusts access based on real-time endpoint health.</p>
+
+                    <p>Before a user is even prompted for credentials, the Citrix Workspace app executes a lightweight posture scan. This evaluates criteria such as:</p>
+                    <ul class="post-list">
+                        <li>Is the device corporate-owned (Domain Joined or Intune Enrolled) or unmanaged (BYOD)?</li>
+                        <li>Is the OS version supported and fully patched?</li>
+                        <li>Is an approved Endpoint Detection and Response (EDR) agent running?</li>
+                        <li>Are there any prohibited processes (e.g., screen recording tools) active?</li>
+                    </ul>
+
+                    <p>The results of this scan generate tags (e.g., <code>COMPLIANT</code>, <code>NON_COMPLIANT</code>, <code>BYOD</code>). The Adaptive Authentication engine consumes these tags to make intelligent policy decisions. If a user logs in from a pristine corporate device, they get seamless access. If they log in from a BYOD device, the system might enforce step-up MFA and restrict clipboard mapping, downloading, and printing via App Protection policies.</p>
+
+                    <div style="margin: 2.5rem 0; background: #112240; padding: 1.5rem; border-radius: 8px; border: 1px solid #233554; overflow-x: auto;">
+                        <h4 style="margin-bottom: 1.5rem; color: #66FCF1; text-align: center; font-family: 'Montserrat', sans-serif;">Device Posture & Adaptive Auth Flow</h4>
+                        <div class="mermaid" style="display: flex; justify-content: center;">
+sequenceDiagram
+    participant Endpoint as User Device
+    participant EPA as Device Posture Service
+    participant Auth as Adaptive Auth Engine
+    participant Policy as Citrix Policy Engine
+    participant Resource as Corporate Resource
+
+    Endpoint->>EPA: 1. Initiate Connection (Pre-Auth)
+    EPA-->>Endpoint: 2. Request Posture Scan (OS, EDR, Cert)
+    Endpoint->>EPA: 3. Return Posture Results
+    EPA->>Auth: 4. Apply Context Tags (e.g. BYOD_NONCOMPLIANT)
+    Auth->>Endpoint: 5. Prompt Auth (Conditional MFA based on tags)
+    Endpoint->>Auth: 6. Successful Authentication
+    Auth->>Policy: 7. Forward Identity + Context Tags
+    Policy->>Resource: 8. Grant Restricted Access (No Clipboard/Download)
+                        </div>
+                    </div>
+
+                    <h2>Accelerating PCI-DSS Compliance</h2>
+                    <p>For organizations handling credit card transactions, adhering to the Payment Card Industry Data Security Standard (PCI-DSS) is notoriously complex. Citrix's Zero Trust architecture dramatically reduces the scope and complexity of PCI-DSS compliance audits by isolating the Cardholder Data Environment (CDE) from the endpoint.</p>
+
+                    <div class="post-principles-grid">
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-compress-arrows-alt"></i></div>
+                            <h4>Scope Reduction</h4>
+                            <p>Because data never resides on or traverses the local device, remote endpoints (including BYOD) are effectively removed from the PCI-DSS audit scope.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-lock"></i></div>
+                            <h4>Anti-Keylogging</h4>
+                            <p>App Protection policies prevent malware on a compromised endpoint from capturing Primary Account Numbers (PAN) typed by remote agents.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-layer-group"></i></div>
+                            <h4>Micro-Segmentation</h4>
+                            <p>Instead of broad VLAN access, SPA provides isolated, per-app micro-tunnels directly into the CDE, preventing lateral network movement.</p>
+                        </div>
+                    </div>
+
+                    <h2>Conclusion</h2>
+                    <p>The modern enterprise requires a delicate balance between uncompromised security and a flawless user experience. By transforming into a secure delivery platform built entirely around Zero Trust principles, Citrix enables architects to deliver workspaces that protect corporate IP regardless of where the user is, or what device they are using.</p>
+                    <p>Are you looking to modernize your EUC deployment with ZTNA capabilities? <a href="contact.html" style="color:var(--blue);">Let's discuss</a> your architecture.</p>
+
+                    <!-- TAGS -->
+                    <div class="post-tags">
+                        <span class="skill-tag azure">Citrix</span>
+                        <span class="skill-tag security">Zero Trust</span>
+                        <span class="skill-tag">EUC / VDI</span>
+                        <span class="skill-tag security">Security</span>
+                    </div>
+
+                    <!-- SHARE -->
+                    <div class="post-share">
+                        <span>Share this article:</span>
+                        <div class="share-btns">
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://apexdigits.com"
+                                target="_blank" class="social-btn linkedin" aria-label="Share on LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="https://twitter.com/intent/tweet?text=Citrix+Today+Secure+Workspace+Delivery+with+Zero+Trust&url=https://apexdigits.com&via=Gunaseelan1108"
+                                target="_blank" class="social-btn twitter" aria-label="Share on Twitter"><i
+                                    class="fab fa-x-twitter"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- AUTHOR BOX -->
+                    <div class="post-author-box">
+                        <div class="portrait-avatar"
+                            style="width:70px;height:70px;flex-shrink:0;border-radius:16px;overflow:hidden;">
+                            <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="portrait-img">
+                        </div>
+                        <div>
+                            <div class="author-name" style="font-size:1.05rem;margin-bottom:0.3rem;">Gunaseelan Madhavan
+                            </div>
+                            <div class="author-title" style="margin-bottom:0.6rem;">Senior Technical Architect &amp;
+                                Cloud SME at NatWest Group Plc</div>
+                            <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;">20+ years of
+                                enterprise technology leadership across cloud, infrastructure, and digital workplace.
+                                Passionate about sharing practitioner knowledge and advancing the profession.</p>
+                            <div class="contact-social-row" style="margin-top:0.75rem;">
+                                <a href="https://www.linkedin.com/in/Gunaseelan1108" target="_blank"
+                                    class="social-btn linkedin" aria-label="LinkedIn"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a href="https://twitter.com/Gunaseelan1108" target="_blank" class="social-btn twitter"
+                                    aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- SIDEBAR -->
+                <aside class="post-sidebar">
+                    <div class="sidebar-card">
+                        <h4>Table of Contents</h4>
+                        <ul class="toc-list">
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Beyond Traditional VDI</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> How Citrix Delivers Zero Trust</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Workspace Architecture</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Secure Private Access (SPA)</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Device Posture & Adaptive Auth</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> PCI-DSS Compliance</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Conclusion</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h4>Related Articles</h4>
+                        <div class="related-articles">
+                            <a href="microsoft-entra-conditional-access.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">Security</span>
+                                <p>Microsoft Entra Conditional Access: Zero Trust Policy Engine</p>
+                            </a>
+                            <a href="citrix-platform-flex-2026.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">EUC / VDI</span>
+                                <p>Citrix Platform Flex: The Shift to Consumption-Based Licensing</p>
+                            </a>
+                            <a href="citrix-licensing-cloud-2026-updates.html" class="related-item"><span class="blog-cat"
+                                    style="font-size:0.68rem;">EUC / VDI</span>
+                                <p>Citrix VDI Licensing & Cloud: 2026 Strategic Roadmap</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card sidebar-cta">
+                        <i class="fas fa-envelope" style="font-size:2rem;color:var(--blue);margin-bottom:0.75rem;"></i>
+                        <h4>Work with Gunaseelan</h4>
+                        <p>Available for architecture reviews and consulting engagements.</p>
+                        <a href="contact.html" class="btn btn-primary"
+                            style="width:100%;justify-content:center;margin-top:1rem;border-radius:var(--radius);">Get
+                            In Touch</a>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MORE ARTICLES -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">Keep Reading</span>
+                <h2 class="section-title">More <span class="gradient-text">Insights</span></h2>
+            </div>
+            <div class="blog-grid">
+                <article class="blog-card featured-blog">
+                    <div class="blog-card-top"><span class="blog-cat">Security</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 7 min read</span></div>
+                    <h3>Microsoft Entra Conditional Access: Zero Trust Policy Engine</h3>
+                    <p>Deep dive into Microsoft Entra Conditional Access policy evaluation architecture, and how to build a robust Zero Trust security model.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="microsoft-entra-conditional-access.html" class="blog-link">Read More <i
+                                class="fas fa-arrow-right"></i></a></div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card-top"><span class="blog-cat">DevSecOps</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 6 min read</span></div>
+                    <h3>Zero Trust in Practice: From Policy to Pipeline</h3>
+                    <p>How to operationalise Zero Trust inside modern DevOps pipelines using Azure Policy, OPA, and GitHub Actions.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="zero-trust-practice.html" class="blog-link">Read More <i
+                                 class="fas fa-arrow-right"></i></a></div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card-top"><span class="blog-cat">EUC / VDI</span><span class="blog-read-time"><i
+                                class="fas fa-clock"></i> 10 min read</span></div>
+                    <h3>Citrix to AVD: Migration Playbook for Enterprise Teams</h3>
+                    <p>A practitioner's guide to navigating the complex journey from legacy Citrix to Azure Virtual Desktop.</p>
+                    <div class="blog-footer"><span class="blog-author"><i class="fas fa-user-circle"></i> Gunaseelan
+                            Madhavan</span><a href="blog.html" class="blog-link">Read More <i
+                                class="fas fa-arrow-right"></i></a></div>
+                </article>
+            </div>
+            <div style="text-align:center;margin-top:2rem;"><a href="blog.html" class="btn btn-outline"><i
+                        class="fas fa-th-large"></i> All Articles</a></div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="index.html" class="nav-logo">
+                    <div class="logo-icon">
+                        <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z"
+                                fill="none" stroke="url(#logo-grad-bp-f)" stroke-width="6" />
+                            <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-bp-f)"
+                                stroke-width="3" stroke-opacity="0.5" />
+                            <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-bp-f)"
+                                stroke-width="3" stroke-opacity="0.5" />
+                            <defs>
+                                <linearGradient id="logo-grad-bp-f" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#45A29E;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#66FCF1;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="logo-text">ApexDigits</span>
+                </a>
+                <p>Senior Technical Architect &amp; SME in Cloud, EUC, and Enterprise Infrastructure. Based in the
+                    United Kingdom.</p>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/Gunaseelan1108" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/Gunaseelan1108" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+            <div class="footer-links-col">
+                <h4>Pages</h4>
+                <ul>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="expertise.html">Portfolio</a></li>
+                    <li><a href="experience.html">Experience</a></li>
+                    <li><a href="blog.html">Blog &amp; Insights</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:+447442316163"><i class="fas fa-phone fa-xs"></i> +44 7442 316163</a></li>
+                    <li><a href="mailto:Gunaseelan.Madhavan@ApexDigits.com"><i class="fas fa-envelope fa-xs"></i> Email
+                            Me</a></li>
+                    <li><a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe fa-xs"></i>
+                            ApexDigits.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Gunaseelan Madhavan &middot; ApexDigits. All rights reserved.</p>
+            <p>Built with <i class="fas fa-heart" style="color:#45A29E;"></i> for enterprise excellence.</p>
+        </div>
+    </footer>
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+    <script src="script.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'dark', 
+            themeVariables: { 
+                fontSize: '18px',
+                fontFamily: 'Inter'
+            },
+            sequence: { 
+                actorFontFamily: 'Inter', 
+                noteFontFamily: 'Inter', 
+                messageFontFamily: 'Inter',
+                actorFontSize: 18,
+                messageFontSize: 18,
+                noteFontSize: 18
+            } 
+        });
+    </script>
+</body>
+
+</html>
