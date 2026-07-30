@@ -2,11 +2,88 @@
 <html lang="en">
 
 <head>
+  <title>Designing Resilient Landing Zones | Gunaseelan Madhavan</title>
+  <meta name="description" content="A deep-dive into multi-cloud landing zones across Azure, AWS and GCP - principles, anti-patterns, and guardrails for enterprise architects." />
+  <link rel="canonical" href="https://apexdigits.com/designing-resilient-landing-zones" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Designing Resilient Landing Zones | Gunaseelan Madhavan" />
+  <meta property="og:description" content="A deep-dive into multi-cloud landing zones across Azure, AWS and GCP - principles, anti-patterns, and guardrails for enterprise architects." />
+  <meta property="og:url" content="https://apexdigits.com/designing-resilient-landing-zones" />
+  <meta property="og:image" content="https://apexdigits.com/assets/images/profile.png" />
+  <meta property="og:site_name" content="ApexDigits" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Designing Resilient Landing Zones | Gunaseelan Madhavan" />
+  <meta name="twitter:description" content="A deep-dive into multi-cloud landing zones across Azure, AWS and GCP - principles, anti-patterns, and guardrails for enterprise architects." />
+  <meta name="twitter:image" content="https://apexdigits.com/assets/images/profile.png" />
+  <meta name="twitter:creator" content="@Gunaseelan1108" />
+  <meta name="twitter:site" content="@Gunaseelan1108" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://apexdigits.com/designing-resilient-landing-zones"
+    },
+    "headline": "Designing Resilient Landing Zones",
+    "description": "A deep-dive into multi-cloud landing zones across Azure, AWS and GCP - principles, anti-patterns, and guardrails for enterprise architects.",
+    "image": "https://apexdigits.com/assets/images/profile.png",
+    "author": {
+      "@type": "Person",
+      "name": "Gunaseelan Madhavan",
+      "url": "https://apexdigits.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ApexDigits",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://apexdigits.com/assets/images/profile.png"
+      }
+    },
+    "datePublished": "2026-07-30"
+  }
+</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://apexdigits.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://apexdigits.com/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Designing Resilient Landing Zones",
+        "item": "https://apexdigits.com/designing-resilient-landing-zones"
+      }
+    ]
+  }
+</script>
+
+  <!-- Open Graph / Facebook -->
+
+  <!-- Twitter -->
+
+  <!-- Structured Data -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Designing Resilient Landing Zones | Gunaseelan Madhavan</title>
-    <meta name="description"
-        content="A deep-dive into multi-cloud landing zones across Azure, AWS and GCP — principles, anti-patterns, and guardrails for enterprise architects.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -89,7 +166,7 @@
 
                     <div class="post-intro-box">
                         <i class="fas fa-quote-left"></i>
-                        <p>Landing zones are not just templates — they're the architectural contracts that determine
+                        <p>Landing zones are not just templates Ã¢â‚¬â€ they're the architectural contracts that determine
                             whether your cloud estate remains governable at scale or becomes an ungovernable sprawl by
                             year three.</p>
                     </div>
@@ -97,7 +174,7 @@
                     <h2>What is a Cloud Landing Zone?</h2>
                     <p>A cloud landing zone is a pre-configured, scalable, and secure cloud environment that enables
                         organisations to onboard workloads rapidly and consistently. It covers identity, networking,
-                        security, governance, and operational tooling — all established before the first workload
+                        security, governance, and operational tooling Ã¢â‚¬â€ all established before the first workload
                         arrives.</p>
                     <p>In a multi-cloud context, the challenge is amplified: each cloud provider has its own primitives,
                         and the temptation to build three separate, optimised landing zones is strong. However, that
@@ -124,7 +201,7 @@
                             <div class="pp-icon"><i class="fas fa-network-wired"></i></div>
                             <h4>Network Segmentation</h4>
                             <p>Hub-and-spoke or VWAN on Azure, Transit Gateway on AWS. Enforce micro-segmentation from
-                                day one — retrofitting it later is a multi-year project.</p>
+                                day one Ã¢â‚¬â€ retrofitting it later is a multi-year project.</p>
                         </div>
                         <div class="post-principle">
                             <div class="pp-icon"><i class="fas fa-key"></i></div>
@@ -171,18 +248,18 @@
                         <div class="code-header"><span class="code-lang">Terraform Structure</span><i
                                 class="fas fa-copy"></i></div>
                         <pre><code>modules/
-├── foundation/
-│   ├── azure-management-group/
-│   ├── aws-organizations-ou/
-│   └── gcp-folder-structure/
-├── networking/
-│   ├── azure-hub-spoke/
-│   ├── aws-transit-gateway/
-│   └── gcp-shared-vpc/
-└── security/
-    ├── azure-policy-baseline/
-    ├── aws-scp-baseline/
-    └── gcp-org-policy-baseline/</code></pre>
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ foundation/
+Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ azure-management-group/
+Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ aws-organizations-ou/
+Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ gcp-folder-structure/
+Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ networking/
+Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ azure-hub-spoke/
+Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ aws-transit-gateway/
+Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ gcp-shared-vpc/
+Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ security/
+    Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ azure-policy-baseline/
+    Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ aws-scp-baseline/
+    Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ gcp-org-policy-baseline/</code></pre>
                     </div>
 
                     <p>Each module is independently versioned using semantic versioning. Breaking changes increment the
@@ -201,7 +278,7 @@
                     </ul>
 
                     <h2>Conclusion</h2>
-                    <p>A well-designed multi-cloud landing zone is not a one-time project — it's a living platform that
+                    <p>A well-designed multi-cloud landing zone is not a one-time project Ã¢â‚¬â€ it's a living platform that
                         evolves with your organisation. The key is to get the governance, identity, and networking
                         foundations right before onboarding workloads. The cost of retrofitting these foundations at
                         scale is orders of magnitude greater than getting them right from day one.</p>
