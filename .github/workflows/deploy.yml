@@ -20,9 +20,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: package-lock.json # Falls back safely if lockfile doesn't exist yet
+          node-version: '22'
 
       - name: Install Dependencies
         run: |
