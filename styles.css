@@ -3312,7 +3312,7 @@ body {
 
 /* ============================================================
    WORDPRESS-STYLE 3-COLUMN IMAGE CARD GRID & SIDEBAR MODEL
-   (Matching Exact User Screenshot)
+   (Dark Background & Tags System)
    ============================================================ */
 .blog-wp-container {
   display: grid !important;
@@ -3329,7 +3329,7 @@ body {
   }
 }
 
-/* 3-Column Grid for Main Article Cards (Matching Screenshot) */
+/* 3-Column Grid for Main Article Cards */
 .blog-main-feed {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
@@ -3349,23 +3349,25 @@ body {
   }
 }
 
-/* WordPress-Style Card Unit (Clean Light Design from Screenshot) */
+/* WordPress-Style Card Unit (Sleek Dark Theme) */
 .blog-wp-card {
   display: flex !important;
   flex-direction: column !important;
-  background: #ffffff !important;
-  border: 1px solid #e2e8f0 !important;
-  border-radius: 6px !important;
+  background: rgba(13, 17, 26, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  border-radius: 10px !important;
   overflow: hidden !important;
-  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+  backdrop-filter: blur(16px) !important;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
   height: 100% !important;
   box-sizing: border-box !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
 }
 
 .blog-wp-card:hover {
   transform: translateY(-4px) !important;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12) !important;
+  border-color: rgba(102, 252, 241, 0.4) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 20px rgba(102, 252, 241, 0.08) !important;
 }
 
 /* Featured Image Banner (Top of Card like Screenshot) */
@@ -3374,7 +3376,7 @@ body {
   height: 165px !important;
   background-size: cover !important;
   background-position: center !important;
-  border-bottom: 1px solid #edf2f7 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   position: relative !important;
   display: flex !important;
   align-items: center !important;
@@ -3395,8 +3397,8 @@ body {
 
 .blog-card-image i {
   font-size: 2.8rem !important;
-  color: #45A29E !important;
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3)) !important;
+  color: #66FCF1 !important;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)) !important;
 }
 
 .blog-wp-card-body {
@@ -3407,45 +3409,45 @@ body {
   justify-content: space-between !important;
 }
 
-/* Meta Line: Date + Author Full Name (Matching Screenshot) */
+/* Meta Line: Date + Author Full Name */
 .blog-card-meta {
   font-size: 0.825rem !important;
-  color: #718096 !important;
-  margin-bottom: 0.4rem !important;
+  color: #9ca3af !important;
+  margin-bottom: 0.45rem !important;
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
 }
 
 .author-full-name {
-  color: #0284c7 !important;
+  color: #66FCF1 !important;
   font-weight: 600 !important;
   font-size: 0.8rem !important;
 }
 
-/* Card Title (Matching Bold Dark Text in Screenshot) */
+/* Card Title (High-Contrast White) */
 .blog-wp-card-body h3 {
   font-size: 1.05rem !important;
   font-weight: 700 !important;
   line-height: 1.4 !important;
-  color: #1a202c !important;
+  color: #ffffff !important;
   margin: 0 0 0.5rem 0 !important;
-  letter-spacing: -0.01em !important;
+  letter-spacing: -0.015em !important;
 }
 
 .blog-wp-card-body h3 a {
-  color: #1a202c !important;
+  color: #ffffff !important;
   text-decoration: none !important;
   transition: color 0.2s ease !important;
 }
 
 .blog-wp-card-body h3 a:hover {
-  color: #e53e3e !important;
+  color: #66FCF1 !important;
 }
 
 .blog-wp-card-body p {
   font-size: 0.86rem !important;
-  color: #4a5568 !important;
+  color: #9ca3af !important;
   line-height: 1.5 !important;
   margin-bottom: 0.85rem !important;
   display: -webkit-box;
@@ -3458,35 +3460,38 @@ body {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  border-top: 1px solid #edf2f7 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
   padding-top: 0.65rem !important;
   margin-top: auto !important;
 }
 
+/* Stripe-Style Cyan Pill Tag */
 .blog-cat-badge {
-  background: #f1f5f9 !important;
-  color: #0f172a !important;
-  border: 1px solid #cbd5e1 !important;
-  padding: 0.15rem 0.5rem !important;
-  border-radius: 4px !important;
+  background: rgba(102, 252, 241, 0.1) !important;
+  color: #66FCF1 !important;
+  border: 1px solid rgba(102, 252, 241, 0.25) !important;
+  padding: 0.18rem 0.65rem !important;
+  border-radius: 9999px !important;
   font-size: 0.725rem !important;
   font-weight: 600 !important;
   text-transform: uppercase !important;
+  letter-spacing: 0.03em !important;
 }
 
 .blog-read-link {
-  color: #e53e3e !important;
+  color: #66FCF1 !important;
   font-weight: 600 !important;
   font-size: 0.835rem !important;
   text-decoration: none !important;
+  transition: color 0.2s ease !important;
 }
 
 .blog-read-link:hover {
-  color: #c53030 !important;
+  color: #a5f3fc !important;
   text-decoration: underline !important;
 }
 
-/* Sidebar Widget Styling (Matching Screenshot Search + Recent Posts) */
+/* Sidebar Widget Styling (Dark Theme) */
 .blog-sidebar {
   display: flex !important;
   flex-direction: column !important;
@@ -3496,38 +3501,40 @@ body {
 }
 
 .wp-sidebar-widget {
-  background: #ffffff !important;
-  border: 1px solid #e2e8f0 !important;
-  border-radius: 6px !important;
+  background: rgba(13, 17, 26, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  border-radius: 10px !important;
   padding: 1.25rem !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
 }
 
 .wp-sidebar-widget-title {
-  font-size: 1.15rem !important;
+  font-size: 1.1rem !important;
   font-weight: 700 !important;
-  color: #1a202c !important;
+  color: #ffffff !important;
   margin-top: 0 !important;
-  margin-bottom: 1.2rem !important;
-  border-bottom: 2px solid #e2e8f0 !important;
+  margin-bottom: 1.1rem !important;
+  border-bottom: 2px solid #45A29E !important;
   padding-bottom: 0.4rem !important;
+  letter-spacing: -0.01em !important;
 }
 
-/* Sidebar Search Box (Matching Coral/Red Search Button in Screenshot) */
+/* Sidebar Search Box */
 .wp-search-box-row {
   display: flex !important;
   gap: 0 !important;
-  border-radius: 4px !important;
+  border-radius: 6px !important;
   overflow: hidden !important;
-  border: 1px solid #cbd5e1 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
 .wp-search-box-row input {
   flex-grow: 1 !important;
-  background: #ffffff !important;
+  background: rgba(5, 13, 26, 0.9) !important;
   border: none !important;
   padding: 0.65rem 0.85rem !important;
-  color: #1a202c !important;
+  color: #ffffff !important;
   font-size: 0.9rem !important;
   outline: none !important;
 }
@@ -3545,7 +3552,7 @@ body {
   background: #c53030 !important;
 }
 
-/* Recent Posts List with Date (Matching Screenshot Model) */
+/* Recent Posts List with Date */
 .wp-recent-posts-list {
   list-style: none !important;
   padding: 0 !important;
@@ -3577,14 +3584,41 @@ body {
 }
 
 .wp-recent-posts-list li a:hover {
-  color: #c53030 !important;
+  color: #fc8181 !important;
   text-decoration: underline !important;
 }
 
 .wp-recent-posts-list li span.post-date {
-  color: #718096 !important;
+  color: #9ca3af !important;
   font-size: 0.82rem !important;
   margin-left: 0.35rem !important;
   font-weight: 400 !important;
 }
+
+/* Tag Cloud Widget */
+.wp-tag-cloud {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.5rem !important;
+}
+
+.wp-tag-pill {
+  background: rgba(102, 252, 241, 0.08) !important;
+  color: #66FCF1 !important;
+  border: 1px solid rgba(102, 252, 241, 0.2) !important;
+  padding: 0.25rem 0.65rem !important;
+  border-radius: 9999px !important;
+  font-size: 0.775rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.wp-tag-pill:hover {
+  background: rgba(102, 252, 241, 0.25) !important;
+  color: #ffffff !important;
+  border-color: #66FCF1 !important;
+  transform: translateY(-1px) !important;
+}
+
 
