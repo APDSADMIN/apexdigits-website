@@ -362,18 +362,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    /* ÔöÇÔöÇ SMOOTH SCROLL for in-page anchor links ÔöÇÔöÇ */
+    /* ── SMOOTH SCROLL for in-page anchor links ── */
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => {
-            const target = document.querySelector(a.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const href = a.getAttribute('href');
+            if (href && href !== '#' && href.startsWith('#')) {
+                try {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                } catch (err) { }
             }
         });
     });
 
-    /* ÔöÇÔöÇ DYNAMIC SOCIAL SHARING ÔöÇÔöÇ */
+    /* ── DYNAMIC SOCIAL SHARING ── */
     const shareContainer = document.querySelector('.post-share');
     if (shareContainer) {
         const currentUrl = encodeURIComponent(window.location.href);
@@ -390,16 +395,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /* ── SIMPLE & BULLETPROOF BLOG FILTER & PAGINATION ── */
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const blogCards = document.querySelectorAll('.blog-wp-card');
-    const searchInputs = document.querySelectorAll('.wp-search-input');
-    const tagPills = document.querySelectorAll('.wp-tag-pill');
-    const loadMoreBtn = document.getElementById('blogLoadMoreBtn');
+    /* ── BULLETPROOF GLOBAL BLOG FILTER SYSTEM ── */
+    window.blogIsExpanded = false;
 
-    let isExpanded = false;
-
-    function updateCardVisibility(filterTerm = 'all') {
+    window.updateBlogCards = function (filterTerm = 'all') {
+        const blogCards = document.querySelectorAll('.blog-wp-card');
+        const loadMoreBtn = document.getElementById('blogLoadMoreBtn');
         const rawTerm = (filterTerm || 'all').toLowerCase().replace('#', '').trim();
         let visibleMatchCount = 0;
 
@@ -407,13 +408,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const cat = (card.getAttribute('data-category') || '').toLowerCase();
             const tags = (card.getAttribute('data-tags') || '').toLowerCase();
             const text = card.innerText.toLowerCase();
-            
-            // Match against category attribute OR tags attribute OR text inside card
+
             const matches = (rawTerm === 'all' || cat.includes(rawTerm) || tags.includes(rawTerm) || text.includes(rawTerm));
 
             if (matches) {
                 visibleMatchCount++;
-                if (rawTerm === 'all' && !isExpanded && visibleMatchCount > 6) {
+                if (rawTerm === 'all' && !window.blogIsExpanded && visibleMatchCount > 6) {
                     card.classList.add('hidden-card');
                 } else {
                     card.classList.remove('hidden-card');
@@ -424,32 +424,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (loadMoreBtn) {
-            if (rawTerm === 'all' && !isExpanded && blogCards.length > 6) {
+            if (rawTerm === 'all' && !window.blogIsExpanded && blogCards.length > 6) {
                 loadMoreBtn.style.display = 'inline-block';
             } else {
                 loadMoreBtn.style.display = 'none';
             }
         }
-    }
+    };
 
+    window.filterCategory = function (filterTerm, event) {
+        if (event) event.preventDefault();
+        window.blogIsExpanded = true;
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(b => {
+            if (b.getAttribute('data-filter') === filterTerm) {
+                b.classList.add('active');
+            } else {
+                b.classList.remove('active');
+            }
+        });
+        window.updateBlogCards(filterTerm);
+    };
+
+    window.filterTag = function (filterTerm, event) {
+        if (event) event.preventDefault();
+        window.blogIsExpanded = true;
+        window.updateBlogCards(filterTerm);
+    };
+
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const searchInputs = document.querySelectorAll('.wp-search-input');
+    const tagPills = document.querySelectorAll('.wp-tag-pill');
+    const loadMoreBtn = document.getElementById('blogLoadMoreBtn');
 
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            isExpanded = true;
-            updateCardVisibility('all');
+            window.blogIsExpanded = true;
+            window.updateBlogCards('all');
         });
     }
 
     if (filterBtns.length > 0) {
         filterBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
                 const filter = btn.getAttribute('data-filter') || 'all';
-                isExpanded = true;
-                updateCardVisibility(filter);
+                window.filterCategory(filter, e);
             });
         });
     }
@@ -457,10 +477,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tagPills.length > 0) {
         tagPills.forEach(pill => {
             pill.addEventListener('click', (e) => {
-                e.preventDefault();
                 const filter = pill.getAttribute('data-filter') || pill.innerText.replace('#', '');
-                isExpanded = true;
-                updateCardVisibility(filter);
+                window.filterTag(filter, e);
             });
         });
     }
@@ -468,16 +486,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchInputs.length > 0) {
         searchInputs.forEach(input => {
             input.addEventListener('input', (e) => {
-                isExpanded = true;
-                updateCardVisibility(e.target.value.trim());
+                window.blogIsExpanded = true;
+                window.updateBlogCards(e.target.value.trim());
             });
         });
     }
 
     // Initial load setup
-    if (blogCards.length > 0) {
-        updateCardVisibility('all');
+    if (document.querySelectorAll('.blog-wp-card').length > 0) {
+        window.updateBlogCards('all');
     }
+
 
 
 });
