@@ -280,19 +280,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /* ÔöÇÔöÇ SCROLL REVEAL ÔöÇÔöÇ */
-    const revealEls = document.querySelectorAll('.reveal-left, .reveal-right');
+    /* ── SCROLL REVEAL ── */
+    const revealEls = document.querySelectorAll('.reveal-left, .reveal-right, .reveal-up');
     if (revealEls.length > 0) {
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.15 });
-        revealEls.forEach(el => revealObserver.observe(el));
+        revealEls.forEach(el => el.classList.add('visible'));
     }
+
 
     /* ÔöÇÔöÇ EXPERTISE CARD PARALLAX (Home + Expertise page) ÔöÇÔöÇ */
     document.querySelectorAll('.expertise-card').forEach(card => {
