@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecting Azure AI Foundry & Agentic RAG: Vector Search, Governance & Enterprise Guardrails - ApexDigits</title>
+    <meta name="description" content="Production architecture blueprint for building enterprise Agentic Retrieval-Augmented Generation (RAG) pipelines using Azure AI Foundry, Azure AI Search, and Entra Workload Identity.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-accent">Apex</span>Digits
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="expertise.html">Expertise</a>
+                <a href="experience.html">Experience</a>
+                <a href="blog.html" class="active">Blog</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="btn-primary">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Article Hero Banner -->
+    <section class="article-hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="article-meta">
+                <span class="badge badge-accent">AI Architecture & Data Security</span>
+                <span class="meta-item"><i class="icon-calendar"></i> August 1, 2026</span>
+                <span class="meta-item"><i class="icon-clock"></i> 11 min read</span>
+            </div>
+            <h1 class="article-title">Architecting Azure AI Foundry & Agentic RAG: Vector Search, Governance & Enterprise Guardrails</h1>
+            <p class="article-subtitle">How enterprise architecture teams build secure, scalable Agentic RAG solutions with Azure AI Foundry, vector index partitioning, and real-time content safety filtering.</p>
+            <div class="author-info">
+                <img src="assets/images/profile.png" alt="Gunas" class="author-avatar">
+                <div>
+                    <div class="author-name">Gunas</div>
+                    <div class="author-role">Principal Cloud & AI Security Architect</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Article Body -->
+    <main class="article-container container">
+        <article class="article-content">
+            <h2>The Shift to Agentic Retrieval-Augmented Generation (RAG)</h2>
+            <p>Traditional Retrieval-Augmented Generation (RAG) models operate linearly: user query &rarr; vector search &rarr; prompt augmentation &rarr; LLM response. However, complex enterprise workloads demand **Agentic RAG**, where autonomous AI agents decompose complex multi-step queries, execute dynamic tool calls, re-rank retrieved passages, and validate responses against security policies before returning answers.</p>
+
+            <div class="callout callout-info">
+                <strong>Enterprise AI Governance:</strong> Agentic RAG pipelines must enforce row-level security (RLS), private endpoint network isolation, and strict content moderation to prevent prompt injection and data leaks.
+            </div>
+
+            <h2>Architecture Blueprint: Azure AI Foundry End-to-End Pipeline</h2>
+            <p>Below is the enterprise topology for secure Agentic RAG deployed inside Azure Landing Zone VNets:</p>
+
+            <div class="tech-flow-diagram">
+                <img src="assets/images/ag-ai-analyze.png" alt="Azure AI Foundry Agentic RAG Architecture Flow" class="diagram-img">
+                <div class="diagram-caption">Figure 1: End-to-End Enterprise Flow for Azure AI Foundry & Vector Search RAG</div>
+            </div>
+
+            <div class="architecture-grid">
+                <div class="arch-card">
+                    <h3>1. Managed Private Endpoints</h3>
+                    <p>All traffic between Azure AI Search, Azure OpenAI Services, and Cosmos DB travels over private link endpoints without traversing the public internet.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>2. Hybrid Vector Search & Re-ranking</h3>
+                    <p>Combines HNSW vector similarity with BM25 keyword matching and Semantic Ranker to optimize recall and precision for enterprise domain knowledge.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>3. Entra Managed Identity Authentication</h3>
+                    <p>Eliminates API keys and connection strings; services authenticate using Entra Workload Identities with fine-grained RBAC roles.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>4. Real-Time Content Safety Filtering</h3>
+                    <p>Screens inputs and outputs against custom prompt shield rules, toxicity filters, and PII anonymization policies in Azure AI Content Safety.</p>
+                </div>
+            </div>
+
+            <h2>Python Implementation: Agentic RAG Tool Calling</h2>
+            <p>The following Python snippet demonstrates tool registration and vector search integration with Azure AI Agent Service SDK:</p>
+
+            <pre><code>import os
+from azure.ai.projects import AIProjectClient
+from azure.identity import DefaultAzureCredential
+from azure.search.documents import SearchClient
+from azure.search.documents.models import VectorizedQuery
+
+# Initialize Client with Entra ID Credential
+project_client = AIProjectClient.from_connection_string(
+    credential=DefaultAzureCredential(),
+    conn_str=os.environ["AZURE_AI_FOUNDRY_CONNECTION_STRING"]
+)
+
+# Define Hybrid Vector Search Tool for AI Agent
+def search_enterprise_kb(query: str, top_k: int = 5):
+    search_client = SearchClient(
+        endpoint=os.environ["AZURE_SEARCH_ENDPOINT"],
+        index_name="enterprise-docs-v2",
+        credential=DefaultAzureCredential()
+    )
+    # Generate query embedding
+    embeddings = project_client.inference.get_embeddings(input=[query], model="text-embedding-3-large")
+    vector_query = VectorizedQuery(vector=embeddings.data[0].embedding, k_nearest_neighbors=top_k, fields="content_vector")
+    
+    results = search_client.search(search_text=query, vector_queries=[vector_query], top=top_k)
+    return [doc["content"] for doc in results]
+
+# Create AI Agent with Tool Capabilities
+agent = project_client.agents.create_agent(
+    model="gpt-4o",
+    name="Enterprise-SecOps-Agent",
+    instructions="You are an enterprise cloud security assistant. Use vector search tool to retrieve internal architecture guidelines.",
+    tools=[search_enterprise_kb]
+)
+
+print(f"Agent Created Successfully: {agent.id}")
+</code></pre>
+
+            <h2>Best Practices for Production Deployment</h2>
+            <ul>
+                <li><strong>Vector Index Partitioning:</strong> Partition vector indices by tenant or department ID to enforce strict document isolation.</li>
+                <li><strong>Continuous Prompt Guard Evaluation:</strong> Enable Azure AI Content Safety Jailbreak Detection to block indirect prompt injection attacks.</li>
+                <li><strong>FinOps Token Caps:</strong> Implement per-user and per-application token quota alerts in Azure API Management.</li>
+            </ul>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <p>&copy; 2026 ApexDigits. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

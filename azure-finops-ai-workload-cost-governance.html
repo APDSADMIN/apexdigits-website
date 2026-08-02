@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure FinOps for AI & GPU Workloads: Reserved Instance Sizing, Spot Node Pools & Cost Anomaly Alerts - ApexDigits</title>
+    <meta name="description" content="Production FinOps guide for optimizing Azure AI, OpenAI, and GPU compute costs using Savings Plans, Spot node pools, and Cost Management automated budgets.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-accent">Apex</span>Digits
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="expertise.html">Expertise</a>
+                <a href="experience.html">Experience</a>
+                <a href="blog.html" class="active">Blog</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="btn-primary">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Article Hero Banner -->
+    <section class="article-hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="article-meta">
+                <span class="badge badge-accent">FinOps & AI Cloud Optimization</span>
+                <span class="meta-item"><i class="icon-calendar"></i> August 1, 2026</span>
+                <span class="meta-item"><i class="icon-clock"></i> 9 min read</span>
+            </div>
+            <h1 class="article-title">Azure FinOps for AI & GPU Workloads: Reserved Instance Sizing, Spot Node Pools & Cost Anomaly Alerts</h1>
+            <p class="article-subtitle">How FinOps practitioners optimize Azure OpenAI Token quotas, AKS GPU Spot node pools, and Azure Compute Savings Plans to reduce AI operational expenditure by 45%.</p>
+            <div class="author-info">
+                <img src="assets/images/profile.png" alt="Gunas" class="author-avatar">
+                <div>
+                    <div class="author-name">Gunas</div>
+                    <div class="author-role">Principal Cloud & AI Security Architect</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Article Body -->
+    <main class="article-container container">
+        <article class="article-content">
+            <h2>The Surge in Enterprise AI Infrastructure Costs</h2>
+            <p>Deploying Large Language Models (LLMs) and training pipelines on Azure NDv4/NCv4 GPU instances and Azure OpenAI Provisioned Throughput Units (PTUs) can cause rapid cost overruns. **Azure FinOps Framework** provides structured visibility, allocation tags, and automated governance to keep AI budgets predictable.</p>
+
+            <h2>Architecture Overview: Azure FinOps Optimization Framework</h2>
+            <div class="tech-flow-diagram">
+                <img src="assets/images/experience-bg.png" alt="Azure FinOps Governance Architecture" class="diagram-img">
+                <div class="diagram-caption">Figure 1: Automated Cost Anomaly Detection & Spot GPU Node Auto-scaling Architecture</div>
+            </div>
+
+            <div class="architecture-grid">
+                <div class="arch-card">
+                    <h3>1. Provisioned Throughput (PTU) vs Pay-Go</h3>
+                    <p>Reserves steady-state LLM token throughput at discounts up to 60% compared to standard pay-as-you-go API calls.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>2. AKS Spot GPU Node Pools</h3>
+                    <p>Runs fault-tolerant AI model training and batch inference jobs on Azure Spot VMs at up to 90% cost savings.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>3. Azure Compute Savings Plans</h3>
+                    <p>Flexible 1-year or 3-year hourly commitment discounts applied dynamically across all VM families and regions.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>4. Anomaly Alerting & Tagging Policy</h3>
+                    <p>Enforces strict `CostCenter` and `ProjectID` tags via Azure Policy, pushing real-time Slack/Teams alerts when daily spend spikes > 20%.</p>
+                </div>
+            </div>
+
+            <h2>Azure CLI: Creating Cost Anomaly Alerts via Event Grid</h2>
+            <pre><code># Create Azure Cost Management Budget & Anomaly Alert
+az consumption budget create \
+  --budget-name "Budget-AI-Workloads-Prod" \
+  --amount 15000 \
+  --time-grain "Monthly" \
+  --start-date "2026-08-01" \
+  --end-date "2027-08-01" \
+  --resource-group "rg-ai-foundry-prod" \
+  --notification-threshold-type "Actual" \
+  --notification-operator "GreaterThan" \
+  --notification-percent 80 \
+  --contact-emails "finops-alerts@apexdigits.com"
+</code></pre>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <p>&copy; 2026 ApexDigits. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

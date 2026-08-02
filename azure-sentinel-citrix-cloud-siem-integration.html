@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrating Citrix Cloud Analytics with Microsoft Sentinel: Zero Trust Threat Detection - ApexDigits</title>
+    <meta name="description" content="Step-by-step guide for streaming Citrix Session Recording, CAS security alerts, and NetScaler syslog telemetry into Microsoft Sentinel with automated KQL rules and Logic Apps.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-accent">Apex</span>Digits
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="expertise.html">Expertise</a>
+                <a href="experience.html">Experience</a>
+                <a href="blog.html" class="active">Blog</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="btn-primary">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Article Hero Banner -->
+    <section class="article-hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="article-meta">
+                <span class="badge badge-accent">Azure Security & SIEM</span>
+                <span class="meta-item"><i class="icon-calendar"></i> August 1, 2026</span>
+                <span class="meta-item"><i class="icon-clock"></i> 8 min read</span>
+            </div>
+            <h1 class="article-title">Integrating Citrix Cloud Analytics with Microsoft Sentinel: Zero Trust Threat Detection</h1>
+            <p class="article-subtitle">How security operations teams combine Citrix Analytics for Security (CAS) with Microsoft Sentinel SIEM/SOAR to achieve real-time threat detection and automated session termination.</p>
+            <div class="author-info">
+                <img src="assets/profile.png" alt="Gunas" class="author-avatar">
+                <div>
+                    <div class="author-name">Gunas</div>
+                    <div class="author-role">Principal Cloud & AI Security Architect</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Article Body -->
+    <main class="article-container container">
+        <article class="article-content">
+            <h2>The Need for Unified Security Telemetry</h2>
+            <p>Virtual app and desktop environments are high-value targets for credentials theft and data exfiltration. While <strong>Citrix Analytics for Security (CAS)</strong> uses machine learning models to detect suspicious user behavior (such as excessive clipboard copying or anomalous logon locations), security operations centers (SOCs) require a single pane of glass.</p>
+            
+            <p>Integrating Citrix Cloud telemetry into <strong>Microsoft Sentinel</strong> correlates virtual workspace security events with Azure Active Directory / Entra ID, Microsoft Defender XDR, and network firewall logs.</p>
+
+            <div class="callout callout-warning">
+                <strong>SOC Efficiency Impact:</strong> Combining Citrix risk scores with Microsoft Sentinel correlation rules reduces false-positive investigation times by up to 70% and enables automated zero-trust remediation playbooks.
+            </div>
+
+            <h2>Architecture Blueprint: Ingestion & Automation Pipeline</h2>
+
+            <div class="architecture-grid">
+                <div class="arch-card">
+                    <h3>1. Citrix CAS Event Hub Export</h3>
+                    <p>Citrix Analytics exports real-time risk indicator events and user risk scores directly into an Azure Event Hub instance over Kafka protocol.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>2. Data Collection Rule (DCR)</h3>
+                    <p>Azure Monitor Data Collection Rules parse and map JSON risk payloads into custom Log Analytics tables (`CitrixCAS_CL`).</p>
+                </div>
+                <div class="arch-card">
+                    <h3>3. Sentinel KQL Detection Rules</h3>
+                    <p>Custom Kusto Query Language rules correlate high-risk Citrix events with Entra ID risky sign-in logs and Defender endpoint alerts.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>4. Automated Logic App SOAR Playbook</h3>
+                    <p>Triggers immediate response actions: logs off the active Citrix session, revokes Entra ID refresh tokens, and enforces FIDO2 MFA challenge.</p>
+                </div>
+            </div>
+
+            <h2>KQL Query Rule: Detecting High-Risk Citrix Data Exfiltration</h2>
+            <p>Below is a production KQL detection rule for Microsoft Sentinel that alerts when a user with an elevated risk score attempts high-volume file downloads or clipboard operations within a Citrix session:</p>
+
+            <pre><code>// KQL Detection Rule: High-Risk Citrix Data Exfiltration Pattern
+let HighRiskUsers = 
+    CitrixCAS_CL
+    | where RiskScore_d >= 80
+    | summarize Timestamp = max(TimeGenerated) by UserPrincipalName_s;
+
+CitrixSessionEvents_CL
+| where Action_s in ("FileDownload", "ClipboardCopyLargeText", "USBDeviceAttached")
+| join kind=inner HighRiskUsers on $left.UserPrincipalName_s == $right.UserPrincipalName_s
+| where TimeGenerated >= ago(1h)
+| extend AlertSeverity = iff(Action_s == "USBDeviceAttached", "High", "Medium")
+| project TimeGenerated, UserPrincipalName_s, ClientIP_s, Action_s, FileSizeMB_d, AlertSeverity
+| order by TimeGenerated desc</code></pre>
+
+            <h2>Automated Remediation Flow with Azure Logic Apps</h2>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Trigger Event</th>
+                        <th>Sentinel Incident Condition</th>
+                        <th>Automated Playbook Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Excessive Clipboard Extraction</td>
+                        <td>KQL rule matched (Risk score > 75)</td>
+                        <td>Call Citrix Cloud REST API to initiate live Session Recording and disable clipboard.</td>
+                    </tr>
+                    <tr>
+                        <td>Impossible Travel Sign-In</td>
+                        <td>Entra ID + NetScaler Gateway IP mismatch</td>
+                        <td>Force immediate session disconnect and revoke Entra ID user authentication tokens.</td>
+                    </tr>
+                    <tr>
+                        <td>Ransomware Signature Detected</td>
+                        <td>Defender for Endpoint alert on Session Host</td>
+                        <td>Isolate session host VM in Azure NSG and trigger MCS auto-rebuild of VDA instance.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Implementation Roadmap</h2>
+            <ol class="step-list">
+                <li><strong>Configure Azure Event Hub:</strong> Create a dedicated Azure Event Hub Namespace in your Azure Security Landing Zone with SAS Policy access for Citrix Cloud.</li>
+                <li><strong>Enable Data Export in Citrix Cloud:</strong> Under Citrix Cloud -> Analytics -> Settings -> Data Exports, link your Azure Event Hub connection string.</li>
+                <li><strong>Deploy Sentinel Data Connector:</strong> Map custom fields (`UserPrincipalName`, `RiskScore`, `IndicatorName`, `ClientIP`) using KQL Data Parsing functions.</li>
+                <li><strong>Enable Logic App Playbooks:</strong> Assign Microsoft Sentinel Responder RBAC permissions to Azure Logic Apps for automated session termination.</li>
+            </ol>
+
+            <h2>Conclusion</h2>
+            <p>Bridging Citrix Cloud Analytics with Microsoft Sentinel transforms threat intelligence from siloed telemetry into proactive, automated defense. ApexDigits helps enterprise security teams design and deploy integrated cloud SIEM/SOAR architectures.</p>
+        </article>
+
+        <!-- Sidebar / Related Info -->
+        <aside class="article-sidebar">
+            <div class="widget widget-author">
+                <h3>About ApexDigits</h3>
+                <p>ApexDigits delivers high-stakes Enterprise Cloud Architecture, Microsoft Entra Zero Trust Security, Citrix Platform Optimization, and AI DevOps Governance.</p>
+                <a href="contact.html" class="btn-secondary">Schedule Consultation</a>
+            </div>
+
+            <div class="widget widget-related">
+                <h3>Related Articles</h3>
+                <ul class="related-list">
+                    <li><a href="citrix-zero-trust-workspace.html">Citrix Zero Trust Workspace Integration</a></li>
+                    <li><a href="entra-private-access-zero-trust.html">Deploying Microsoft Entra Private Access</a></li>
+                    <li><a href="azure-automation-powershell-scripts.html">Azure Automation PowerShell Scripts</a></li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="logo"><span class="logo-accent">Apex</span>Digits</a>
+                <p>Architecting resilient, zero-trust cloud infrastructure and AI-driven enterprise automation.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="expertise.html">Expertise</a></li>
+                    <li><a href="experience.html">Experience</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>Email: contact@apexdigits.com</p>
+                <p>Web: www.apexdigits.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 ApexDigits. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

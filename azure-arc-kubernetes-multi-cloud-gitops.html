@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Arc-Enabled Kubernetes: GitOps Workload Management with Flux & Azure Policy - ApexDigits</title>
+    <meta name="description" content="Production guide for managing multi-cloud EKS, GKE, and on-prem OpenShift clusters using Azure Arc, Flux v2 GitOps, and centralized Azure Policy enforcement.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-accent">Apex</span>Digits
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="expertise.html">Expertise</a>
+                <a href="experience.html">Experience</a>
+                <a href="blog.html" class="active">Blog</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="btn-primary">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Article Hero Banner -->
+    <section class="article-hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="article-meta">
+                <span class="badge badge-accent">Multi-Cloud & Kubernetes</span>
+                <span class="meta-item"><i class="icon-calendar"></i> August 1, 2026</span>
+                <span class="meta-item"><i class="icon-clock"></i> 10 min read</span>
+            </div>
+            <h1 class="article-title">Azure Arc-Enabled Kubernetes: GitOps Workload Management with Flux & Azure Policy</h1>
+            <p class="article-subtitle">How enterprise Platform Engineering teams achieve unified governance and declarative GitOps deployments across AWS EKS, Google GKE, and on-prem K8s clusters using Azure Arc.</p>
+            <div class="author-info">
+                <img src="assets/images/profile.png" alt="Gunas" class="author-avatar">
+                <div>
+                    <div class="author-name">Gunas</div>
+                    <div class="author-role">Principal Cloud & AI Security Architect</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Article Body -->
+    <main class="article-container container">
+        <article class="article-content">
+            <h2>The Challenge of Multi-Cloud Kubernetes Operations</h2>
+            <p>Managing Kubernetes clusters across AWS, GCP, and VMware environments creates operational fragmentation, inconsistent compliance auditing, and configuration drift. **Azure Arc-enabled Kubernetes** projects an ARM resource representation for any CNCF-compliant cluster, enabling centralized policy enforcement, Microsoft Sentinel telemetry ingestion, and Flux v2 GitOps deployment pipelines.</p>
+
+            <h2>Architecture Overview: Azure Arc Control Plane</h2>
+            <div class="tech-flow-diagram">
+                <img src="assets/images/dangling-dns-takeover.png" alt="Azure Arc Kubernetes Architecture Diagram" class="diagram-img">
+                <div class="diagram-caption">Figure 1: Centralized Governance & Flux GitOps Synchronization via Azure Arc</div>
+            </div>
+
+            <div class="architecture-grid">
+                <div class="arch-card">
+                    <h3>1. Arc Cluster Agents</h3>
+                    <p>Lightweight deployment components (ClusterConnect, Flux Operator, Guard) running inside target namespaces to establish secure outbound WebSocket connections to Azure.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>2. Flux v2 GitOps Engine</h3>
+                    <p>Continuously reconciles cluster state against Git repositories (GitHub / Azure Repos), automatically applying Helm charts and Kustomize manifests.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>3. Azure Policy for Kubernetes</h3>
+                    <p>Enforces Gatekeeper (OPA) policies at scale (e.g., blocking root containers, requiring resource limits, and restricting external load balancers).</p>
+                </div>
+                <div class="arch-card">
+                    <h3>4. Azure Monitor Container Insights</h3>
+                    <p>Collects Prometheus metrics, pod stdout/stderr logs, and cluster events into Log Analytics without local storage overhead.</p>
+                </div>
+            </div>
+
+            <h2>Terraform Manifest: Connecting AWS EKS to Azure Arc</h2>
+            <p>Below is a Terraform configuration snippet using the `azurerm` provider to onboard an external Kubernetes cluster into Azure Arc:</p>
+
+            <pre><code>resource "azurerm_arc_kubernetes_cluster" "eks_cluster" {
+  name                = "production-aws-eks-us-east-1"
+  resource_group_name = "rg-arc-governance-prod"
+  location            = "eastus"
+  agent_public_key_base64 = var.arc_agent_public_key
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  tags = {
+    Environment = "Production"
+    Cloud       = "AWS"
+    Platform    = "EKS"
+  }
+}
+
+# Deploy Flux GitOps Extension
+resource "azurerm_kubernetes_cluster_extension" "flux_extension" {
+  name           = "fluxv2"
+  cluster_id     = azurerm_arc_kubernetes_cluster.eks_cluster.id
+  extension_type = "microsoft.flux"
+}
+</code></pre>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <p>&copy; 2026 ApexDigits. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

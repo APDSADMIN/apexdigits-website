@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploying Citrix NetScaler VPX in Azure: High Availability, Autoscale & GSLB Multi-Region Routing - ApexDigits</title>
+    <meta name="description" content="Production architecture blueprint for deploying Citrix NetScaler VPX pairs in Azure Availability Zones using Azure Load Balancer, IP shifting, and Global Server Load Balancing (GSLB).">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-accent">Apex</span>Digits
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="expertise.html">Expertise</a>
+                <a href="experience.html">Experience</a>
+                <a href="blog.html" class="active">Blog</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="btn-primary">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Article Hero Banner -->
+    <section class="article-hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="article-meta">
+                <span class="badge badge-accent">Citrix NetScaler & Azure Networking</span>
+                <span class="meta-item"><i class="icon-calendar"></i> August 1, 2026</span>
+                <span class="meta-item"><i class="icon-clock"></i> 10 min read</span>
+            </div>
+            <h1 class="article-title">Deploying Citrix NetScaler VPX in Azure: High Availability, Autoscale & GSLB Multi-Region Routing</h1>
+            <p class="article-subtitle">How to architect zero-downtime application delivery controllers in Azure using NetScaler VPX High Availability, Azure Standard Load Balancer, and multi-region GSLB routing.</p>
+            <div class="author-info">
+                <img src="assets/profile.png" alt="Gunas" class="author-avatar">
+                <div>
+                    <div class="author-name">Gunas</div>
+                    <div class="author-role">Principal Cloud & AI Security Architect</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Article Body -->
+    <main class="article-container container">
+        <article class="article-content">
+            <h2>The Challenge of ADC High Availability in Cloud Virtual Networks</h2>
+            <p>Deploying application delivery controllers (ADCs) in public cloud environments differs fundamentally from on-premises hardware deployments. Cloud hypervisors do not support gratuitous ARP (GARP) or Layer-2 IP floating. To achieve true <strong>High Availability (HA)</strong> for <strong>Citrix NetScaler VPX</strong> in Azure, enterprise architects must leverage cloud-native routing constructs such as <strong>Azure Standard Load Balancer (ALB)</strong> or Azure API-driven IP shifting.</p>
+
+            <div class="callout callout-info">
+                <strong>99.99% Availability Requirement:</strong> Deploying NetScaler VPX HA nodes across distinct Azure Availability Zones (Zone 1 and Zone 2) eliminates single-point-of-failure risks associated with underlying Azure rack or datacenter maintenance.
+            </div>
+
+            <h2>Architecture Overview: NetScaler VPX Dual-NIC HA Pattern</h2>
+
+            <div class="architecture-grid">
+                <div class="arch-card">
+                    <h3>1. Primary VPX Node (Zone 1)</h3>
+                    <p>Handles active user connections, SSL offloading, HDX proxying, and WAF inspection. Maintains synchronization channel over private backend NIC.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>2. Secondary VPX Node (Zone 2)</h3>
+                    <p>Monitors node health via heartbeats. Promotes to active role in sub-second failover window if primary node or zone experiences degradation.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>3. Azure Standard Load Balancer</h3>
+                    <p>Acts as the front-end VIP gateway. Uses custom TCP health probes (Port 9000 / Nitro API) to direct traffic strictly to the currently active NetScaler node.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>4. Multi-Region GSLB Routing</h3>
+                    <p>Configures DNS-based Global Server Load Balancing across Azure East US and West Europe for active-active multi-region disaster recovery.</p>
+                </div>
+            </div>
+
+            <h2>Bicep Infrastructure Template: Azure Load Balancer Probe</h2>
+            <p>Below is a Bicep module snippet for deploying the Azure Standard Load Balancer with health probes tuned for NetScaler HA failover:</p>
+
+            <pre><code>// Bicep Module: Azure Standard Load Balancer for NetScaler VPX HA
+resource netscalerALB 'Microsoft.Network/loadBalancers@2023-09-01' = {
+  name: 'alb-netscaler-prod-eastus'
+  location: 'eastus'
+  sku: {
+    name: 'Standard'
+    tier: 'Regional'
+  }
+  properties: {
+    frontendIPConfigurations: [
+      {
+        name: 'VIP-NetScaler-Gateway'
+        properties: {
+          publicIPAddress: {
+            id: gatewayPublicIP.id
+          }
+        }
+      }
+    ]
+    backendAddressPools: [
+      {
+        name: 'NetScaler-HA-Nodes'
+      }
+    ]
+    probes: [
+      {
+        name: 'NetScaler-Active-Node-Probe'
+        properties: {
+          protocol: 'Tcp'
+          port: 9000
+          intervalInSeconds: 5
+          numberOfProbes: 2
+        }
+      }
+    ]
+    loadBalancingRules: [
+      {
+        name: 'Rule-HTTPS-443'
+        properties: {
+          frontendIPConfiguration: {
+            id: resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', 'alb-netscaler-prod-eastus', 'VIP-NetScaler-Gateway')
+          }
+          backendAddressPool: {
+            id: resourceId('Microsoft.Network/loadBalancers/backendAddressPools', 'alb-netscaler-prod-eastus', 'NetScaler-HA-Nodes')
+          }
+          probe: {
+            id: resourceId('Microsoft.Network/loadBalancers/probes', 'alb-netscaler-prod-eastus', 'NetScaler-Active-Node-Probe')
+          }
+          protocol: 'Tcp'
+          frontendPort: 443
+          backendPort: 443
+          enableFloatingIP: true
+        }
+      }
+    ]
+  }
+}</code></pre>
+
+            <h2>NetScaler CLI: Configuring GSLB Multi-Region Routing</h2>
+            <p>Configure DNS GSLB site objects via NetScaler CLI to route user sessions dynamically to the nearest healthy Azure datacenter:</p>
+
+            <pre><code># Add Local & Remote GSLB Sites
+add gslb site GSLB-EastUS 10.1.0.100 -type LOCAL -publicIP 20.42.10.15
+add gslb site GSLB-WestEurope 10.2.0.100 -type REMOTE -publicIP 51.144.20.30
+
+# Add GSLB Virtual Server with RoundTripTime (RTT) Load Balancing
+add gslb vserver gslb-gateway-vserver SSL -serviceType HDX -lbMethod RTT
+bind gslb vserver gslb-gateway-vserver -serviceName gslb-service-eastus
+bind gslb vserver gslb-gateway-vserver -serviceName gslb-service-westeurope
+
+# Bind Custom Domain Name
+bind gslb vserver gslb-gateway-vserver -domainName gateway.apexdigits.com
+
+Write-Host "NetScaler Multi-Region GSLB Active-Active Routing Online!"</code></pre>
+
+            <h2>Comparing Azure NetScaler HA Deployment Patterns</h2>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Deployment Pattern</th>
+                        <th>Failover Speed</th>
+                        <th>Azure Component Used</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Azure Standard Load Balancer (ALB) Probe</strong></td>
+                        <td>5 - 10 Seconds</td>
+                        <td>Azure Standard LB (Floating IP)</td>
+                        <td>Active-Passive HA in single region with minimum complexity.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Azure API-Driven IP Shifting</strong></td>
+                        <td>10 - 20 Seconds</td>
+                        <td>Azure Resource Manager API via Instance Metadata</td>
+                        <td>Direct NIC IP reassignment without intermediate load balancer.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Autoscale Group (ADM Controlled)</strong></td>
+                        <td>Dynamic (Scales out)</td>
+                        <td>Azure VM Scale Sets (VMSS) + ADM Service</td>
+                        <td>High-throughput web applications with fluctuating elastic traffic.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Multi-Region GSLB Active-Active</strong></td>
+                        <td>Sub-Second (DNS RTT)</td>
+                        <td>NetScaler GSLB + Azure Public IP / Traffic Manager</td>
+                        <td>Global enterprise deployment with multi-datacenter disaster recovery.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Conclusion</h2>
+            <p>Deploying Citrix NetScaler VPX in Azure using Availability Zones, Standard Load Balancers, and GSLB guarantees high-performance application delivery and multi-region resilience. ApexDigits specializes in designing enterprise NetScaler and Azure networking architectures.</p>
+        </article>
+
+        <!-- Sidebar / Related Info -->
+        <aside class="article-sidebar">
+            <div class="widget widget-author">
+                <h3>About ApexDigits</h3>
+                <p>ApexDigits delivers high-stakes Enterprise Cloud Architecture, Microsoft Entra Zero Trust Security, Citrix Platform Optimization, and AI DevOps Governance.</p>
+                <a href="contact.html" class="btn-secondary">Schedule Consultation</a>
+            </div>
+
+            <div class="widget widget-related">
+                <h3>Related Articles</h3>
+                <ul class="related-list">
+                    <li><a href="citrix-platform-flex-2026.html">Citrix Platform Flex & Universal Licensing</a></li>
+                    <li><a href="multi-cloud-domain-dangling-takeover.html">Mitigating Dangling DNS Subdomain Takeover</a></li>
+                    <li><a href="designing-resilient-landing-zones.html">Designing Resilient Azure Landing Zones</a></li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="logo"><span class="logo-accent">Apex</span>Digits</a>
+                <p>Architecting resilient, zero-trust cloud infrastructure and AI-driven enterprise automation.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="expertise.html">Expertise</a></li>
+                    <li><a href="experience.html">Experience</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>Email: contact@apexdigits.com</p>
+                <p>Web: www.apexdigits.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 ApexDigits. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

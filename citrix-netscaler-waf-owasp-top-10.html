@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citrix NetScaler WAF Advanced Policy Tuning: Defending Against OWASP Top 10 & API Zero-Day Exploits - ApexDigits</title>
+    <meta name="description" content="Production configuration guide for tuning Citrix NetScaler Web Application Firewall (WAF) to protect web apps and REST APIs against OWASP Top 10 vulnerabilities.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-accent">Apex</span>Digits
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="expertise.html">Expertise</a>
+                <a href="experience.html">Experience</a>
+                <a href="blog.html" class="active">Blog</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="btn-primary">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Article Hero Banner -->
+    <section class="article-hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="article-meta">
+                <span class="badge badge-accent">NetScaler Security & Application Firewall</span>
+                <span class="meta-item"><i class="icon-calendar"></i> August 1, 2026</span>
+                <span class="meta-item"><i class="icon-clock"></i> 11 min read</span>
+            </div>
+            <h1 class="article-title">Citrix NetScaler WAF Advanced Policy Tuning: Defending Against OWASP Top 10 & API Zero-Day Exploits</h1>
+            <p class="article-subtitle">How Security Engineers tune NetScaler Web Application Firewall (WAF) hybrid security profiles, SQL injection signatures, JSON schema validation, and bot management rules.</p>
+            <div class="author-info">
+                <img src="assets/images/profile.png" alt="Gunas" class="author-avatar">
+                <div>
+                    <div class="author-name">Gunas</div>
+                    <div class="author-role">Principal Cloud & AI Security Architect</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Article Body -->
+    <main class="article-container container">
+        <article class="article-content">
+            <h2>The Need for Advanced Application Layer Security</h2>
+            <p>Web applications and REST APIs are subject to continuous automated scanning for SQL Injection (SQLi), Cross-Site Scripting (XSS), Command Injection, and Broken Object Level Authorization (BOLA). **Citrix NetScaler Web Application Firewall (WAF)** combines positive security model relaxation with signature-based negative security filtering.</p>
+
+            <h2>Architecture Overview: Dual Security Model Protection</h2>
+            <div class="tech-flow-diagram">
+                <img src="assets/images/expertise-bg.png" alt="NetScaler WAF Traffic Processing Engine" class="diagram-img">
+                <div class="diagram-caption">Figure 1: NetScaler WAF Request Packet Processing & Signature Inspection</div>
+            </div>
+
+            <div class="architecture-grid">
+                <div class="arch-card">
+                    <h3>1. Signature Auto-Updates</h3>
+                    <p>Subscribes to NetScaler Security Cloud live feeds to block emerging CVE zero-day exploits before patches can be deployed.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>2. JSON & XML Schema Validation</h3>
+                    <p>Enforces strict JSON schema validation for REST endpoints, dropping malformed payloads before backend app consumption.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>3. Advanced Bot Management</h3>
+                    <p>Uses device fingerprinting, TLS JA3 hash inspection, and rate-limiting to block credential stuffing scripts.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>4. Credit Card & PII Masking</h3>
+                    <p>Automatically redacts credit card numbers (Luhn algorithm) and SSNs from HTTP responses to enforce PCI-DSS compliance.</p>
+                </div>
+            </div>
+
+            <h2>NetScaler CLI Configuration: Production WAF Profile</h2>
+            <pre><code># Create Application Firewall Profile (HTML + JSON)
+add appfw profile appfw_prod_api_prof -type HTML JSON
+
+# Enable Security Checks
+set appfw profile appfw_prod_api_prof -sqlinjectionAction block log stats
+set appfw profile appfw_prod_api_prof -crosssitescriptingAction block log stats
+set appfw profile appfw_prod_api_prof -bufferOverflowAction block log stats
+set appfw profile appfw_prod_api_prof -creditCardNDefault 4 -creditCardNAction block log
+
+# Bind WAF Signatures to Profile
+bind appfw profile appfw_prod_api_prof -signatures sig_auto_update_2026
+
+# Bind Profile to Load Balancing Virtual Server
+add appfw policy appfw_pol_api "HTTP.REQ.URL.STARTSWITH(\"/api/v1\")" appfw_prod_api_prof
+bind lb vserver lb_vs_api_prod -policyName appfw_pol_api -priority 100 -type REQUEST
+</code></pre>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <p>&copy; 2026 ApexDigits. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

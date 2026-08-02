@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploying Microsoft Entra Private Access: Replacing Legacy VPNs with Zero Trust - ApexDigits</title>
+    <meta name="description" content="Step-by-step architecture guide for migrating legacy Citrix and VPN infrastructure to Microsoft Entra Private Access, featuring Global Secure Access connector sizing and Conditional Access integration.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-accent">Apex</span>Digits
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="expertise.html">Expertise</a>
+                <a href="experience.html">Experience</a>
+                <a href="blog.html" class="active">Blog</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="btn-primary">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Article Hero Banner -->
+    <section class="article-hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="article-meta">
+                <span class="badge badge-accent">Identity & Zero Trust</span>
+                <span class="meta-item"><i class="icon-calendar"></i> August 1, 2026</span>
+                <span class="meta-item"><i class="icon-clock"></i> 10 min read</span>
+            </div>
+            <h1 class="article-title">Deploying Microsoft Entra Private Access: Replacing Legacy VPNs with Zero Trust</h1>
+            <p class="article-subtitle">A comprehensive blueprint for phasing out legacy perimeter VPNs and implementing identity-centric micro-segmentation with Microsoft Entra Private Access & Global Secure Access.</p>
+            <div class="author-info">
+                <img src="assets/profile.png" alt="Gunas" class="author-avatar">
+                <div>
+                    <div class="author-name">Gunas</div>
+                    <div class="author-role">Principal Cloud & AI Security Architect</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Article Body -->
+    <main class="article-container container">
+        <article class="article-content">
+            <h2>The Imperative to Eliminate Perimeter VPNs</h2>
+            <p>Traditional virtual private networks (VPNs) grant users full network-level access once authenticated. In a world of sophisticated lateral movement attacks and zero-day vulnerabilities in edge gateway appliances, network-level trust is a liability. <strong>Microsoft Entra Private Access</strong> (part of Microsoft Security Service Edge - SSE) replaces perimeter gateways with identity-centric, least-privilege application proxying.</p>
+
+            <div class="callout callout-info">
+                <strong>Zero Trust Philosophy:</strong> Never trust network location. Validate explicitly using identity context, device health, and continuous access evaluation (CAE) before granting access to specific TCP/UDP application endpoints.
+            </div>
+
+            <h2>Architecture Overview: Global Secure Access (GSA)</h2>
+            <p>Microsoft Entra Private Access routes client traffic securely to internal enterprise apps without exposing public inbound firewall ports. Lightweight <strong>Private Access Connectors</strong> deployed on internal Windows Servers establish outbound-only TLS 1.3 connections to Microsoft's global edge network.</p>
+
+            <div class="architecture-grid">
+                <div class="arch-card">
+                    <h3>1. Global Secure Access Client</h3>
+                    <p>Runs on Windows 11/10 and macOS endpoints, intercepting private IPv4/IPv6 traffic or FQDN requests and encapsulating them securely via WireGuard-based tunnels.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>2. Entra Private Access Edge</h3>
+                    <p>Enforces Conditional Access rules, multi-factor authentication (MFA), compliant device checks, and Continuous Access Evaluation (CAE) in real time.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>3. Connector Groups</h3>
+                    <p>High-availability connector clusters situated inside AWS VPCs, Azure VNets, or on-premises datacenters, acting as local proxies for target applications.</p>
+                </div>
+                <div class="arch-card">
+                    <h3>4. App Segments</h3>
+                    <p>Granular target definitions specifying exact IP ranges, ports (RDP 3389, SSH 22, SMB 445), or internal domains with least-privilege scoping.</p>
+                </div>
+            </div>
+
+            <h2>PowerShell Automation: Deploying Connector Groups</h2>
+            <p>Use the following PowerShell script to automatically verify system prerequisites, register Entra Private Access Connectors, and assign Connector Groups via Microsoft Graph PowerShell SDK:</p>
+
+            <pre><code># Install Microsoft Graph Entra Beta module
+Install-Module Microsoft.Graph.Beta.Applications -Scope CurrentUser -Force
+
+# Connect with required admin scopes
+Connect-MgGraph -Scopes "Application.ReadWrite.All", "NetworkAccess.ReadWrite.All"
+
+# Define New Connector Group Name
+$groupName = "Production-VNet-US-East"
+$connectorGroup = New-MgBetaNetworkAccessConnectorGroup -Name $groupName -Region "nam"
+
+Write-Host "Created Connector Group ID: $($connectorGroup.Id)" -ForegroundColor Green
+
+# Assign Quick Access Application Segment to Connector Group
+$appSegment = Get-MgBetaApplication -Filter "displayName eq 'Internal-RDP-Cluster'"
+Update-MgBetaApplication -ApplicationId $appSegment.Id -OnPremisesPublishing @{
+    connectorGroupId = $connectorGroup.Id
+    externalAuthenticationOption = "passthrough"
+}
+
+Write-Host "Successfully attached Connector Group to App Segment!" -ForegroundColor Cyan</code></pre>
+
+            <h2>Comparing Legacy VPN vs Microsoft Entra Private Access</h2>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Capability</th>
+                        <th>Legacy Corporate VPN</th>
+                        <th>Entra Private Access (Zero Trust)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Network Exposure</td>
+                        <td>Full subnet access (10.0.0.0/8)</td>
+                        <td>Per-app port/IP micro-segmentation</td>
+                    </tr>
+                    <tr>
+                        <td>Inbound Firewall Rules</td>
+                        <td>Requires open inbound ports (443 / 1194)</td>
+                        <td>Zero inbound open ports (Outbound 443 only)</td>
+                    </tr>
+                    <tr>
+                        <td>Authentication Gate</td>
+                        <td>At connection initiation only</td>
+                        <td>Continuous Access Evaluation (CAE) on every request</td>
+                    </tr>
+                    <tr>
+                        <td>MFA & Device Health</td>
+                        <td>Static connection challenge</td>
+                        <td>Dynamic Entra ID Conditional Access evaluation</td>
+                    </tr>
+                    <tr>
+                        <td>SSO & Kerberos</td>
+                        <td>Complex domain trust / line-of-sight required</td>
+                        <td>Seamless Kerberos Constrained Delegation (KCD) integration</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Step-by-Step Migration Strategy</h2>
+            <ol class="step-list">
+                <li><strong>Application Discovery:</strong> Run Entra Global Secure Access traffic logs to identify all internal FQDNs, SMB shares, RDP targets, and SSH endpoints currently traversing VPNs.</li>
+                <li><strong>Group Application Segments:</strong> Group discovered targets into logical App Segments based on security tier (e.g., Tier-0 Admin Apps, Finance SMB Shares, Developer SSH Jumpboxes).</li>
+                <li><strong>Deploy High-Availability Connectors:</strong> Install at least 2 Private Access Connectors per availability zone to guarantee 99.99% connector redundancy.</li>
+                <li><strong>Enforce Strict Conditional Access:</strong> Mandate Entra Joined / Compliant Devices, Phishing-Resistant FIDO2/Passkey MFA, and Risk-Based Sign-In policies.</li>
+                <li><strong>Phase Out VPN Client:</strong> Silently uninstall legacy VPN clients via Intune / PowerShell and enable GSA Client auto-start across all endpoints.</li>
+            </ol>
+
+            <h2>Summary</h2>
+            <p>Migrating to Microsoft Entra Private Access converts dangerous perimeter network trusts into granular identity-verified application connections. ApexDigits assists enterprise organizations in designing, testing, and automating zero-trust network access (ZTNA) migrations across hybrid multi-cloud environments.</p>
+        </article>
+
+        <!-- Sidebar / Related Info -->
+        <aside class="article-sidebar">
+            <div class="widget widget-author">
+                <h3>About ApexDigits</h3>
+                <p>ApexDigits delivers high-stakes Enterprise Cloud Architecture, Microsoft Entra Zero Trust Security, Citrix Platform Optimization, and AI DevOps Governance.</p>
+                <a href="contact.html" class="btn-secondary">Schedule Consultation</a>
+            </div>
+
+            <div class="widget widget-related">
+                <h3>Related Articles</h3>
+                <ul class="related-list">
+                    <li><a href="ai-agentic-coding-enterprise-devops.html">Agentic AI Coding in Enterprise DevOps</a></li>
+                    <li><a href="microsoft-entra-conditional-access.html">Microsoft Entra Conditional Access Best Practices</a></li>
+                    <li><a href="citrix-zero-trust-workspace.html">Citrix Zero Trust Workspace Integration</a></li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="logo"><span class="logo-accent">Apex</span>Digits</a>
+                <p>Architecting resilient, zero-trust cloud infrastructure and AI-driven enterprise automation.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="expertise.html">Expertise</a></li>
+                    <li><a href="experience.html">Experience</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>Email: contact@apexdigits.com</p>
+                <p>Web: www.apexdigits.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 ApexDigits. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
