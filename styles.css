@@ -1878,6 +1878,36 @@ h5 {
   font-size: 0.82rem !important;
 }
 
+/* Expertise List Component */
+.expertise-list {
+  list-style: none !important;
+  list-style-type: none !important;
+  padding: 0 !important;
+  margin: 1rem 0 0 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.55rem !important;
+}
+
+.expertise-list li {
+  list-style: none !important;
+  list-style-type: none !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+  font-size: 0.88rem !important;
+  color: #cbd5e1 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.55rem !important;
+}
+
+.expertise-list li i {
+  color: #66FCF1 !important;
+  font-size: 0.8rem !important;
+  flex-shrink: 0 !important;
+}
+
+
   gap: 0.5rem;
   font-size: 0.8rem;
   color: var(--text-muted);
