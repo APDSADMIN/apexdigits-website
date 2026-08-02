@@ -250,20 +250,27 @@ document.addEventListener('DOMContentLoaded', () => {
         counters.forEach(el => {
             const target = parseInt(el.dataset.target, 10);
             if (!target) return;
-            const duration = 1500;
-            const step = Math.max(15, Math.floor(duration / target));
-            let current = 0;
+            const parent = el.closest('.stat-card');
+            const labelText = parent ? parent.innerText : '';
+            const suffix = labelText.includes('%') ? '%' : '+';
+            
+            const duration = 1200;
+            const steps = 30;
+            const stepDuration = Math.floor(duration / steps);
+            let stepCount = 0;
+            
             const timer = setInterval(() => {
-                current += Math.max(1, Math.ceil(target / 30));
-                if (current >= target) {
-                    el.textContent = target + '+';
+                stepCount++;
+                const current = Math.min(target, Math.ceil((target / steps) * stepCount));
+                el.textContent = current.toLocaleString() + suffix;
+                if (stepCount >= steps || current >= target) {
+                    el.textContent = target.toLocaleString() + suffix;
                     clearInterval(timer);
-                } else {
-                    el.textContent = current + '+';
                 }
-            }, step);
+            }, stepDuration);
         });
     }
+
 
     if (counters.length > 0) {
         // Run counter animation immediately on load
