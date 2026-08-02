@@ -240,39 +240,45 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     }
 
-    /* ÔöÇÔöÇ ANIMATED COUNTERS ÔöÇÔöÇ */
+    /* ── ANIMATED COUNTERS ── */
     const counters = document.querySelectorAll('.stat-number[data-target]');
     let countersStarted = false;
 
     function startCounters() {
+        if (countersStarted) return;
+        countersStarted = true;
         counters.forEach(el => {
             const target = parseInt(el.dataset.target, 10);
-            const duration = 1800;
-            const step = Math.ceil(duration / target);
+            if (!target) return;
+            const duration = 1500;
+            const step = Math.max(15, Math.floor(duration / target));
             let current = 0;
             const timer = setInterval(() => {
-                current += Math.max(1, Math.ceil(target / 60));
+                current += Math.max(1, Math.ceil(target / 30));
                 if (current >= target) {
-                    el.textContent = target.toLocaleString();
+                    el.textContent = target + '+';
                     clearInterval(timer);
                 } else {
-                    el.textContent = current.toLocaleString();
+                    el.textContent = current + '+';
                 }
-            }, step > 30 ? 30 : step);
+            }, step);
         });
     }
 
     if (counters.length > 0) {
+        // Run counter animation immediately on load
+        setTimeout(startCounters, 100);
+        
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && !countersStarted) {
-                    countersStarted = true;
+                if (entry.isIntersecting) {
                     startCounters();
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.1 });
         counters.forEach(c => counterObserver.observe(c));
     }
+
 
     /* ÔöÇÔöÇ SCROLL REVEAL ÔöÇÔöÇ */
     const revealEls = document.querySelectorAll('.reveal-left, .reveal-right');
