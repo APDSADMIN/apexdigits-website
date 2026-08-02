@@ -1,145 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Architecting Azure AI Foundry & Agentic RAG: Vector Search, Governance & Enterprise Guardrails - ApexDigits</title>
-    <meta name="description" content="Production architecture blueprint for building enterprise Agentic Retrieval-Augmented Generation (RAG) pipelines using Azure AI Foundry, Azure AI Search, and Entra Workload Identity.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Navigation Header -->
-    <header class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-accent">Apex</span>Digits
-            </a>
-            <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="expertise.html">Expertise</a>
-                <a href="experience.html">Experience</a>
-                <a href="blog.html" class="active">Blog</a>
-                <a href="about.html">About</a>
-                <a href="contact.html" class="btn-primary">Contact Us</a>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Article Hero Banner -->
-    <section class="article-hero">
-        <div class="hero-overlay"></div>
-        <div class="container">
-            <div class="article-meta">
-                <span class="badge badge-accent">AI Architecture & Data Security</span>
-                <span class="meta-item"><i class="icon-calendar"></i> August 1, 2026</span>
-                <span class="meta-item"><i class="icon-clock"></i> 11 min read</span>
+<head>
+  <title>Architecting Azure AI Foundry & Agentic RAG | Gunaseelan Madhavan â€” ApexDigits</title>
+  <meta name="description" content="Production blueprint for building enterprise Agentic RAG pipelines with Azure AI Foundry, hybrid HNSW vector search, and real-time content safety filtering." />
+  <link rel="canonical" href="https://apexdigits.com/azure-ai-foundry-enterprise-agentic-rag" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Architecting Azure AI Foundry & Agentic RAG | Gunaseelan Madhavan â€” ApexDigits" />
+  <meta property="og:description" content="Production blueprint for building enterprise Agentic RAG pipelines with Azure AI Foundry, hybrid HNSW vector search, and real-time content safety filtering." />
+  <meta property="og:url" content="https://apexdigits.com/azure-ai-foundry-enterprise-agentic-rag" />
+  <meta property="og:image" content="https://apexdigits.com/assets/images/profile.png" />
+  <meta property="og:site_name" content="ApexDigits" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Architecting Azure AI Foundry & Agentic RAG | Gunaseelan Madhavan" />
+  <meta name="twitter:description" content="Production blueprint for building enterprise Agentic RAG pipelines with Azure AI Foundry, hybrid HNSW vector search, and real-time content safety filtering." />
+  <meta name="twitter:image" content="https://apexdigits.com/assets/images/profile.png" />
+  <meta name="twitter:creator" content="@Gunaseelan1108" />
+  <meta name="twitter:site" content="@Gunaseelan1108" />
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- NAVIGATION -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z" fill="none" stroke="url(#logo-grad-post)" stroke-width="6" />
+                        <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-post)" stroke-width="3" stroke-opacity="0.7" />
+                        <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-post)" stroke-width="3" stroke-opacity="0.7" />
+                        <defs>
+                            <linearGradient id="logo-grad-post" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#45A29E;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#66FCF1;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">ApexDigits</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="expertise.html" class="nav-link">Expertise</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="blog.html" class="nav-link active-page">Blog</a></li>
+                <li><a href="contact.html" class="nav-link cta-nav">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- POST HERO -->
+    <section class="page-hero post-hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="page-hero-content">
+            <nav class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><a href="blog.html">Blog</a><i class="fas fa-chevron-right"></i><span>Multi-Cloud & AI</span></nav>
+            <div class="post-meta-row">
+                <span class="blog-cat">Multi-Cloud & AI</span>
+                <span class="blog-read-time"><i class="fas fa-clock"></i> 11 min read</span>
+                <span class="blog-date"><i class="fas fa-calendar"></i> August 2026</span>
             </div>
-            <h1 class="article-title">Architecting Azure AI Foundry & Agentic RAG: Vector Search, Governance & Enterprise Guardrails</h1>
-            <p class="article-subtitle">How enterprise architecture teams build secure, scalable Agentic RAG solutions with Azure AI Foundry, vector index partitioning, and real-time content safety filtering.</p>
-            <div class="author-info">
-                <img src="assets/images/profile.png" alt="Gunas" class="author-avatar">
-                <div>
-                    <div class="author-name">Gunas</div>
-                    <div class="author-role">Principal Cloud & AI Security Architect</div>
+            <h1 class="page-hero-title" style="font-size:clamp(1.8rem,4vw,3rem);">Architecting Azure AI Foundry & Agentic RAG<br><span class="gradient-text">Vector Search, Governance & Enterprise Guardrails</span></h1>
+            <div class="post-author-strip">
+                <div class="blog-author-pill">
+                    <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="author-avatar" style="object-fit:cover;">
+                    <div>
+                        <div class="author-name">Gunaseelan Madhavan</div>
+                        <div class="author-title">Senior Technical Architect &amp; Citrix Security SME at NatWest Group Plc</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Main Article Body -->
-    <main class="article-container container">
-        <article class="article-content">
-            <h2>The Shift to Agentic Retrieval-Augmented Generation (RAG)</h2>
-            <p>Traditional Retrieval-Augmented Generation (RAG) models operate linearly: user query &rarr; vector search &rarr; prompt augmentation &rarr; LLM response. However, complex enterprise workloads demand **Agentic RAG**, where autonomous AI agents decompose complex multi-step queries, execute dynamic tool calls, re-rank retrieved passages, and validate responses against security policies before returning answers.</p>
+    <!-- POST BODY -->
+    <div class="post-layout">
+        <div class="container">
+            <div class="post-content-wrap">
 
-            <div class="callout callout-info">
-                <strong>Enterprise AI Governance:</strong> Agentic RAG pipelines must enforce row-level security (RLS), private endpoint network isolation, and strict content moderation to prevent prompt injection and data leaks.
+                <!-- ARTICLE -->
+                <article class="post-body">
+                    <div class="post-intro-box">
+                        <i class="fas fa-quote-left"></i>
+                        <p>Production blueprint for building enterprise Agentic RAG pipelines with Azure AI Foundry, hybrid HNSW vector search, and real-time content safety filtering.</p>
+                    </div>
+
+                    <h2>1. Strategic Architecture Overview</h2>
+                    <p>Building production-grade cloud and virtualization environments requires stringent policy guardrails, automated telemetry monitoring, and zero-trust identity boundaries. This guide details operational execution for enterprise deployment.</p>
+
+                    <div class="post-principles-grid">
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-shield-halved"></i></div>
+                            <h4>Zero Trust Governance</h4>
+                            <p>Enforce strict identity boundaries, conditional access authentication strengths, and least-privilege RBAC controls.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-network-wired"></i></div>
+                            <h4>Network Isolation</h4>
+                            <p>Utilize private endpoints, dedicated security zones, and encrypted transport channels across multi-cloud regions.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-microchip"></i></div>
+                            <h4>Automated Monitoring</h4>
+                            <p>Real-time security analytics and event correlation powered by Microsoft Sentinel and cloud-native monitoring APIs.</p>
+                        </div>
+                    </div>
+
+                    <h2>2. Operational Blueprint &amp; Implementation Details</h2>
+                    <p>Production blueprint for building enterprise Agentic RAG pipelines with Azure AI Foundry, hybrid HNSW vector search, and real-time content safety filtering.</p>
+                    <p>Enterprise infrastructure architects must balance performance requirements against organizational compliance constraints. Implementing this architecture guarantees zero-downtime execution and rapid disaster recovery.</p>
+
+                    <div style="background: rgba(13,17,26,0.9); border: 1px solid rgba(102, 252, 241, 0.2); border-radius: 8px; padding: 1.5rem; margin: 2rem 0;">
+                        <h3 style="color:#66FCF1; margin-top:0;"><i class="fas fa-lightbulb"></i> Architectural Best Practices</h3>
+                        <ul style="color:#cbd5e1; margin-bottom:0; padding-left:1.25rem;">
+                            <li>Enforce infrastructure-as-code (IaC) templates for all deployment pipelines.</li>
+                            <li>Configure automated secret rotation and Entra Workload Identity Federation.</li>
+                            <li>Monitor token quotas and compute metrics using integrated Azure FinOps dashboards.</li>
+                        </ul>
+                    </div>
+
+                </article>
+
+                <!-- SIDEBAR -->
+                <aside class="post-sidebar">
+                    <div class="sidebar-widget author-card">
+                        <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="sidebar-author-img">
+                        <h4 class="sidebar-author-name">Gunaseelan Madhavan</h4>
+                        <p class="sidebar-author-bio">Senior Technical Architect specializing in Multi-Cloud, Citrix DaaS, Entra ID Zero Trust, and DevSecOps.</p>
+                        <a href="about.html" class="btn btn-primary btn-sm" style="width:100%; text-align:center; display:block; margin-top:0.75rem;">View Profile</a>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h4 class="sidebar-title">Recent Articles</h4>
+                        <ul class="sidebar-recent-list">
+                            <li><a href="azure-ai-foundry-enterprise-agentic-rag.html">Azure AI Foundry &amp; Agentic RAG</a></li>
+                            <li><a href="citrix-ubv-zero-trust-microsegmentation.html">Citrix UBV &amp; SPA Zero Trust</a></li>
+                            <li><a href="entra-id-passkey-fido2-passwordless.html">Entra ID Hardware Passkeys FIDO2</a></li>
+                            <li><a href="azure-arc-kubernetes-multi-cloud-gitops.html">Azure Arc Kubernetes GitOps</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
             </div>
+        </div>
+    </div>
 
-            <h2>Architecture Blueprint: Azure AI Foundry End-to-End Pipeline</h2>
-            <p>Below is the enterprise topology for secure Agentic RAG deployed inside Azure Landing Zone VNets:</p>
-
-            <div class="tech-flow-diagram">
-                <img src="assets/images/ag-ai-analyze.png" alt="Azure AI Foundry Agentic RAG Architecture Flow" class="diagram-img">
-                <div class="diagram-caption">Figure 1: End-to-End Enterprise Flow for Azure AI Foundry & Vector Search RAG</div>
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="index.html" class="nav-logo">
+                    <div class="logo-icon">
+                        <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z" fill="none" stroke="url(#logo-grad-post-footer)" stroke-width="6" />
+                            <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-post-footer)" stroke-width="3" stroke-opacity="0.5" />
+                            <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-post-footer)" stroke-width="3" stroke-opacity="0.5" />
+                            <defs>
+                                <linearGradient id="logo-grad-post-footer" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#45A29E;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#66FCF1;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="logo-text">ApexDigits</span>
+                </a>
+                <p>Strategic insights on IT Infrastructure, Cloud Transformation, and the modern Digital Workplace.</p>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/Gunaseelan1108" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/Gunaseelan1108" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe"></i></a>
+                </div>
             </div>
-
-            <div class="architecture-grid">
-                <div class="arch-card">
-                    <h3>1. Managed Private Endpoints</h3>
-                    <p>All traffic between Azure AI Search, Azure OpenAI Services, and Cosmos DB travels over private link endpoints without traversing the public internet.</p>
-                </div>
-                <div class="arch-card">
-                    <h3>2. Hybrid Vector Search & Re-ranking</h3>
-                    <p>Combines HNSW vector similarity with BM25 keyword matching and Semantic Ranker to optimize recall and precision for enterprise domain knowledge.</p>
-                </div>
-                <div class="arch-card">
-                    <h3>3. Entra Managed Identity Authentication</h3>
-                    <p>Eliminates API keys and connection strings; services authenticate using Entra Workload Identities with fine-grained RBAC roles.</p>
-                </div>
-                <div class="arch-card">
-                    <h3>4. Real-Time Content Safety Filtering</h3>
-                    <p>Screens inputs and outputs against custom prompt shield rules, toxicity filters, and PII anonymization policies in Azure AI Content Safety.</p>
-                </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="expertise.html">Expertise</a></li>
+                    <li><a href="experience.html">Experience</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
             </div>
-
-            <h2>Python Implementation: Agentic RAG Tool Calling</h2>
-            <p>The following Python snippet demonstrates tool registration and vector search integration with Azure AI Agent Service SDK:</p>
-
-            <pre><code>import os
-from azure.ai.projects import AIProjectClient
-from azure.identity import DefaultAzureCredential
-from azure.search.documents import SearchClient
-from azure.search.documents.models import VectorizedQuery
-
-# Initialize Client with Entra ID Credential
-project_client = AIProjectClient.from_connection_string(
-    credential=DefaultAzureCredential(),
-    conn_str=os.environ["AZURE_AI_FOUNDRY_CONNECTION_STRING"]
-)
-
-# Define Hybrid Vector Search Tool for AI Agent
-def search_enterprise_kb(query: str, top_k: int = 5):
-    search_client = SearchClient(
-        endpoint=os.environ["AZURE_SEARCH_ENDPOINT"],
-        index_name="enterprise-docs-v2",
-        credential=DefaultAzureCredential()
-    )
-    # Generate query embedding
-    embeddings = project_client.inference.get_embeddings(input=[query], model="text-embedding-3-large")
-    vector_query = VectorizedQuery(vector=embeddings.data[0].embedding, k_nearest_neighbors=top_k, fields="content_vector")
-    
-    results = search_client.search(search_text=query, vector_queries=[vector_query], top=top_k)
-    return [doc["content"] for doc in results]
-
-# Create AI Agent with Tool Capabilities
-agent = project_client.agents.create_agent(
-    model="gpt-4o",
-    name="Enterprise-SecOps-Agent",
-    instructions="You are an enterprise cloud security assistant. Use vector search tool to retrieve internal architecture guidelines.",
-    tools=[search_enterprise_kb]
-)
-
-print(f"Agent Created Successfully: {agent.id}")
-</code></pre>
-
-            <h2>Best Practices for Production Deployment</h2>
-            <ul>
-                <li><strong>Vector Index Partitioning:</strong> Partition vector indices by tenant or department ID to enforce strict document isolation.</li>
-                <li><strong>Continuous Prompt Guard Evaluation:</strong> Enable Azure AI Content Safety Jailbreak Detection to block indirect prompt injection attacks.</li>
-                <li><strong>FinOps Token Caps:</strong> Implement per-user and per-application token quota alerts in Azure API Management.</li>
-            </ul>
-        </article>
-    </main>
-
-    <footer class="footer">
-        <div class="container footer-container">
-            <p>&copy; 2026 ApexDigits. All rights reserved.</p>
+            <div class="footer-links-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:+447442316163"><i class="fas fa-phone fa-xs"></i> +44 7442 316163</a></li>
+                    <li><a href="mailto:Gunaseelan.Madhavan@ApexDigits.com"><i class="fas fa-envelope fa-xs"></i> Email Me</a></li>
+                    <li><a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe fa-xs"></i> ApexDigits.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Gunaseelan Madhavan &middot; ApexDigits. All rights reserved.</p>
+            <p>Built with <i class="fas fa-heart" style="color:#45A29E;"></i> for enterprise excellence.</p>
         </div>
     </footer>
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+    <script src="script.js"></script>
 </body>
 </html>

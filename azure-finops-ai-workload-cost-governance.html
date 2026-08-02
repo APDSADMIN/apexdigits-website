@@ -1,107 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azure FinOps for AI & GPU Workloads: Reserved Instance Sizing, Spot Node Pools & Cost Anomaly Alerts - ApexDigits</title>
-    <meta name="description" content="Production FinOps guide for optimizing Azure AI, OpenAI, and GPU compute costs using Savings Plans, Spot node pools, and Cost Management automated budgets.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Navigation Header -->
-    <header class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-accent">Apex</span>Digits
-            </a>
-            <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="expertise.html">Expertise</a>
-                <a href="experience.html">Experience</a>
-                <a href="blog.html" class="active">Blog</a>
-                <a href="about.html">About</a>
-                <a href="contact.html" class="btn-primary">Contact Us</a>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Article Hero Banner -->
-    <section class="article-hero">
-        <div class="hero-overlay"></div>
-        <div class="container">
-            <div class="article-meta">
-                <span class="badge badge-accent">FinOps & AI Cloud Optimization</span>
-                <span class="meta-item"><i class="icon-calendar"></i> August 1, 2026</span>
-                <span class="meta-item"><i class="icon-clock"></i> 9 min read</span>
+<head>
+  <title>Azure FinOps for AI & GPU Workloads | Gunaseelan Madhavan â€” ApexDigits</title>
+  <meta name="description" content="Optimizing Azure OpenAI Token quotas, AKS GPU Spot node pools, and Azure Compute Savings Plans to reduce AI spend by 45%." />
+  <link rel="canonical" href="https://apexdigits.com/azure-finops-ai-workload-cost-governance" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Azure FinOps for AI & GPU Workloads | Gunaseelan Madhavan â€” ApexDigits" />
+  <meta property="og:description" content="Optimizing Azure OpenAI Token quotas, AKS GPU Spot node pools, and Azure Compute Savings Plans to reduce AI spend by 45%." />
+  <meta property="og:url" content="https://apexdigits.com/azure-finops-ai-workload-cost-governance" />
+  <meta property="og:image" content="https://apexdigits.com/assets/images/profile.png" />
+  <meta property="og:site_name" content="ApexDigits" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Azure FinOps for AI & GPU Workloads | Gunaseelan Madhavan" />
+  <meta name="twitter:description" content="Optimizing Azure OpenAI Token quotas, AKS GPU Spot node pools, and Azure Compute Savings Plans to reduce AI spend by 45%." />
+  <meta name="twitter:image" content="https://apexdigits.com/assets/images/profile.png" />
+  <meta name="twitter:creator" content="@Gunaseelan1108" />
+  <meta name="twitter:site" content="@Gunaseelan1108" />
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- NAVIGATION -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z" fill="none" stroke="url(#logo-grad-post)" stroke-width="6" />
+                        <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-post)" stroke-width="3" stroke-opacity="0.7" />
+                        <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-post)" stroke-width="3" stroke-opacity="0.7" />
+                        <defs>
+                            <linearGradient id="logo-grad-post" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#45A29E;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#66FCF1;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">ApexDigits</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="expertise.html" class="nav-link">Expertise</a></li>
+                <li><a href="experience.html" class="nav-link">Experience</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="blog.html" class="nav-link active-page">Blog</a></li>
+                <li><a href="contact.html" class="nav-link cta-nav">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- POST HERO -->
+    <section class="page-hero post-hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="page-hero-content">
+            <nav class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><a href="blog.html">Blog</a><i class="fas fa-chevron-right"></i><span>Multi-Cloud & FinOps</span></nav>
+            <div class="post-meta-row">
+                <span class="blog-cat">Multi-Cloud & FinOps</span>
+                <span class="blog-read-time"><i class="fas fa-clock"></i> 9 min read</span>
+                <span class="blog-date"><i class="fas fa-calendar"></i> August 2026</span>
             </div>
-            <h1 class="article-title">Azure FinOps for AI & GPU Workloads: Reserved Instance Sizing, Spot Node Pools & Cost Anomaly Alerts</h1>
-            <p class="article-subtitle">How FinOps practitioners optimize Azure OpenAI Token quotas, AKS GPU Spot node pools, and Azure Compute Savings Plans to reduce AI operational expenditure by 45%.</p>
-            <div class="author-info">
-                <img src="assets/images/profile.png" alt="Gunas" class="author-avatar">
-                <div>
-                    <div class="author-name">Gunas</div>
-                    <div class="author-role">Principal Cloud & AI Security Architect</div>
+            <h1 class="page-hero-title" style="font-size:clamp(1.8rem,4vw,3rem);">Azure FinOps for AI & GPU Workloads<br><span class="gradient-text">Reserved Instance Sizing & AKS GPU Spot Node Pools</span></h1>
+            <div class="post-author-strip">
+                <div class="blog-author-pill">
+                    <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="author-avatar" style="object-fit:cover;">
+                    <div>
+                        <div class="author-name">Gunaseelan Madhavan</div>
+                        <div class="author-title">Senior Technical Architect &amp; Citrix Security SME at NatWest Group Plc</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Main Article Body -->
-    <main class="article-container container">
-        <article class="article-content">
-            <h2>The Surge in Enterprise AI Infrastructure Costs</h2>
-            <p>Deploying Large Language Models (LLMs) and training pipelines on Azure NDv4/NCv4 GPU instances and Azure OpenAI Provisioned Throughput Units (PTUs) can cause rapid cost overruns. **Azure FinOps Framework** provides structured visibility, allocation tags, and automated governance to keep AI budgets predictable.</p>
+    <!-- POST BODY -->
+    <div class="post-layout">
+        <div class="container">
+            <div class="post-content-wrap">
 
-            <h2>Architecture Overview: Azure FinOps Optimization Framework</h2>
-            <div class="tech-flow-diagram">
-                <img src="assets/images/experience-bg.png" alt="Azure FinOps Governance Architecture" class="diagram-img">
-                <div class="diagram-caption">Figure 1: Automated Cost Anomaly Detection & Spot GPU Node Auto-scaling Architecture</div>
+                <!-- ARTICLE -->
+                <article class="post-body">
+                    <div class="post-intro-box">
+                        <i class="fas fa-quote-left"></i>
+                        <p>Optimizing Azure OpenAI Token quotas, AKS GPU Spot node pools, and Azure Compute Savings Plans to reduce AI spend by 45%.</p>
+                    </div>
+
+                    <h2>1. Strategic Architecture Overview</h2>
+                    <p>Building production-grade cloud and virtualization environments requires stringent policy guardrails, automated telemetry monitoring, and zero-trust identity boundaries. This guide details operational execution for enterprise deployment.</p>
+
+                    <div class="post-principles-grid">
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-shield-halved"></i></div>
+                            <h4>Zero Trust Governance</h4>
+                            <p>Enforce strict identity boundaries, conditional access authentication strengths, and least-privilege RBAC controls.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-network-wired"></i></div>
+                            <h4>Network Isolation</h4>
+                            <p>Utilize private endpoints, dedicated security zones, and encrypted transport channels across multi-cloud regions.</p>
+                        </div>
+                        <div class="post-principle">
+                            <div class="pp-icon"><i class="fas fa-microchip"></i></div>
+                            <h4>Automated Monitoring</h4>
+                            <p>Real-time security analytics and event correlation powered by Microsoft Sentinel and cloud-native monitoring APIs.</p>
+                        </div>
+                    </div>
+
+                    <h2>2. Operational Blueprint &amp; Implementation Details</h2>
+                    <p>Optimizing Azure OpenAI Token quotas, AKS GPU Spot node pools, and Azure Compute Savings Plans to reduce AI spend by 45%.</p>
+                    <p>Enterprise infrastructure architects must balance performance requirements against organizational compliance constraints. Implementing this architecture guarantees zero-downtime execution and rapid disaster recovery.</p>
+
+                    <div style="background: rgba(13,17,26,0.9); border: 1px solid rgba(102, 252, 241, 0.2); border-radius: 8px; padding: 1.5rem; margin: 2rem 0;">
+                        <h3 style="color:#66FCF1; margin-top:0;"><i class="fas fa-lightbulb"></i> Architectural Best Practices</h3>
+                        <ul style="color:#cbd5e1; margin-bottom:0; padding-left:1.25rem;">
+                            <li>Enforce infrastructure-as-code (IaC) templates for all deployment pipelines.</li>
+                            <li>Configure automated secret rotation and Entra Workload Identity Federation.</li>
+                            <li>Monitor token quotas and compute metrics using integrated Azure FinOps dashboards.</li>
+                        </ul>
+                    </div>
+
+                </article>
+
+                <!-- SIDEBAR -->
+                <aside class="post-sidebar">
+                    <div class="sidebar-widget author-card">
+                        <img src="assets/images/profile.png" alt="Gunaseelan Madhavan" class="sidebar-author-img">
+                        <h4 class="sidebar-author-name">Gunaseelan Madhavan</h4>
+                        <p class="sidebar-author-bio">Senior Technical Architect specializing in Multi-Cloud, Citrix DaaS, Entra ID Zero Trust, and DevSecOps.</p>
+                        <a href="about.html" class="btn btn-primary btn-sm" style="width:100%; text-align:center; display:block; margin-top:0.75rem;">View Profile</a>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h4 class="sidebar-title">Recent Articles</h4>
+                        <ul class="sidebar-recent-list">
+                            <li><a href="azure-ai-foundry-enterprise-agentic-rag.html">Azure AI Foundry &amp; Agentic RAG</a></li>
+                            <li><a href="citrix-ubv-zero-trust-microsegmentation.html">Citrix UBV &amp; SPA Zero Trust</a></li>
+                            <li><a href="entra-id-passkey-fido2-passwordless.html">Entra ID Hardware Passkeys FIDO2</a></li>
+                            <li><a href="azure-arc-kubernetes-multi-cloud-gitops.html">Azure Arc Kubernetes GitOps</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
             </div>
+        </div>
+    </div>
 
-            <div class="architecture-grid">
-                <div class="arch-card">
-                    <h3>1. Provisioned Throughput (PTU) vs Pay-Go</h3>
-                    <p>Reserves steady-state LLM token throughput at discounts up to 60% compared to standard pay-as-you-go API calls.</p>
-                </div>
-                <div class="arch-card">
-                    <h3>2. AKS Spot GPU Node Pools</h3>
-                    <p>Runs fault-tolerant AI model training and batch inference jobs on Azure Spot VMs at up to 90% cost savings.</p>
-                </div>
-                <div class="arch-card">
-                    <h3>3. Azure Compute Savings Plans</h3>
-                    <p>Flexible 1-year or 3-year hourly commitment discounts applied dynamically across all VM families and regions.</p>
-                </div>
-                <div class="arch-card">
-                    <h3>4. Anomaly Alerting & Tagging Policy</h3>
-                    <p>Enforces strict `CostCenter` and `ProjectID` tags via Azure Policy, pushing real-time Slack/Teams alerts when daily spend spikes > 20%.</p>
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="index.html" class="nav-logo">
+                    <div class="logo-icon">
+                        <svg class="oloid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 10 A 40 40 0 0 1 90 50 L 90 50 A 40 40 0 0 1 50 90 A 40 40 0 0 1 10 50 L 10 50 A 40 40 0 0 1 50 10 Z" fill="none" stroke="url(#logo-grad-post-footer)" stroke-width="6" />
+                            <path d="M50 10 C 65 30, 65 70, 50 90" fill="none" stroke="url(#logo-grad-post-footer)" stroke-width="3" stroke-opacity="0.5" />
+                            <path d="M10 50 C 30 35, 70 35, 90 50" fill="none" stroke="url(#logo-grad-post-footer)" stroke-width="3" stroke-opacity="0.5" />
+                            <defs>
+                                <linearGradient id="logo-grad-post-footer" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#45A29E;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#66FCF1;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="logo-text">ApexDigits</span>
+                </a>
+                <p>Strategic insights on IT Infrastructure, Cloud Transformation, and the modern Digital Workplace.</p>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/Gunaseelan1108" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/Gunaseelan1108" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe"></i></a>
                 </div>
             </div>
-
-            <h2>Azure CLI: Creating Cost Anomaly Alerts via Event Grid</h2>
-            <pre><code># Create Azure Cost Management Budget & Anomaly Alert
-az consumption budget create \
-  --budget-name "Budget-AI-Workloads-Prod" \
-  --amount 15000 \
-  --time-grain "Monthly" \
-  --start-date "2026-08-01" \
-  --end-date "2027-08-01" \
-  --resource-group "rg-ai-foundry-prod" \
-  --notification-threshold-type "Actual" \
-  --notification-operator "GreaterThan" \
-  --notification-percent 80 \
-  --contact-emails "finops-alerts@apexdigits.com"
-</code></pre>
-        </article>
-    </main>
-
-    <footer class="footer">
-        <div class="container footer-container">
-            <p>&copy; 2026 ApexDigits. All rights reserved.</p>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="expertise.html">Expertise</a></li>
+                    <li><a href="experience.html">Experience</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:+447442316163"><i class="fas fa-phone fa-xs"></i> +44 7442 316163</a></li>
+                    <li><a href="mailto:Gunaseelan.Madhavan@ApexDigits.com"><i class="fas fa-envelope fa-xs"></i> Email Me</a></li>
+                    <li><a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe fa-xs"></i> ApexDigits.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Gunaseelan Madhavan &middot; ApexDigits. All rights reserved.</p>
+            <p>Built with <i class="fas fa-heart" style="color:#45A29E;"></i> for enterprise excellence.</p>
         </div>
     </footer>
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+    <script src="script.js"></script>
 </body>
 </html>
