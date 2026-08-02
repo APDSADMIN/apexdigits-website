@@ -3312,6 +3312,7 @@ body {
 
 /* ============================================================
    WORDPRESS-STYLE 3-COLUMN IMAGE CARD GRID & SIDEBAR MODEL
+   (Matching Exact User Screenshot)
    ============================================================ */
 .blog-wp-container {
   display: grid !important;
@@ -3332,7 +3333,7 @@ body {
 .blog-main-feed {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
-  gap: 1.5rem !important;
+  gap: 1.75rem 1.5rem !important;
   width: 100% !important;
 }
 
@@ -3348,95 +3349,107 @@ body {
   }
 }
 
-/* WordPress-Style Card Unit */
+/* WordPress-Style Card Unit (Clean Light Design from Screenshot) */
 .blog-wp-card {
   display: flex !important;
   flex-direction: column !important;
-  background: rgba(17, 24, 39, 0.75) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 10px !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
   overflow: hidden !important;
-  backdrop-filter: blur(12px) !important;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
   height: 100% !important;
   box-sizing: border-box !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
 .blog-wp-card:hover {
   transform: translateY(-4px) !important;
-  border-color: #66FCF1 !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12) !important;
 }
 
 /* Featured Image Banner (Top of Card like Screenshot) */
 .blog-card-image {
   width: 100% !important;
-  height: 160px !important;
+  height: 165px !important;
   background-size: cover !important;
   background-position: center !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: 1px solid #edf2f7 !important;
   position: relative !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.blog-card-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.3s ease !important;
+}
+
+.blog-wp-card:hover .blog-card-image img {
+  transform: scale(1.04) !important;
 }
 
 .blog-card-image i {
   font-size: 2.8rem !important;
-  color: rgba(102, 252, 241, 0.85) !important;
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)) !important;
+  color: #45A29E !important;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3)) !important;
 }
 
 .blog-wp-card-body {
-  padding: 1.2rem !important;
+  padding: 1.15rem 1.15rem 1.25rem 1.15rem !important;
   display: flex !important;
   flex-direction: column !important;
   flex-grow: 1 !important;
   justify-content: space-between !important;
 }
 
-/* Meta Line: Date + Author Full Name */
+/* Meta Line: Date + Author Full Name (Matching Screenshot) */
 .blog-card-meta {
-  font-size: 0.8rem !important;
-  color: #9ca3af !important;
-  margin-bottom: 0.5rem !important;
+  font-size: 0.825rem !important;
+  color: #718096 !important;
+  margin-bottom: 0.4rem !important;
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
 }
 
 .author-full-name {
-  color: #66FCF1 !important;
+  color: #0284c7 !important;
   font-weight: 600 !important;
   font-size: 0.8rem !important;
 }
 
-/* Card Title (Matching Screenshot) */
+/* Card Title (Matching Bold Dark Text in Screenshot) */
 .blog-wp-card-body h3 {
   font-size: 1.05rem !important;
   font-weight: 700 !important;
   line-height: 1.4 !important;
-  color: #ffffff !important;
-  margin: 0 0 0.6rem 0 !important;
+  color: #1a202c !important;
+  margin: 0 0 0.5rem 0 !important;
+  letter-spacing: -0.01em !important;
 }
 
 .blog-wp-card-body h3 a {
-  color: #ffffff !important;
+  color: #1a202c !important;
   text-decoration: none !important;
   transition: color 0.2s ease !important;
 }
 
 .blog-wp-card-body h3 a:hover {
-  color: #66FCF1 !important;
+  color: #e53e3e !important;
 }
 
 .blog-wp-card-body p {
   font-size: 0.86rem !important;
-  color: #9ca3af !important;
+  color: #4a5568 !important;
   line-height: 1.5 !important;
-  margin-bottom: 1rem !important;
+  margin-bottom: 0.85rem !important;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -3445,31 +3458,32 @@ body {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-  padding-top: 0.75rem !important;
+  border-top: 1px solid #edf2f7 !important;
+  padding-top: 0.65rem !important;
   margin-top: auto !important;
 }
 
 .blog-cat-badge {
-  background: rgba(102, 252, 241, 0.1) !important;
-  color: #66FCF1 !important;
-  border: 1px solid rgba(102, 252, 241, 0.25) !important;
-  padding: 0.15rem 0.55rem !important;
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  padding: 0.15rem 0.5rem !important;
   border-radius: 4px !important;
-  font-size: 0.75rem !important;
+  font-size: 0.725rem !important;
   font-weight: 600 !important;
   text-transform: uppercase !important;
 }
 
 .blog-read-link {
-  color: #66FCF1 !important;
+  color: #e53e3e !important;
   font-weight: 600 !important;
-  font-size: 0.85rem !important;
+  font-size: 0.835rem !important;
   text-decoration: none !important;
 }
 
 .blog-read-link:hover {
-  color: #a5f3fc !important;
+  color: #c53030 !important;
+  text-decoration: underline !important;
 }
 
 /* Sidebar Widget Styling (Matching Screenshot Search + Recent Posts) */
@@ -3482,37 +3496,38 @@ body {
 }
 
 .wp-sidebar-widget {
-  background: rgba(17, 24, 39, 0.8) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 8px !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
   padding: 1.25rem !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
 .wp-sidebar-widget-title {
   font-size: 1.15rem !important;
   font-weight: 700 !important;
-  color: #ffffff !important;
+  color: #1a202c !important;
   margin-top: 0 !important;
   margin-bottom: 1.2rem !important;
-  border-bottom: 2px solid #45A29E !important;
+  border-bottom: 2px solid #e2e8f0 !important;
   padding-bottom: 0.4rem !important;
 }
 
-/* Sidebar Search Box (Matching Coral/Cyan Search Button in Screenshot) */
+/* Sidebar Search Box (Matching Coral/Red Search Button in Screenshot) */
 .wp-search-box-row {
   display: flex !important;
   gap: 0 !important;
-  border-radius: 6px !important;
+  border-radius: 4px !important;
   overflow: hidden !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid #cbd5e1 !important;
 }
 
 .wp-search-box-row input {
   flex-grow: 1 !important;
-  background: rgba(5, 13, 26, 0.9) !important;
+  background: #ffffff !important;
   border: none !important;
   padding: 0.65rem 0.85rem !important;
-  color: #ffffff !important;
+  color: #1a202c !important;
   font-size: 0.9rem !important;
   outline: none !important;
 }
@@ -3562,13 +3577,14 @@ body {
 }
 
 .wp-recent-posts-list li a:hover {
-  color: #fc8181 !important;
+  color: #c53030 !important;
   text-decoration: underline !important;
 }
 
 .wp-recent-posts-list li span.post-date {
-  color: #9ca3af !important;
+  color: #718096 !important;
   font-size: 0.82rem !important;
   margin-left: 0.35rem !important;
   font-weight: 400 !important;
-}
+}
+
