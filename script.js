@@ -394,21 +394,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let isExpanded = false;
 
     function updateCardVisibility(filterTerm = 'all') {
-        const rawTerm = (filterTerm || 'all').toLowerCase();
-        // Clean hash symbols if tag clicked
-        const term = rawTerm.replace('#', '').trim();
+        const rawTerm = (filterTerm || 'all').toLowerCase().replace('#', '').trim();
         let visibleMatchCount = 0;
 
         blogCards.forEach((card) => {
             const cat = (card.getAttribute('data-category') || '').toLowerCase();
+            const tags = (card.getAttribute('data-tags') || '').toLowerCase();
             const text = card.innerText.toLowerCase();
             
-            // Match against category attribute OR any matching text/tag inside card
-            const matches = (term === 'all' || cat === term || cat.includes(term) || text.includes(term));
+            // Match against category attribute OR tags attribute OR text inside card
+            const matches = (rawTerm === 'all' || cat.includes(rawTerm) || tags.includes(rawTerm) || text.includes(rawTerm));
 
             if (matches) {
                 visibleMatchCount++;
-                if (term === 'all' && !isExpanded && visibleMatchCount > 6) {
+                if (rawTerm === 'all' && !isExpanded && visibleMatchCount > 6) {
                     card.classList.add('hidden-card');
                 } else {
                     card.classList.remove('hidden-card');
@@ -419,13 +418,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (loadMoreBtn) {
-            if (term === 'all' && !isExpanded && blogCards.length > 6) {
+            if (rawTerm === 'all' && !isExpanded && blogCards.length > 6) {
                 loadMoreBtn.style.display = 'inline-block';
             } else {
                 loadMoreBtn.style.display = 'none';
             }
         }
     }
+
 
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', (e) => {
