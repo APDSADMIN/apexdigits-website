@@ -844,10 +844,11 @@ h5 {
    EXPERTISE GRID
    ============================================================ */
 .expertise-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+  gap: 1.75rem !important;
 }
+
 
 .expertise-card {
   background: var(--card-bg);
