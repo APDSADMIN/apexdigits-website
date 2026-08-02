@@ -843,22 +843,64 @@ h5 {
 /* ============================================================
    EXPERTISE GRID
    ============================================================ */
-.expertise-grid {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
-  gap: 1.75rem !important;
+/* Single-Row 5-Card Grid for Desktop */
+#expertise .container {
+  max-width: 1440px !important;
+  width: 95% !important;
 }
 
+.expertise-grid {
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 1.15rem !important;
+  align-items: stretch !important;
+}
+
+@media (max-width: 1200px) {
+  .expertise-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .expertise-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
 
 .expertise-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 2rem;
+  padding: 1.35rem 1.1rem !important;
   position: relative;
   overflow: hidden;
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
   cursor: default;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+.expertise-card h3 {
+  font-size: 1.05rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.expertise-card p {
+  font-size: 0.82rem !important;
+  line-height: 1.45 !important;
+  margin-bottom: 0.85rem !important;
+}
+
+.expertise-list {
+  gap: 0.45rem !important;
+  margin-top: auto !important;
+}
+
+.expertise-list li {
+  font-size: 0.78rem !important;
+  line-height: 1.35 !important;
 }
 
 .expertise-card:hover {
@@ -866,6 +908,7 @@ h5 {
   border-color: var(--blue);
   box-shadow: 0 12px 40px rgba(79, 172, 254, 0.18);
 }
+
 
 .card-glow {
   position: absolute;
