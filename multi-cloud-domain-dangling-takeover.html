@@ -105,10 +105,10 @@
                     <p>Each cloud provider offers unique services that are susceptible to domain dangling when not managed properly. Below are the most common vectors across Azure, AWS, and GCP:</p>
 
                     <h3>1. Microsoft Azure (App Services & Traffic Manager)</h3>
-                    <p>If you map <code>portal.apexdigits.net</code> as a custom domain to an Azure App Service hosted at <code>apexdigits-portal.azurewebsites.net</code>, and then delete that App Service without removing the <code>CNAME</code> record in your DNS server, a vulnerability is created. Azure releases the <code>apexdigits-portal.azurewebsites.net</code> hostname back into the pool. An attacker can spin up a new Azure App Service in their own subscription, claim the name <code>apexdigits-portal</code>, and instantly control all incoming traffic to <code>portal.apexdigits.net</code>.</p>
+                    <p>If you map <code>portal.ApexDigits.com</code> as a custom domain to an Azure App Service hosted at <code>apexdigits-portal.azurewebsites.net</code>, and then delete that App Service without removing the <code>CNAME</code> record in your DNS server, a vulnerability is created. Azure releases the <code>apexdigits-portal.azurewebsites.net</code> hostname back into the pool. An attacker can spin up a new Azure App Service in their own subscription, claim the name <code>apexdigits-portal</code>, and instantly control all incoming traffic to <code>portal.ApexDigits.com</code>.</p>
 
                     <h3>2. Amazon Web Services (S3 Static Hosting & Elastic Beanstalk)</h3>
-                    <p>AWS S3 buckets used for static website hosting must have the exact same name as the domain routing to them (e.g. bucket name: <code>docs.apexdigits.net</code>). If the bucket is deleted, the DNS <code>CNAME</code> still points to the AWS S3 endpoint. Because bucket names are globally unique, an attacker can create a bucket in the same region named <code>docs.apexdigits.net</code>, upload a malicious payload, and immediately hijack the custom domain.</p>
+                    <p>AWS S3 buckets used for static website hosting must have the exact same name as the domain routing to them (e.g. bucket name: <code>docs.ApexDigits.com</code>). If the bucket is deleted, the DNS <code>CNAME</code> still points to the AWS S3 endpoint. Because bucket names are globally unique, an attacker can create a bucket in the same region named <code>docs.ApexDigits.com</code>, upload a malicious payload, and immediately hijack the custom domain.</p>
 
                     <h3>3. Google Cloud Platform (Cloud Run & App Engine)</h3>
                     <p>While GCP enforces domain verification ownership checks during custom domain mappings on Cloud Run and App Engine, dangling issues can still occur when DNS configurations point to legacy, unmapped Cloud CDN backends, or if verification tokens are left in public DNS TXT records, allowing attackers to verify domain ownership bypasses on tenant accounts.</p>
@@ -120,9 +120,9 @@
 # Queries a list of CNAMEs and evaluates host response signatures
 
 $DomainsToTest = @(
-    "portal.apexdigits.net",
-    "docs.apexdigits.net",
-    "api.apexdigits.net"
+    "portal.ApexDigits.com",
+    "docs.ApexDigits.com",
+    "api.ApexDigits.com"
 )
 
 function Test-DanglingDns {
@@ -233,10 +233,10 @@ foreach ($Domain in $DomainsToTest) {
                     <div class="post-share">
                         <span>Share this article:</span>
                         <div class="share-btns">
-                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://apexdigits.net"
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://apexdigits.com"
                                 target="_blank" class="social-btn linkedin" aria-label="Share on LinkedIn"><i
                                     class="fab fa-linkedin-in"></i></a>
-                            <a href="https://twitter.com/intent/tweet?text=Multi-Cloud+Domain+Dangling+Mitigating+Subdomain+Takeovers&url=https://apexdigits.net&via=Gunaseelan1108"
+                            <a href="https://twitter.com/intent/tweet?text=Multi-Cloud+Domain+Dangling+Mitigating+Subdomain+Takeovers&url=https://apexdigits.com&via=Gunaseelan1108"
                                 target="_blank" class="social-btn twitter" aria-label="Share on Twitter"><i
                                     class="fab fa-x-twitter"></i></a>
                         </div>
@@ -379,7 +379,7 @@ foreach ($Domain in $DomainsToTest) {
                 <div class="footer-social">
                     <a href="https://www.linkedin.com/in/Gunaseelan1108" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                     <a href="https://twitter.com/Gunaseelan1108" target="_blank"><i class="fab fa-x-twitter"></i></a>
-                    <a href="https://apexdigits.net" target="_blank"><i class="fas fa-globe"></i></a>
+                    <a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe"></i></a>
                 </div>
             </div>
             <div class="footer-links-col">
@@ -396,8 +396,8 @@ foreach ($Domain in $DomainsToTest) {
                 <h4>Contact</h4>
                 <ul>
                     <li><a href="tel:+447442316163"><i class="fas fa-phone fa-xs"></i> +44 7442 316163</a></li>
-                    <li><a href="mailto:Gunaseelan.Madhavan@ApexDigits.net"><i class="fas fa-envelope fa-xs"></i> Email Me</a></li>
-                    <li><a href="https://apexdigits.net" target="_blank"><i class="fas fa-globe fa-xs"></i> ApexDigits.net</a></li>
+                    <li><a href="mailto:Gunaseelan.Madhavan@ApexDigits.com"><i class="fas fa-envelope fa-xs"></i> Email Me</a></li>
+                    <li><a href="https://apexdigits.com" target="_blank"><i class="fas fa-globe fa-xs"></i> ApexDigits.com</a></li>
                 </ul>
             </div>
         </div>
