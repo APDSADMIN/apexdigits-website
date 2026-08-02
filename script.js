@@ -394,23 +394,27 @@ document.addEventListener('DOMContentLoaded', () => {
     let isExpanded = false;
 
     function updateCardVisibility(filterTerm = 'all') {
-        const term = (filterTerm || 'all').toLowerCase();
+        const rawTerm = (filterTerm || 'all').toLowerCase();
+        // Clean hash symbols if tag clicked
+        const term = rawTerm.replace('#', '').trim();
         let visibleMatchCount = 0;
 
-        blogCards.forEach((card, index) => {
+        blogCards.forEach((card) => {
             const cat = (card.getAttribute('data-category') || '').toLowerCase();
             const text = card.innerText.toLowerCase();
-            const matches = (term === 'all' || cat.includes(term) || text.includes(term));
+            
+            // Match against category attribute OR any matching text/tag inside card
+            const matches = (term === 'all' || cat === term || cat.includes(term) || text.includes(term));
 
             if (matches) {
                 visibleMatchCount++;
                 if (term === 'all' && !isExpanded && visibleMatchCount > 6) {
-                    card.style.display = 'none';
+                    card.classList.add('hidden-card');
                 } else {
-                    card.style.display = 'flex';
+                    card.classList.remove('hidden-card');
                 }
             } else {
-                card.style.display = 'none';
+                card.classList.add('hidden-card');
             }
         });
 
@@ -468,5 +472,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (blogCards.length > 0) {
         updateCardVisibility('all');
     }
+
 
 });
