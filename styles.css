@@ -3817,4 +3817,36 @@ body {
   transform: translateY(-1px) !important;
 }
 
+/* Contact Details Card Styling for Dark Theme Background */
+.contact-details h3 {
+  color: var(--white) !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.contact-details p {
+  color: var(--gray-200) !important;
+  font-size: 0.95rem !important;
+  margin-bottom: 0.2rem !important;
+}
+
+.contact-details p a {
+  color: #66FCF1 !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  transition: color 0.3s ease, text-shadow 0.3s ease !important;
+  word-break: break-all !important;
+}
+
+.contact-details p a:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 12px rgba(102, 252, 241, 0.6) !important;
+}
+
+.contact-sub {
+  color: var(--text-muted) !important;
+  font-size: 0.82rem !important;
+}
+
 
